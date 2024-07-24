@@ -2,16 +2,25 @@
 import Logo from '@/components/elements/Logo/Logo'
 import { useLang } from '@/hooks/useLang'
 import Link from 'next/link'
+import Menu from './Menu'
+import { openMenu } from '@/context/madals'
+import { addOverflowHiddenToBody } from '@/lib/utils/common'
 
 const Header = () => {
   const { lang, translations } = useLang()
 
+  const handleOpenMenu = () => {
+    addOverflowHiddenToBody()
+    openMenu()
+  }
+
   return (
     <header className='header'>
       <div className='container header__container'>
-        <button className='btn-reset header__burger'>
+        <button className='btn-reset header__burger' onClick={handleOpenMenu}>
           {translations[lang].header.menu_btn}
         </button>
+        <Menu />
         <div className='header__logo'>
           <Logo />
         </div>
