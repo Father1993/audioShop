@@ -175,6 +175,54 @@ const Menu = () => {
                       </ul>
                     </Accordion>
                   </li>
+                  <li className='nav-menu__accordion__item'>
+                    <Accordion
+                      title={translations[lang].main_menu.accessories}
+                      titleClass='btn-reset nav-menu__accordion__item__title'
+                    >
+                      <ul className='list-reset nav-menu__accordion__item__list'>
+                        {accessoriesLinks.map((item) => (
+                          <MenuLinkItem
+                            key={item.id}
+                            item={item}
+                            handleRedirectToCatalog={handleRedirectToCatalog}
+                          />
+                        ))}
+                      </ul>
+                    </Accordion>
+                  </li>
+                  <li className='nav-menu__accordion__item'>
+                    <Accordion
+                      title={translations[lang].main_menu.souvenirs}
+                      titleClass='btn-reset nav-menu__accordion__item__title'
+                    >
+                      <ul className='list-reset nav-menu__accordion__item__list'>
+                        {souvenirsLinks.map((item) => (
+                          <MenuLinkItem
+                            key={item.id}
+                            item={item}
+                            handleRedirectToCatalog={handleRedirectToCatalog}
+                          />
+                        ))}
+                      </ul>
+                    </Accordion>
+                  </li>
+                  <li className='nav-menu__accordion__item'>
+                    <Accordion
+                      title={translations[lang].main_menu.office}
+                      titleClass='btn-reset nav-menu__accordion__item__title'
+                    >
+                      <ul className='list-reset nav-menu__accordion__item__list'>
+                        {officeLinks.map((item) => (
+                          <MenuLinkItem
+                            key={item.id}
+                            item={item}
+                            handleRedirectToCatalog={handleRedirectToCatalog}
+                          />
+                        ))}
+                      </ul>
+                    </Accordion>
+                  </li>
                 </motion.ul>
               )}
             </AnimatePresence>
