@@ -17,7 +17,8 @@
       "shipping": "Shipping and payment",
       "returns": "Purchase returns",
       "tg": "Telegram",
-      "vk": "VKontakte"
+      "vk": "VKontakte",
+      "farpost": "Farpost"
     },
     "comparison": {
       "umbrella": "Umbrellas",
@@ -52,7 +53,8 @@
       "shipping": "Доставка и оплата",
       "returns": "Возврат товара",
       "tg": "Телеграм",
-      "vk": "ВКонтакте"
+      "vk": "ВКонтакте",
+      "farpost": "Фарпост"
     },
     "comparison": {
       "umbrella": "Зонты",
