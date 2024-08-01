@@ -1,5 +1,8 @@
 {
   "en": {
+    "common": {
+      "more": "More"
+    },
     "header": {
       "menu_btn": "Menu"
     },
@@ -33,9 +36,29 @@
       "notebook": "Notebooks",
       "t-shirts": "T-shirts",
       "main_heading": "Comparison"
+    },
+    "breadcrumbs": {
+      "main": "Main",
+      "comparison": "Comparison",
+      "cart": "Cart",
+      "favorites": "Favorites",
+      "catalog": "Catalog",
+      "profile": "Profile",
+      "cloth": "Cloth",
+      "accessories": "Accessories",
+      "office": "Office",
+      "souvenirs": "Souvenirs",
+      "order": "Placing an order",
+      "personal_data_policy": "Data processing policy",
+      "privacy_policy": "Privacy policy",
+      "watched_products": "Watched products",
+      "collection_products": "Products by Collection"
     }
   },
   "ru": {
+    "common": {
+      "more": "Ещё"
+    },
     "header": {
       "menu_btn": "Меню"
     },
@@ -69,6 +92,23 @@
       "notebook": "Тетради",
       "t-shirts": "Футболки",
       "main_heading": "Сравнение"
+    },
+    "breadcrumbs": {
+      "main": "Главная",
+      "comparison": "Сравнение",
+      "cart": "Корзина",
+      "favorites": "Избранное",
+      "catalog": "Каталог",
+      "profile": "Профиль",
+      "cloth": "Одежда",
+      "accessories": "Аксесуары",
+      "office": "Концелярия",
+      "souvenirs": "Сувениры",
+      "order": "Оформление заказа",
+      "personal_data_policy": "Политика обработки данных",
+      "privacy_policy": "Политика конфиденциальности",
+      "watched_products": "Просмотренные товары",
+      "collection_products": "Товары по коллекции"
     }
   }
 }
