@@ -1,17 +1,20 @@
 'use client'
 import { useState } from 'react'
-import { useStore } from 'effector-react'
+import { useUnit } from 'effector-react'
 import { useLang } from '@/hooks/useLang'
 import { AnimatePresence, motion } from 'framer-motion'
-import { $catalogMenuIsOpen, closeCatalogMenu } from '@/context/madals'
+import { $catalogMenuIsOpen, closeCatalogMenu } from '@/context/modals'
 import { useMenuAnimation } from '@/hooks/useMenuAnimation'
 import { removeOverflowHiddenFromBody } from '@/lib/utils/common'
 import Header from './Header'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import CatalogMenuButton from './CatalogMenuButton'
+import CatalogMenuList from './CatalogMenuList'
+import Accordion from '../Accordion/Accordion'
+import Link from 'next/link'
 
 const CatalogMenu = () => {
-  const catalogMenuIsOpen = useStore($catalogMenuIsOpen)
+  const catalogMenuIsOpen = useUnit($catalogMenuIsOpen)
   const [showClothList, setShowClothList] = useState(false)
   const [showAccessoriesList, setShowAccessoriesList] = useState(false)
   const [showSouvenirsList, setShowSouvenirList] = useState(false)
@@ -128,11 +131,6 @@ const CatalogMenu = () => {
               exit='closed'
               variants={sideVariants}
             >
-              <img
-                className='catalog-menu__bg'
-                src='/img/menu-bg-small.png'
-                alt='menu background'
-              />
               <motion.button
                 className='btn-reset catalog-menu__close'
                 variants={itemVariants}
@@ -187,8 +185,43 @@ const CatalogMenu = () => {
                           )}
                         </>
                       )}
-                      {!isMedia450&& (
-                        
+                      {!isMedia450 && (
+                        <AnimatePresence>
+                          {isCurrentList(showClothList, 1) && (
+                            <CatalogMenuList items={items} />
+                          )}
+                          {isCurrentList(showAccessoriesList, 2) && (
+                            <CatalogMenuList items={items} />
+                          )}
+                          {isCurrentList(showSouvenirsList, 3) && (
+                            <CatalogMenuList items={items} />
+                          )}
+                          {isCurrentList(showOfficeList, 4) && (
+                            <CatalogMenuList items={items} />
+                          )}
+                        </AnimatePresence>
+                      )}
+                      {isMedia450 && (
+                        <Accordion
+                          title={name}
+                          titleClass='btn-reset nav-menu__accordion__item__title'
+                        >
+                          <ul className='list-reset catalog__accordion__list'>
+                            {items.map((title, i) => (
+                              <li
+                                key={i}
+                                className='catalog__accordion__list__item'
+                              >
+                                <Link
+                                  href='/catalog'
+                                  className='nav-menu__accordion__item__list__item__link'
+                                >
+                                  {title}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </Accordion>
                       )}
                     </motion.li>
                   )

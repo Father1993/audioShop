@@ -1,10 +1,13 @@
 {
   "en": {
     "common": {
-      "more": "More"
+      "more": "More",
+      "order_price": "Order price"
     },
     "header": {
-      "menu_btn": "Menu"
+      "menu_btn": "Menu",
+      "search_products": "Search for products",
+      "search_infos": "Search name, category type..."
     },
     "main_menu": {
       "catalog": "Catalog",
@@ -53,14 +56,24 @@
       "privacy_policy": "Privacy policy",
       "watched_products": "Watched products",
       "collection_products": "Products by Collection"
+    },
+    "footer": {
+      "copyright": "«Magnitola.ru» All rights reserved",
+      "policy": "Personal data processing policy",
+      "privacy": "Privacy Policy",
+      "mobile_version": "Mobile version",
+      "full_version": "Full version website"
     }
   },
   "ru": {
     "common": {
-      "more": "Ещё"
+      "more": "Ещё",
+      "order_price": "Сумма заказа"
     },
     "header": {
-      "menu_btn": "Меню"
+      "menu_btn": "Меню",
+      "search_products": "Поиск товаров",
+      "search_infos": "Название товар, категория, тип..."
     },
     "main_menu": {
       "catalog": "Каталог",
@@ -109,6 +122,13 @@
       "privacy_policy": "Политика конфиденциальности",
       "watched_products": "Просмотренные товары",
       "collection_products": "Товары по коллекции"
+    },
+    "footer": {
+      "copyright": "«Magnitola.ru» Все права защищены",
+      "policy": "Политика обработки персональных данных",
+      "privacy": "Политика конфиденциальности",
+      "mobile_version": "Мобильная версия",
+      "full_version": "Полная версия сайта"
     }
   }
 }
