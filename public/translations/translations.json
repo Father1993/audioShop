@@ -2,7 +2,9 @@
   "en": {
     "common": {
       "more": "More",
-      "order_price": "Order price"
+      "order_price": "Order price",
+      "ad": "Ad",
+      "all_link": "All"
     },
     "header": {
       "menu_btn": "Menu",
@@ -63,12 +65,38 @@
       "privacy": "Privacy Policy",
       "mobile_version": "Mobile version",
       "full_version": "Full version website"
+    },
+    "main_page": {
+      "hero_hidden_title": "Audio equipment store for your car",
+      "hero_title": "Magnitola",
+      "hero_description": "Be in style",
+      "hero_subtitle": "with the new “Kenwood” collection",
+      "catalog_btn": "Catalog",
+      "category_title": "Categories",
+      "category_cloth": "Cloth",
+      "category_office": "Office",
+      "category_accessories": "Accessories",
+      "category_souvenirs": "Souvenirs",
+      "bestsellers_title": "Bestsellers",
+      "new_title": "New",
+      "brand_title": "Life of our store",
+      "brand_nature": "With care for nature",
+      "brand_look": "New look at merch",
+      "brand_idea": "Idea of the collection «Pioneer»",
+      "is_new": "New",
+      "is_bestseller": "Bestseller",
+      "audio_player": "Audio player",
+      "violet": "violet",
+      "orange": "orange",
+      "black": "black"
     }
   },
   "ru": {
     "common": {
       "more": "Ещё",
-      "order_price": "Сумма заказа"
+      "order_price": "Сумма заказа",
+      "ad": "Реклама",
+      "all_link": "Все"
     },
     "header": {
       "menu_btn": "Меню",
@@ -103,7 +131,7 @@
       "promotional-souvenirs": "Промо-сувениры",
       "pen": "Ручки",
       "notebook": "Тетради",
-      "t-shirts": "Футболки",
+      "audio_player": "Аудио плеер",
       "main_heading": "Сравнение"
     },
     "breadcrumbs": {
@@ -129,6 +157,30 @@
       "privacy": "Политика конфиденциальности",
       "mobile_version": "Мобильная версия",
       "full_version": "Полная версия сайта"
+    },
+    "main_page": {
+      "hero_hidden_title": "Магазин аудиотехники для вашего авто",
+      "hero_title": "Магнитола",
+      "hero_description": "Будь на стиле",
+      "hero_subtitle": "с новой линейкой от «Kenwood»",
+      "catalog_btn": "Каталог",
+      "category_title": "Категории",
+      "category_cloth": "Одежда",
+      "category_office": "Концелярия",
+      "category_accessories": "Аксесуары",
+      "category_souvenirs": "Сувениры",
+      "bestsellers_title": "Хиты",
+      "new_title": "Новинки",
+      "brand_title": "Жизнь нашего магазина",
+      "brand_nature": "C заботой о природе",
+      "brand_look": "Новый взгляд на сабвуферы",
+      "brand_idea": "Идея линейки «Pioneer»",
+      "is_new": "Новинка",
+      "is_bestseller": "Хит",
+      "audio_player": "Аудио плеер",
+      "violet": "фиолетовая",
+      "orange": "оранжевая",
+      "black": "черная"
     }
   }
 }

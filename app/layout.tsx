@@ -8,6 +8,8 @@ import './globalStyles/catalog-menu.css'
 import './globalStyles/search-modal.css'
 import './globalStyles/cart-popup.css'
 import './globalStyles/footer.css'
+import './globalStyles/slick-theme.css'
+import './globalStyles/slick.css'
 import Layout from '@/components/layouts/Layout'
 
 export const metadata: Metadata = {
@@ -21,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang='ru'>
       <body>
         <Layout>{children}</Layout>
       </body>
