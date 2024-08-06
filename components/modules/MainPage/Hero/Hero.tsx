@@ -10,7 +10,7 @@ import img2 from '@/public/img/orange-t.png'
 import img3 from '@/public/img/violet-t.png'
 import styles from '@/styles/main-page/index.module.scss'
 import stylesForAd from '@/styles/ad/index.module.scss'
-import productSubtitleStyles from '@/styles/productSubtitle/index.module.scss'
+//import productSubtitleStyles from '@/styles/productSubtitle/index.module.scss'
 import HeroSlide from './HeroSlide'
 
 const Hero = () => {

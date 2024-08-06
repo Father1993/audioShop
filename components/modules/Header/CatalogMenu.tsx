@@ -69,7 +69,7 @@ const CatalogMenu = () => {
       name: translations[lang].main_menu.cloth,
       id: 1,
       items: [
-        translations[lang].comparison['t-shirts'],
+        translations[lang].comparison['audio_player'],
         translations[lang].comparison['long-sleeves'],
         translations[lang].comparison.hoodie,
         translations[lang].comparison.outerwear,

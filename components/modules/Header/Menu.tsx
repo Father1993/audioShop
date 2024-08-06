@@ -66,8 +66,8 @@ const Menu = () => {
   const clothLinks = [
     {
       id: 1,
-      text: translations[lang].comparison['t-shirts'],
-      href: '/catalog/cloth?offset=0&type=t-shirts',
+      text: translations[lang].comparison['audio_player'],
+      href: '/catalog/cloth?offset=0&type=audio_player',
     },
     {
       id: 2,
