@@ -9,10 +9,17 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@faker-js/faker": "^8.4.1",
+        "@types/mongodb": "^4.0.7",
         "bootstrap": "^5.3.3",
+        "dotenv": "^16.4.5",
         "effector": "^23.2.2",
         "effector-react": "^23.2.1",
         "framer-motion": "^11.3.12",
+        "global": "^4.4.0",
+        "migrate-mongo": "^11.0.0",
+        "mongodb": "^6.8.0",
+        "mongoose": "^8.5.2",
         "next": "14.2.5",
         "react": "^18",
         "react-dom": "^18",
