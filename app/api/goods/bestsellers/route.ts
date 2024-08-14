@@ -8,5 +8,5 @@ import {
 export async function GET() {
   const { db } = await getDbAndReqBody(clientPromise, null)
 
-  return NextResponse.json(await getNewAndBestsellerGoods(db, 'isNew'))
+  return NextResponse.json(await getNewAndBestsellerGoods(db, 'isBestseller'))
 }

@@ -8,14 +8,14 @@ import { useLang } from '@/hooks/useLang'
 import img1 from '@/public/img/black-t.png'
 import img2 from '@/public/img/orange-t.png'
 import img3 from '@/public/img/violet-t.png'
+import HeroSlide from './HeroSlide'
+import ProductSubtitle from '@/components/elements/ProductSubtitle/ProductSubtitle'
 import styles from '@/styles/main-page/index.module.scss'
 import stylesForAd from '@/styles/ad/index.module.scss'
 //import productSubtitleStyles from '@/styles/productSubtitle/index.module.scss'
-import HeroSlide from './HeroSlide'
 
 const Hero = () => {
   const { lang, translations } = useLang()
-  const descriptionSlicePosition = lang === 'ru' ? 5 : 2
 
   const slides = [
     {
@@ -68,34 +68,19 @@ const Hero = () => {
             </SwiperSlide>
           ))}
         </Swiper>
-        <div className={styles.hero__subtitle}>
-          <div className={styles.hero__subtitle__rect}>
-            <span>
-              {translations[lang].main_page.hero_description.slice(
-                0,
-                descriptionSlicePosition
-              )}
-            </span>
-            <br />
-            <span>
-              {translations[lang].main_page.hero_description.slice(
-                descriptionSlicePosition
-              )}
-            </span>
-          </div>
-          <h2 className={styles.hero__title}>
-            <span
-              className={`${styles.hero__title__subtitle} ${
-                lang === 'ru' ? '' : styles.hero__title__subtitle_lang
-              }`}
-            >
-              [ {translations[lang].main_page.hero_subtitle} ]
-            </span>
-            <span className={styles.hero__title__text}>
-              {translations[lang].main_page.hero_title}
-            </span>
-          </h2>
-        </div>
+        <ProductSubtitle />
+        <h2 className={styles.hero__title}>
+          <span
+            className={`${styles.hero__title__subtitle} ${
+              lang === 'ru' ? '' : styles.hero__title__subtitle_lang
+            }`}
+          >
+            [ {translations[lang].main_page.hero_subtitle} ]
+          </span>
+          <span className={styles.hero__title__text}>
+            {translations[lang].main_page.hero_title}
+          </span>
+        </h2>
       </div>
     </section>
   )
