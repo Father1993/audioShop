@@ -1,12 +1,15 @@
 import Link from 'next/link'
 import { IProductListItemProps } from '@/types/modules'
 import { useLang } from '@/hooks/useLang'
+import { formatPrice } from '@/lib/utils/common'
+import ProductSubtitle from '@/components/elements/ProductSubtitle/ProductSubtitle'
 import styles from '@/styles/product-list-item/index.module.scss'
 import stylesForAd from '@/styles/ad/index.module.scss'
-import ProductSubtitle from '@/components/elements/ProductSubtitle/ProductSubtitle'
+import ProductLabel from './ProductLabel'
 
 const ProductListItem = ({ item, title }: IProductListItemProps) => {
   const { lang, translations } = useLang()
+  const isTitleForNew = title === translations[lang].main_page.new_title
 
   return (
     <>
@@ -28,8 +31,10 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             </div>
             <p className={styles.list__item_ad__title}>
               <span>
-                {translations[lang].main_page.audio_player} Line
+                {translations[lang].main_page.audio_player} Line{' '}
                 {
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  //@ts-ignore
                   translations[lang].main_page[
                     item.images[0].split('/img/').join(''.split('-')[0])
                   ]
@@ -40,7 +45,26 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
           </Link>
         </li>
       ) : (
-        <></>
+        <li className={styles.list__item}>
+          {title ? (
+            <span
+              className={`${styles.list__item__label} ${
+                isTitleForNew
+                  ? styles.list__item__new
+                  : styles.list__item__bestseller
+              }`}
+            >
+              {isTitleForNew
+                ? translations[lang].main_page.is_new
+                : translations[lang].main_page.is_bestseller}
+            </span>
+          ) : !item.isNew && !item.isBestseller ? (
+            ''
+          ) : (
+            <ProductLabel isBestseller={item.isBestseller} isNew={item.isNew} />
+          )}
+          <div className={styles.list__item__actions}></div>
+        </li>
       )}
     </>
   )
