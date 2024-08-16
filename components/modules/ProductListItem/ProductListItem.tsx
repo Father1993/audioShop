@@ -9,8 +9,10 @@ import ProductLabel from './ProductLabel'
 import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
 import Image from 'next/image'
 import ProductAvailable from '@/components/elements/ProductAvailable/ProductAvailable'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const ProductListItem = ({ item, title }: IProductListItemProps) => {
+  const isMedia800 = useMediaQuery(800)
   const { lang, translations } = useLang()
   const isTitleForNew = title === translations[lang].main_page.new_title
 
@@ -30,7 +32,12 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
               subtitleRectClassName={styles.list__item_ad__subtitle__rect}
             />
             <div className={styles.list__item_ad__img}>
-              <img src={item.images[0]} alt={item.name} />
+              <Image
+                src={item.images[0]}
+                alt={item.name}
+                fill
+                objectFit='contain'
+              />
             </div>
             <p className={styles.list__item_ad__title}>
               <span>
@@ -69,24 +76,31 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
           <div className={styles.list__item__actions}>
             <ProductItemActionBtn
               text={translations[lang].product.add_to_favorites}
-              iconClass='action__btn_favorite'
+              iconClass='actions__btn_favorite'
             />
 
             <ProductItemActionBtn
               text={translations[lang].product.add_to_comparison}
-              iconClass='action__btn_comparison'
+              iconClass='actions__btn_comparison'
             />
 
-            <ProductItemActionBtn
-              text={translations[lang].product.quick_view}
-              iconClass='action__btn_quick_view'
-            />
+            {!isMedia800 && (
+              <ProductItemActionBtn
+                text={translations[lang].product.quick_view}
+                iconClass='actions__btn_quick_view'
+              />
+            )}
           </div>
           <Link
             href={`/catalog/${item.category}/${item.id}`}
             className={styles.list__item__img}
           >
-            <Image src={item.images[0]} alt={item.name} fill />
+            <Image
+              src={item.images[0]}
+              alt={item.name}
+              fill
+              objectFit='contain'
+            />
           </Link>
           <div className={styles.list__item__inner}>
             <h3 className={styles.list__item__title}>

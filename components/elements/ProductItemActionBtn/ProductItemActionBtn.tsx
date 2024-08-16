@@ -9,6 +9,7 @@ const ProductItemActionBtn = ({
   text,
   callback,
   iconClass,
+  marginBottom,
   withTooltip = true,
 }: IProductItemActionsBtnProps) => {
   const [open, setOpen] = useState(false)
@@ -30,6 +31,7 @@ const ProductItemActionBtn = ({
         onClick={callback}
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
+        style={{ marginBottom: marginBottom || 16 }}
       />
 
       {withTooltip && (

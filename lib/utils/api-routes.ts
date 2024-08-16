@@ -23,13 +23,13 @@ export const getNewAndBestsellerGoods = async (db: Db, fieldName: string) => {
     ...audio
       .filter(
         (item) =>
-          item[fieldName] && Object.values(item.sizes).some((value) => value)
+          item[fieldName] && Object.values(item._id).some((value) => value)
       )
       .slice(0, 2),
     ...subwoofers
       .filter(
         (item) =>
-          item[fieldName] && Object.values(item.sizes).some((value) => value)
+          item[fieldName] && Object.values(item.name).some((value) => value)
       )
       .slice(0, 2),
   ])
