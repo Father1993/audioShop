@@ -1,15 +1,15 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { IProductListItemProps } from '@/types/modules'
 import { useLang } from '@/hooks/useLang'
 import { formatPrice } from '@/lib/utils/common'
 import ProductSubtitle from '@/components/elements/ProductSubtitle/ProductSubtitle'
-import styles from '@/styles/product-list-item/index.module.scss'
-import stylesForAd from '@/styles/ad/index.module.scss'
 import ProductLabel from './ProductLabel'
 import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
-import Image from 'next/image'
 import ProductAvailable from '@/components/elements/ProductAvailable/ProductAvailable'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import styles from '@/styles/product-list-item/index.module.scss'
+import stylesForAd from '@/styles/ad/index.module.scss'
 
 const ProductListItem = ({ item, title }: IProductListItemProps) => {
   const isMedia800 = useMediaQuery(800)
