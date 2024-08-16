@@ -4,6 +4,7 @@ import { basePropsForMotion } from '@/constants/motion'
 import { IMainPageSectionProps } from '@/types/main-page'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
 import styles from '@/styles/main-page/index.module.scss'
+import ProductListItem from '../ProductListItem/ProductListItem'
 
 const MainPageSection = ({ title, goods, spinner }: IMainPageSectionProps) => {
   return (
@@ -31,7 +32,7 @@ const MainPageSection = ({ title, goods, spinner }: IMainPageSectionProps) => {
               {...basePropsForMotion}
             >
               {goods.map((item) => (
-                <li key={item.id}>{item.name}</li>
+                <ProductListItem key={item.id} item={item} title={title} />
               ))}
             </motion.ul>
           )}

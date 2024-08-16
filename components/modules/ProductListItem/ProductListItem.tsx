@@ -6,6 +6,9 @@ import ProductSubtitle from '@/components/elements/ProductSubtitle/ProductSubtit
 import styles from '@/styles/product-list-item/index.module.scss'
 import stylesForAd from '@/styles/ad/index.module.scss'
 import ProductLabel from './ProductLabel'
+import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
+import Image from 'next/image'
+import ProductAvailable from '@/components/elements/ProductAvailable/ProductAvailable'
 
 const ProductListItem = ({ item, title }: IProductListItemProps) => {
   const { lang, translations } = useLang()
@@ -63,7 +66,45 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
           ) : (
             <ProductLabel isBestseller={item.isBestseller} isNew={item.isNew} />
           )}
-          <div className={styles.list__item__actions}></div>
+          <div className={styles.list__item__actions}>
+            <ProductItemActionBtn
+              text={translations[lang].product.add_to_favorites}
+              iconClass='action__btn_favorite'
+            />
+
+            <ProductItemActionBtn
+              text={translations[lang].product.add_to_comparison}
+              iconClass='action__btn_comparison'
+            />
+
+            <ProductItemActionBtn
+              text={translations[lang].product.quick_view}
+              iconClass='action__btn_quick_view'
+            />
+          </div>
+          <Link
+            href={`/catalog/${item.category}/${item.id}`}
+            className={styles.list__item__img}
+          >
+            <Image src={item.images[0]} alt={item.name} fill />
+          </Link>
+          <div className={styles.list__item__inner}>
+            <h3 className={styles.list__item__title}>
+              <Link href={`/catalog/${item.category}/${item.id}`}>
+                {item.name}
+              </Link>
+            </h3>
+            <ProductAvailable
+              vendorCode={item.vendorCode}
+              inStock={+item.inStock}
+            />
+            <span className={styles.list__item__price}>
+              {formatPrice(+item.price)}
+            </span>
+          </div>
+          <button className={`btn-reset ${styles.list__item__cart}`}>
+            В Корзину
+          </button>
         </li>
       )}
     </>

@@ -1,0 +1,77 @@
+.actions {
+  position: relative;
+
+  &__btn {
+    z-index: 2;
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border-radius: 24px;
+    background-color: #1d2533;
+
+    &:not(:last-child) {
+      margin-bottom: 16px;
+    }
+
+    &::before {
+      background-color: #e8e9ea;
+      content: '';
+      height: 100%;
+      width: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    &_favorite::before {
+      -webkit-mask: url(/img/favorites.svg) no-repeat 50% 50%;
+      mask: url(/img/favorites.svg) no-repeat 50% 50%;
+    }
+
+    &_favorite_checked::before,
+    &_comparison_checked::before {
+      position: absolute;
+      left: 7px;
+      top: 7px;
+      height: 18px;
+      width: 18px;
+    }
+
+    &_favorite_checked::before {
+      background-color: #ff4747;
+      -webkit-mask: url(/img/checked-favorite.svg) no-repeat 50% 50%;
+      mask: url(/img/checked-favorite.svg) no-repeat 50% 50%;
+    }
+
+    &_comparison::before {
+      -webkit-mask: url(/img/comparison.svg) no-repeat 50% 50%;
+      mask: url(/img/comparison.svg) no-repeat 50% 50%;
+    }
+
+    &_comparison_checked::before {
+      background-color: #26da72;
+      -webkit-mask: url(/img/comparison-checked.svg) no-repeat 50% 50%;
+      mask: url(/img/comparison-checked.svg) no-repeat 50% 50%;
+    }
+
+    &_quick_view::before {
+      -webkit-mask: url(/img/quick-view.svg) no-repeat 50% 50%;
+      mask: url(/img/quick-view.svg) no-repeat 50% 50%;
+    }
+
+    &:hover::before {
+      transition: background-color 0.2s ease-in-out;
+      background-color: #16d9a6;
+    }
+
+    &.actions__btn_favorite_checked:hover::before {
+      transition: background-color 0.2s ease-in-out;
+      background-color: #ff4747;
+    }
+  }
+
+  &__btn_spinner::before {
+    content: none;
+  }
+}

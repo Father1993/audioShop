@@ -89,6 +89,27 @@
       "violet": "violet",
       "orange": "orange",
       "black": "black"
+    },
+    "product": {
+      "available": "Available",
+      "not_available": "Not available",
+      "vendor_code": "Vendor",
+      "size_table": "Size table",
+      "count": "Count",
+      "to_cart": "To cart",
+      "to_favorite": "To favorite",
+      "description": "Description",
+      "characteristics": "Characteristics",
+      "collection_goods": "Products from the collection",
+      "watched": "You watched",
+      "add_to_favorites": "Add to favorites",
+      "add_to_comparison": "Add to comparison",
+      "quick_view": "Quick view",
+      "total_in_cart": "Total in cart",
+      "more": "More information about the product",
+      "composition": "Composition",
+      "in_cart": "Added",
+      "share": "Share"
     }
   },
   "ru": {
@@ -181,6 +202,27 @@
       "violet": "фиолетовая",
       "orange": "оранжевая",
       "black": "черная"
+    },
+    "product": {
+      "available": "Есть в наличии",
+      "not_available": "Нет в наличии",
+      "vendor_code": "Арт",
+      "size_table": "Таблица размеров",
+      "count": "Количество",
+      "to_cart": "В корзину",
+      "to_favorite": "В избранное",
+      "description": "Описание",
+      "characteristics": "Характеристики",
+      "collection_goods": "Товары коллекции",
+      "watched": "Вы смотрели",
+      "add_to_favorites": "Добавить в избранное",
+      "add_to_comparison": "Добавить в избранное",
+      "quick_view": "Быстрый просмотр",
+      "total_in_cart": "Всего в корзине",
+      "more": "Больше информации о товаре",
+      "composition": "Состав",
+      "in_cart": "Добавлено",
+      "share": "Поделиться"
     }
   }
 }
