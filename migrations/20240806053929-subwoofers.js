@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { fake, faker } = require('@faker-js/faker')
+const { faker } = require('@faker-js/faker')
 
 const getRandomArrayValue = (arr) => arr[Math.floor(Math.random() * arr.length)]
 const collections = ['premium', 'sport', 'classic', 'luxury', 'budget']
@@ -63,7 +63,7 @@ module.exports = {
           name: faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
-          images: images.filter((item) => item.includes(type)),
+          images: faker.image.business(),
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),

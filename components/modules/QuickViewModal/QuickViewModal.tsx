@@ -12,6 +12,7 @@ import ProductSizeTableBtn from '../ProductListItem/ProductSizeTableBtn'
 import ProductSizesItem from '../ProductListItem/ProductSizesItem'
 import ProductCounter from '../ProductListItem/ProductCounter'
 import AddToCartBtn from '../ProductListItem/AddToCartBtn'
+import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
 import stylesForProduct from '@/styles/product-list-item/index.module.scss'
 import styles from '@/styles/quick-view-modal/index.module.scss'
 
@@ -31,6 +32,17 @@ const QuickViewModal = () => {
         className={`btn-reset ${styles.modal__close}`}
         onClick={handleCloseModal}
       ></button>
+      <div className={styles.modal__actions}>
+        <ProductItemActionBtn
+          text={translations[lang].product.add_to_favorites}
+          iconClass='actions__btn_favorite'
+        />
+
+        <ProductItemActionBtn
+          text={translations[lang].product.add_to_comparison}
+          iconClass='actions__btn_comparison'
+        />
+      </div>
       <div className={styles.modal__left}>
         <QuickViewModalSlider images={images} />
       </div>

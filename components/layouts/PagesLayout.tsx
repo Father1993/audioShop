@@ -1,3 +1,4 @@
+'use client'
 import { useUnit } from 'effector-react'
 import { $showQuickViewModal, closeQuickViewModal } from '@/context/modals'
 import Layout from './Layout'

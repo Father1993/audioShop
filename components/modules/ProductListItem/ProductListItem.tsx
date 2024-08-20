@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import Link from 'next/link'
 import Image from 'next/image'
 import { IProductListItemProps } from '@/types/modules'
@@ -41,7 +42,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             />
             <div className={styles.list__item_ad__img}>
               <Image
-                src={item.images[0]}
+                src={item.images[1]}
                 alt={item.name}
                 fill
                 objectFit='contain'
@@ -54,7 +55,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   //@ts-ignore
                   translations[lang].main_page[
-                    item.images[0].split('/img/').join(''.split('-')[0])
+                    item.images[0].split('/img/').join('').split('-')[0]
                   ]
                 }
               </span>
@@ -105,7 +106,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             className={styles.list__item__img}
           >
             <Image
-              src={item.images[0]}
+              src={item.images[1]}
               alt={item.name}
               fill
               objectFit='contain'
