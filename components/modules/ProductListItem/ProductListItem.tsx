@@ -27,7 +27,8 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
 
   return (
     <>
-      {item.characteristics.collection == 'line' && item.type === 't-shirts' ? (
+      {item.characteristics.collection == 'premium' &&
+      item.type === 'speakers' ? (
         <li className={styles.list__item_ad}>
           <Link
             href={`/catalog/${item.category}/${item.id}`}
@@ -42,7 +43,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             />
             <div className={styles.list__item_ad__img}>
               <Image
-                src={item.images[1]}
+                src={item.images[0]}
                 alt={item.name}
                 fill
                 objectFit='contain'
@@ -50,7 +51,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             </div>
             <p className={styles.list__item_ad__title}>
               <span>
-                {translations[lang].main_page.audio_player} Line{' '}
+                {translations[lang].main_page.audio_player} Premium{' '}
                 {
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   //@ts-ignore
@@ -106,7 +107,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             className={styles.list__item__img}
           >
             <Image
-              src={item.images[1]}
+              src={item.images[0]}
               alt={item.name}
               fill
               objectFit='contain'

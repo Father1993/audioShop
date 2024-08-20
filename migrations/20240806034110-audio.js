@@ -40,8 +40,8 @@ const upperMaterials = ['black', 'gray', 'blue', 'red']
 
 module.exports = {
   async up(db) {
-    return db.collection('audio').insertMany([
-      ...Array(50).map(() => {
+    return db.collection('audio').insertMany(
+      [...Array(50)].map(() => {
         const type = audioTypes[Math.floor(Math.random() * audioTypes.length)]
         const characteristics = [
           {
@@ -94,7 +94,7 @@ module.exports = {
           name: faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
           characteristics: currentCharacteristics,
-          images: faker.image.business(),
+          images: getRandomArrayValue(images),
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),
@@ -108,8 +108,8 @@ module.exports = {
             xxl: faker.datatype.boolean(),
           },
         }
-      }),
-    ])
+      })
+    )
   },
 
   async down(db) {
