@@ -2,18 +2,32 @@
 const { faker } = require('@faker-js/faker')
 
 const getRandomArrayValue = (arr) => arr[Math.floor(Math.random() * arr.length)]
+const getRandomImages = (imgArr) => {
+  if (imgArr.length < 2) {
+    throw new Error('В массиве должно быть минимум 2 изображения')
+  }
+
+  const shuffled = [...imgArr]
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+
+  return shuffled.slice(0, 2)
+}
 const collections = ['premium', 'sport', 'classic', 'luxury', 'budget']
 const colors = ['black', 'silver', 'red', 'blue', 'white']
 const compositions = ['metal', 'plastic', 'carbon-fiber']
 const audioTypes = ['passive', 'active']
 
 const images = [
-  '/img/subwoofers/accessories-bags-1.png',
-  '/img/subwoofers/accessories-bags-2.png',
-  '/img/subwoofers/accessories-bags-3.png',
-  '/img/subwoofers/accessories-bags-4.png',
-  '/img/subwoofers/accessories-headdress.png',
-  '/img/subwoofers/accessories-umbrella.png',
+  '/img/subwoofers/subwoofers-bags-1.png',
+  '/img/subwoofers/subwoofers-bags-2.png',
+  '/img/subwoofers/subwoofers-bags-3.png',
+  '/img/subwoofers/subwoofers-bags-4.png',
+  '/img/subwoofers/subwoofers-headdress.png',
+  '/img/subwoofers/subwoofers-umbrella.png',
 ]
 
 const subwooferTypes = ['passive', 'active']
@@ -63,7 +77,7 @@ module.exports = {
           name: faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
-          images: getRandomArrayValue(images),
+          images: getRandomImages(images),
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),
