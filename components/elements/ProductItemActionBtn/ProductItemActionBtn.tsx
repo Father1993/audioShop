@@ -20,14 +20,14 @@ const ProductItemActionBtn = ({
 
   useEffect(() => {
     if (open && withTooltip) {
-      setTooltipLeft
+      setTooltipLeft(tooltipRef.current.clientWidth)
     }
-  })
+  }, [open, withTooltip])
 
   return (
     <div className={styles.actions}>
       <button
-        className={`btn-reset ${styles[iconClass]}`}
+        className={`btn-reset ${styles.actions__btn} ${styles[iconClass]}`}
         onClick={callback}
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
