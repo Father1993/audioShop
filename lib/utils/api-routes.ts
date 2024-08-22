@@ -1,4 +1,6 @@
 import { Db, MongoClient } from 'mongodb'
+import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 import { shuffle } from './common'
 
 export const getDbAndReqBody = async (
@@ -34,3 +36,45 @@ export const getNewAndBestsellerGoods = async (db: Db, fieldName: string) => {
       .slice(0, 2),
   ])
 }
+
+export const generateTokens = (name: string, email: string) => {
+  const accessToken = jwt.sign(
+    {
+      name,
+      email,
+    },
+    process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+    {
+      expiresIn: '10m',
+    }
+  )
+
+  const refreshToken = jwt.sign(
+    {
+      email,
+    },
+    process.env.NEXT_PUBLIC_REFRESH_TOKEN_KEY as string,
+    { expiresIn: '30d' }
+  )
+  return { accessToken, refreshToken }
+}
+
+export const createUserAndGenerateTokens = async (
+  db: Db,
+  reqBody: { name: string; password: string; email: string }
+) => {
+  const salt = bcrypt.genSaltSync(10)
+  const hash = bcrypt.hashSync(reqBody.password, salt)
+
+  await db.collection('users').insertOne({
+    name: reqBody.name,
+    password: hash,
+    email: reqBody.email,
+    image: '',
+    role: 'user',
+  })
+  return generateTokens(reqBody.name, reqBody.email)
+}
+
+export const findUserByEmail = async (db: Db, email: string) =>
+  db.collection('users').findOne({ email })
