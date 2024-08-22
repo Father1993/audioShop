@@ -29,8 +29,8 @@
       "farpost": "Farpost"
     },
     "comparison": {
-      "umbrella": "Adapters",
-      "bags": "Chips",
+      "adapters": "Adapters",
+      "chips": "Chips",
       "outerwear": "Wires",
       "long-sleeves": "Video recorders",
       "headdress": "Related products",
@@ -172,8 +172,8 @@
       "farpost": "Фарпост"
     },
     "comparison": {
-      "umbrella": "Переходники-адаптеры",
-      "bags": "Фишки",
+      "adapters": "Переходники-адаптеры",
+      "chips": "Фишки",
       "outerwear": "Провода",
       "long-sleeves": "Видео-регистраторы",
       "headdress": "Сопутствующие товары",

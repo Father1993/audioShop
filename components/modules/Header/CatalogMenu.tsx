@@ -80,9 +80,9 @@ const CatalogMenu = () => {
       name: translations[lang].main_menu.accessories,
       id: 2,
       items: [
-        translations[lang].comparison.bags,
+        translations[lang].comparison.chips,
         translations[lang].comparison.headdress,
-        translations[lang].comparison.umbrella,
+        translations[lang].comparison.adapters,
       ],
       handler: handleShowAccessoriesList,
     },

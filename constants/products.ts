@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 
 export const productWithoutSizes = [
-  'umbrella',
+  'adapters',
   'pen',
   'notebook',
   'promotional-souvenirs',
@@ -10,7 +10,7 @@ export const productWithoutSizes = [
 
 export const productTypes = [
   'long-sleeves',
-  'bags',
+  'chips',
   'business-souvenirs',
   'headdress',
   'hoodie',
@@ -19,7 +19,7 @@ export const productTypes = [
   'outwear',
   'promotional-souvenirs',
   't-shirts',
-  'umbrella',
+  'adapters',
 ]
 
 export const productCategories = ['cloth', 'accessories', 'office', 'souvenirs']

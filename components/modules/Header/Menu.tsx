@@ -89,8 +89,8 @@ const Menu = () => {
   const accessoriesLinks = [
     {
       id: 1,
-      text: translations[lang].comparison.bags,
-      href: '/catalog/accessories?offset=0&type=bags',
+      text: translations[lang].comparison.chips,
+      href: '/catalog/accessories?offset=0&type=chips',
     },
     {
       id: 2,
@@ -99,8 +99,8 @@ const Menu = () => {
     },
     {
       id: 3,
-      text: translations[lang].comparison.umbrella,
-      href: '/catalog/accessories?offset=0&type=umbrella',
+      text: translations[lang].comparison.adapters,
+      href: '/catalog/accessories?offset=0&type=adapters',
     },
   ]
 
