@@ -36,11 +36,13 @@ const QuickViewModal = () => {
         <ProductItemActionBtn
           text={translations[lang].product.add_to_favorites}
           iconClass='actions__btn_favorite'
+          withTooltip={false}
         />
 
         <ProductItemActionBtn
           text={translations[lang].product.add_to_comparison}
           iconClass='actions__btn_comparison'
+          withTooltip={false}
         />
       </div>
       <div className={styles.modal__left}>

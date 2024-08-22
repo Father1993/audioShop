@@ -1,16 +1,26 @@
 'use client'
 import { useUnit } from 'effector-react'
-import { $showQuickViewModal, closeQuickViewModal } from '@/context/modals'
+import {
+  $showQuickViewModal,
+  $showSizeTable,
+  closeQuickViewModal,
+} from '@/context/modals'
 import Layout from './Layout'
-import { removeOverflowHiddenFromBody } from '@/lib/utils/common'
+import {
+  closeSizeTableByCheck,
+  removeOverflowHiddenFromBody,
+} from '@/lib/utils/common'
 
 const PagesLayout = ({ children }: { children: React.ReactNode }) => {
   const showQuickViewModal = useUnit($showQuickViewModal)
+  const showSizeTable = useUnit($showSizeTable)
 
   const handleCloseQuickViewModal = () => {
     removeOverflowHiddenFromBody()
     closeQuickViewModal()
   }
+
+  const handleCloseSizeTable = () => closeSizeTableByCheck(showQuickViewModal)
 
   return (
     <html lang='ru'>
@@ -20,6 +30,12 @@ const PagesLayout = ({ children }: { children: React.ReactNode }) => {
           className={`quick-view-modal-overlay ${showQuickViewModal ? 'overlay-active' : ''}`}
           onClick={handleCloseQuickViewModal}
         />
+        <div
+          className={`size-table-overlay ${
+            showSizeTable ? 'overlay-active' : ''
+          }`}
+          onClick={handleCloseSizeTable}
+        ></div>
       </body>
     </html>
   )
