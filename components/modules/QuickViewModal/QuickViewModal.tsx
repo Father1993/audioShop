@@ -64,7 +64,7 @@ const QuickViewModal = () => {
               composition={product.characteristics.composition}
             />
           )}
-          {Object.keys(product.sizes).length ? (
+          {product.sizes && Object.keys(product.sizes).length ? (
             <div className={styles.modal__right__info__size}>
               <div className={styles.modal__right__info__size__inner}>
                 <span className={stylesForProduct.product__size_title}>
@@ -89,7 +89,7 @@ const QuickViewModal = () => {
               </ul>
             </div>
           ) : (
-            ''
+            'У продукции нет размеров'
           )}
           <div className={styles.modal__right__bottom}>
             <span className={stylesForProduct.product__count_title}>
