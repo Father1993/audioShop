@@ -163,6 +163,19 @@
       "register": "Register!",
       "name": "Name",
       "password": "Password"
+    },
+    "validation": {
+      "invalid_value": "Invalid value!",
+      "requiredName": "Enter your name!",
+      "invalid_phone": "Invalid phone!",
+      "required_email": "Enter your email!",
+      "invalid_email": "Invalid email!",
+      "min_2": "Min 2 characters!",
+      "max_15": "Max 2 characters!",
+      "required_password": "Enter your password!",
+      "min_4": "Min 4 characters!",
+      "max_20": "Max 20 characters!",
+      "max_255": "Max 255 characters!"
     }
   },
   "ru": {
@@ -329,6 +342,19 @@
       "register": "Зарегистрироваться!",
       "name": "Имя",
       "password": "Пароль"
+    },
+    "validation": {
+      "invalid_value": "Недопустимое значение!",
+      "requiredName": "Введите имя!",
+      "invalid_phone": "Нправильный телефон!",
+      "required_email": "Введите email!",
+      "invalid_email": "Неправильный Email!",
+      "min_2": "Минимум 2 символа!",
+      "max_15": "Не более 15 символов!",
+      "required_password": "Введите пароль!",
+      "min_4": "Минимум 4 символа!",
+      "max_20": "Не более 20 символов!",
+      "max_255": "Не более 255 символов!"
     }
   }
 }

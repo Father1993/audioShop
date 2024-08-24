@@ -1,9 +1,14 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useLang } from '@/hooks/useLang'
 import AuthPopupClose from './AuthPopupClose'
 import { IAuthSideProps, IInputs } from '@/types/authPopup'
 import { useAuthForm } from '@/hooks/useAuthForm'
 import { singUpFx } from '@/api/auth'
 import { handleSignUp } from '@/context/auth'
+import NameInput from './NameInput'
+import EmailInput from './EmailInput'
+import PasswordInput from './PasswordInput'
 
 const AuthPopupRegistration = ({
   toggleAuth,
@@ -35,7 +40,38 @@ const AuthPopupRegistration = ({
         <p className='card-body__description'>
           {translations[lang].auth_popup.registration_description}
         </p>
-        <form onSubmit={handleSubmit(submitForm)}></form>
+        <form onSubmit={handleSubmit(submitForm)}>
+          <NameInput register={register} errors={errors} />
+          <EmailInput register={register} errors={errors} />
+          <PasswordInput register={register} errors={errors} />
+          <div className='card-body__inner'>
+            <div className='inner__top'>
+              <button
+                className='btn-reset inner__btn'
+                type='submit'
+                disabled={spinner}
+              >
+                {spinner ? (
+                  <FontAwesomeIcon icon={faSpinner} spin />
+                ) : (
+                  translations[lang].auth_popup.registration_text
+                )}
+              </button>
+            </div>
+            <div className='inner__bottom'>
+              <span className='text-secondary'>
+                {translations[lang].auth_popup.registration_question}
+              </span>
+              <button
+                className='btn-reset inner__switch'
+                type='button'
+                onClick={toggleAuth}
+              >
+                {translations[lang].auth_popup.login_text}!
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   )
