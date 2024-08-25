@@ -1,9 +1,5 @@
-import { closeAuthPopup } from '@/context/auth'
-import {
-  closeSearchModal,
-  closeSizeTable,
-  showQuickViewModal,
-} from '@/context/modals'
+import { closeAuthPopup, openAuthPopup } from '@/context/auth'
+import { closeSearchModal, closeSizeTable } from '@/context/modals'
 
 export const removeOverflowHiddenFromBody = () => {
   const body = document.querySelector('body') as HTMLBodyElement
@@ -72,6 +68,11 @@ export const closeSizeTableByCheck = (showQuickViewModal: boolean) => {
   }
 
   closeSizeTable()
+}
+
+export const handleOpenAuthPopup = () => {
+  addOverflowHiddenToBody()
+  openAuthPopup()
 }
 
 export const handleCloseAuthPopup = () => {

@@ -6,8 +6,6 @@ const ProductColor = ({ color }: { color: string }) => {
   const { lang, translations } = useLang()
   return (
     <span className={styles.product__color}>
-      {/**eslint-disable-next-line @typescript-eslint/ban-ts-comment
-       * @ts-ignore */}
       {translations[lang].catalog.color}: {translations[lang].catalog[color]}
     </span>
   )

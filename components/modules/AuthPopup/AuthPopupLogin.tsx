@@ -1,45 +1,40 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Link from 'next/link'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { useLang } from '@/hooks/useLang'
-import AuthPopupClose from './AuthPopupClose'
-import { IAuthSideProps, IInputs } from '@/types/authPopup'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { handleSignIn } from '@/context/auth'
+import { singInFx } from '@/api/auth'
 import { useAuthForm } from '@/hooks/useAuthForm'
-import { singUpFx } from '@/api/auth'
-import { handleSignUp } from '@/context/auth'
-import NameInput from './NameInput'
+import { IAuthSideProps, IInputs } from '@/types/authPopup'
+import AuthPopupClose from './AuthPopupClose'
 import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
+import { useLang } from '@/hooks/useLang'
 import AuthPopupSocials from './AuthPopupSocials'
+import { handleCloseAuthPopup } from '@/lib/utils/common'
 
-const AuthPopupRegistration = ({
-  toggleAuth,
-  isSideActive,
-}: IAuthSideProps) => {
+const AuthPopupLogin = ({ toggleAuth, isSideActive }: IAuthSideProps) => {
   const { lang, translations } = useLang()
   const { spinner, register, errors, handleSubmit, handleSignupWithOAuth } =
-    useAuthForm(singUpFx.pending, isSideActive, handleSignUp)
+    useAuthForm(singInFx.pending, isSideActive, handleSignIn)
 
-  const submitForm = (data: IInputs) => {
-    handleSignUp({
-      name: data.name,
+  const submitForm = (data: IInputs) =>
+    handleSignIn({
       email: data.email,
       password: data.password,
       isOAuth: false,
     })
-  }
 
   return (
-    <div className='card-front'>
+    <div className='card-back'>
       <AuthPopupClose />
       <div className='card-body wow-bg'>
         <h3 className='card-body__title'>
-          {translations[lang].auth_popup.registration_title}
+          {translations[lang].auth_popup.login_text}
         </h3>
         <p className='card-body__description'>
-          {translations[lang].auth_popup.registration_description}
+          {translations[lang].auth_popup.login_description}
         </p>
         <form onSubmit={handleSubmit(submitForm)}>
-          <NameInput register={register} errors={errors} />
           <EmailInput register={register} errors={errors} />
           <PasswordInput register={register} errors={errors} />
           <div className='card-body__inner'>
@@ -48,20 +43,27 @@ const AuthPopupRegistration = ({
                 {spinner ? (
                   <FontAwesomeIcon icon={faSpinner} spin />
                 ) : (
-                  translations[lang].auth_popup.registration_text
+                  translations[lang].auth_popup.login_text
                 )}
               </button>
+              <Link
+                href='/password-restore'
+                className='inner__reset'
+                onClick={handleCloseAuthPopup}
+              >
+                {translations[lang].auth_popup.forgot_password}
+              </Link>
             </div>
             <div className='inner__bottom'>
               <span className='inner__bottom__text'>
-                {translations[lang].auth_popup.registration_question}
+                {translations[lang].auth_popup.login_question}
               </span>
               <button
-                className='btn-reset inner__switch'
                 type='button'
+                className='btn-reset inner__switch'
                 onClick={toggleAuth}
               >
-                {translations[lang].auth_popup.login_text}!
+                {translations[lang].auth_popup.register}
               </button>
             </div>
           </div>
@@ -72,4 +74,4 @@ const AuthPopupRegistration = ({
   )
 }
 
-export default AuthPopupRegistration
+export default AuthPopupLogin

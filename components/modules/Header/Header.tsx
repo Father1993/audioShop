@@ -1,5 +1,8 @@
 'use client'
-import { addOverflowHiddenToBody } from '@/lib/utils/common'
+import {
+  addOverflowHiddenToBody,
+  handleOpenAuthPopup,
+} from '@/lib/utils/common'
 import { useLang } from '@/hooks/useLang'
 import Link from 'next/link'
 import Logo from '@/components/elements/Logo/Logo'
@@ -53,8 +56,8 @@ const Header = () => {
             <CartPopup />
           </li>
           <li className='header__links__item header__links__item--profile'>
-            <Link
-              href='/profile'
+            <button
+              onClick={handleOpenAuthPopup}
               className='btn-reset header__links__item__btn header__links__item__btn--profile'
             />
           </li>

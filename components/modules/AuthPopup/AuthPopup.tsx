@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import AuthPopupRegistration from './AuthPopupRegistration'
+import AuthPopupLogin from './AuthPopupLogin'
 
 const AuthPopup = () => {
   const [isAuthSwitched, setIsAuthSwitched] = useState(false)
@@ -24,7 +25,7 @@ const AuthPopup = () => {
         <div className='auth-popup__card__inner'>
           <AuthPopupRegistration
             toggleAuth={toggleAuth}
-            isSideActive={isSignupActive}
+            isSideActive={isSignUpActive}
           />
           <AuthPopupLogin
             toggleAuth={toggleAuth}

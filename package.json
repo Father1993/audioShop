@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@eartho/one-client-react": "^2.1.0",
         "@faker-js/faker": "^8.4.1",
         "@fortawesome/free-brands-svg-icons": "^6.6.0",
         "@fortawesome/free-solid-svg-icons": "^6.6.0",
