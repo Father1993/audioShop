@@ -1,5 +1,5 @@
 import { Db, MongoClient } from 'mongodb'
-import jwt from 'jsonwebtoken'
+import jwt, { VerifyErrors } from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { shuffle } from './common'
 
@@ -64,7 +64,7 @@ export const createUserAndGenerateTokens = async (
   reqBody: { name: string; password: string; email: string }
 ) => {
   const salt = bcrypt.genSaltSync(10)
-  const hash = bcrypt.hashSync(reqBody.password, salt)
+  const hash = bcrypt.hash(reqBody.password, salt)
 
   await db.collection('users').insertOne({
     name: reqBody.name,
@@ -73,8 +73,61 @@ export const createUserAndGenerateTokens = async (
     image: '',
     role: 'user',
   })
+
   return generateTokens(reqBody.name, reqBody.email)
 }
 
 export const findUserByEmail = async (db: Db, email: string) =>
   db.collection('users').findOne({ email })
+
+export const getAuthRouteData = async (
+  clientPromise: Promise<MongoClient>,
+  req: Request,
+  withReqBody = true
+) => {
+  const { db, reqBody } = await getDbAndReqBody(
+    clientPromise,
+    withReqBody ? req : null
+  )
+  const token = req.headers.get('authorization')?.split(' ')[1]
+  const validatedTokenResult = await isValidAccessToken(token)
+
+  return { db, reqBody, validatedTokenResult, token }
+}
+
+export const isValidAccessToken = async (token: string | undefined) => {
+  const baseError = {
+    message: 'Unauthorized',
+    status: 401,
+  }
+  let jwtError = null
+
+  if (!token) {
+    return {
+      ...baseError,
+      error: { message: 'jwt is required' },
+    }
+  }
+
+  await jwt.verify(
+    token,
+    process.env.NEXT_PUBLIC_ACCESS_TOKEN_KEY as string,
+    async (err: VerifyErrors | null) => {
+      if (err) {
+        jwtError = err
+      }
+    }
+  )
+
+  if (jwtError) {
+    return {
+      ...baseError,
+      error: jwtError,
+    }
+  }
+
+  return { status: 200 }
+}
+
+export const parseJwt = (token: string) =>
+  JSON.parse(Buffer.from(token.split('.')[1], 'base64').toString())

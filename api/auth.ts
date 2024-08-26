@@ -1,14 +1,20 @@
-import { onAuthSuccess } from '@/lib/utils/auth'
 import { createEffect } from 'effector'
 import toast from 'react-hot-toast'
 import api from './apiInstance'
+import { onAuthSuccess } from '@/lib/utils/auth'
 import { ISignUpFx } from '@/types/authPopup'
+import { setIsAuth } from '@/context/auth'
 
 export const oauthFx = createEffect(
   async ({ name, password, email }: ISignUpFx) => {
     try {
       const { data } = await api.post('/api/users/oauth', {
         name,
+        password,
+        email,
+      })
+
+      await api.post('api/users/email', {
         password,
         email,
       })
@@ -68,3 +74,14 @@ export const singInFx = createEffect(
     return data
   }
 )
+
+export const loginCheckFx = createEffect(async ({ jwt }: { jwt: string }) => {
+  try {
+    const { data } = await api.get('/api/users/login-check', {
+      headers: { Authorization: `Bearer ${jwt}` },
+    })
+    setIsAuth(true)
+  } catch (error) {
+    throw new Error((error as Error).message)
+  }
+})
