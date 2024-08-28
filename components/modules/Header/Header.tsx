@@ -1,8 +1,10 @@
 'use client'
 import Link from 'next/link'
+import { useUnit } from 'effector-react'
 import {
   addOverflowHiddenToBody,
   handleOpenAuthPopup,
+  triggerLoginCheck,
 } from '@/lib/utils/common'
 import { useLang } from '@/hooks/useLang'
 import Logo from '@/components/elements/Logo/Logo'
@@ -10,15 +12,20 @@ import Menu from './Menu'
 import { openMenu, openSearchModal } from '@/context/modals'
 import CartPopup from './CartPopup/CartPopup'
 import HeaderProfile from './HeaderProfile'
-import { useUnit } from 'effector-react'
 import { $isAuth } from '@/context/auth'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { loginCheckFx } from '@/api/auth'
+import { useEffect } from 'react'
+import { $user } from '@/context/user'
 
 const Header = () => {
   const isAuth = useUnit($isAuth)
-  const loginCheckSpinner = false
+  const loginCheckSpinner = useUnit(loginCheckFx.pending)
   const { lang, translations } = useLang()
+  const user = useUnit($user)
+
+  console.log(user)
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()
@@ -29,6 +36,10 @@ const Header = () => {
     openSearchModal()
     addOverflowHiddenToBody()
   }
+
+  useEffect(() => {
+    triggerLoginCheck()
+  }, [])
 
   return (
     <header className='header'>

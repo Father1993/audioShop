@@ -9,11 +9,11 @@ export const handleJWTError = async (
   }
 ) => {
   if (errorName === JWTError.EXPIRED_JWT_TOKEN) {
-    const auth = JSON.parse(localStorage.getItem('auth') as string)
+    //const auth = JSON.parse(localStorage.getItem('auth') as string)
     const newTokens = { accessToken: '' }
 
     if (repeatRequestAfterRefreshData) {
-      const { repeatRequestMethodName, payload } = repeatRequestAfterRefreshData
+      const { repeatRequestMethodName } = repeatRequestAfterRefreshData
 
       switch (repeatRequestMethodName) {
         case 'loginCheckFx':
