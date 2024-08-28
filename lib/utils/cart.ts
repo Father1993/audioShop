@@ -3,6 +3,7 @@ import { ICartItem } from '@/types/cart'
 import { IProduct } from '@/types/common'
 import { idGenerator, isUserAuth } from './common'
 import { addProductToCart, setCartFromLS } from '@/context/cart'
+import { productWithoutSizes } from '@/constants/products'
 
 export const addItemToCart = (
   product: IProduct,
@@ -84,4 +85,21 @@ export const addCartItemToLS = (
   withToast && toast.success('Добавлено в корзину')
 
   return clientId
+}
+
+export const addProductToCartBySizeTable = (
+  product: IProduct,
+  setSpinner: (arg0: boolean) => void,
+  count: number,
+  selectedSize = ''
+) => {
+  if (productWithoutSizes.includes(product.type)) {
+    addItemToCart(product, setSpinner, count)
+    return
+  }
+
+  if (selectedSize) {
+    addItemToCart(product, setSpinner, count, selectedSize)
+    return
+  }
 }
