@@ -118,7 +118,7 @@ const QuickViewModal = () => {
         </div>
         <div className={styles.modal__right__more}>
           <Link
-            href={`/catalog/${product.category}/${product.id}`}
+            href={`/catalog/${product.category}/${product._id}`}
             className={styles.modal__right__more__link}
             onClick={handleCloseModal}
           >
