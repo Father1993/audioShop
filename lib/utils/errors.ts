@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { loginCheckFx, refreshTokenFx } from '@/api/auth'
 import { addProductToCartFx, getCartItemsFx } from '@/api/cart'
 import { JWTError } from '@/constants/jwt'
@@ -16,7 +17,6 @@ export const handleJWTError = async (
 
     if (repeatRequestAfterRefreshData) {
       const { repeatRequestMethodName, payload } = repeatRequestAfterRefreshData
-
       switch (repeatRequestMethodName) {
         case 'getCartItemsFx':
           return getCartItemsFx({

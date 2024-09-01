@@ -3,7 +3,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { IProductListItemProps } from '@/types/modules'
 import { useLang } from '@/hooks/useLang'
-import { addOverflowHiddenToBody, formatPrice } from '@/lib/utils/common'
+import {
+  addOverflowHiddenToBody,
+  formatPrice,
+  isItemInList,
+} from '@/lib/utils/common'
 import ProductSubtitle from '@/components/elements/ProductSubtitle/ProductSubtitle'
 import ProductLabel from './ProductLabel'
 import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
@@ -13,16 +17,28 @@ import { showQuickViewModal } from '@/context/modals'
 import { setCurrentProduct } from '@/context/goods'
 import styles from '@/styles/product-list-item/index.module.scss'
 import stylesForAd from '@/styles/ad/index.module.scss'
+import { productsWithoutSizes } from '@/constants/product'
+import { useCartAction } from '@/hooks/useCartAction'
+import { addProductToCartBySizeTable } from '@/lib/utils/cart'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 const ProductListItem = ({ item, title }: IProductListItemProps) => {
   const isMedia800 = useMediaQuery(800)
   const { lang, translations } = useLang()
   const isTitleForNew = title === translations[lang].main_page.new_title
+  const { addToCartSpinner, setAddToCartSpinner, currentCartByAuth } =
+    useCartAction()
+  const isProductInCart = isItemInList(currentCartByAuth, item._id)
 
   const handleShowQuickViewModal = () => {
     addOverflowHiddenToBody()
     showQuickViewModal()
     setCurrentProduct(item)
+  }
+
+  const addToCart = () => {
+    addProductToCartBySizeTable(item, setAddToCartSpinner, 1)
   }
 
   return (
@@ -31,7 +47,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
       item.type === 'speakers' ? (
         <li className={styles.list__item_ad}>
           <Link
-            href={`/catalog/${item.category}/${item.id}`}
+            href={`/catalog/${item.category}/${item._id}`}
             className={styles.list__item_ad__inner}
           >
             <span className={`${stylesForAd.ad} ${styles.list__item_ad__ad}`}>
@@ -98,14 +114,14 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             )}
           </div>
           <Link
-            href={`/catalog/${item.category}/${item.id}`}
+            href={`/catalog/${item.category}/${item._id}`}
             className={styles.list__item__img}
           >
             <Image src={item.images[0]} alt={item.name} fill />
           </Link>
           <div className={styles.list__item__inner}>
             <h3 className={styles.list__item__title}>
-              <Link href={`/catalog/${item.category}/${item.id}`}>
+              <Link href={`/catalog/${item.category}/${item._id}`}>
                 {item.name}
               </Link>
             </h3>
@@ -117,9 +133,31 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
               {formatPrice(+item.price)}
             </span>
           </div>
-          <button className={`btn-reset ${styles.list__item__cart}`}>
-            В Корзину
-          </button>
+          {productsWithoutSizes.includes(item.type) ? (
+            <button
+              onClick={addToCart}
+              className={`btn-reset ${styles.list__item__cart} ${
+                isProductInCart ? styles.list__item__cart_added : ''
+              }`}
+              disabled={addToCartSpinner}
+              style={addToCartSpinner ? { minWidth: 125, height: 48 } : {}}
+            >
+              {addToCartSpinner ? (
+                <FontAwesomeIcon icon={faSpinner} spin color='#fff' />
+              ) : isProductInCart ? (
+                translations[lang].product.in_cart
+              ) : (
+                translations[lang].product.to_cart
+              )}
+            </button>
+          ) : (
+            <button
+              className={`btn-reset ${styles.list__item__cart}`}
+              onClick={addToCart}
+            >
+              {translations[lang].product.to_cart}
+            </button>
+          )}
         </li>
       )}
     </>

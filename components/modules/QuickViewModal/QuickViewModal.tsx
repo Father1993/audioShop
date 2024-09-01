@@ -31,7 +31,7 @@ const QuickViewModal = () => {
       <button
         className={`btn-reset ${styles.modal__close}`}
         onClick={handleCloseModal}
-      ></button>
+      />
       <div className={styles.modal__actions}>
         <ProductItemActionBtn
           text={translations[lang].product.add_to_favorites}

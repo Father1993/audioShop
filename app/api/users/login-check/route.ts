@@ -5,6 +5,7 @@ import {
   getAuthRouteData,
   parseJwt,
 } from '@/lib/utils/api-routes'
+import { IUser } from '@/types/user'
 
 export async function GET(req: Request) {
   try {
@@ -17,8 +18,15 @@ export async function GET(req: Request) {
       return NextResponse.json(validatedTokenResult)
     }
 
-    const user = await findUserByEmail(db, parseJwt(token as string).email)
-    return NextResponse.json({ status: 200, message: 'token is valid', user })
+    const user = (await findUserByEmail(
+      db,
+      parseJwt(token as string).email
+    )) as unknown as IUser
+    return NextResponse.json({
+      status: 200,
+      message: 'token is valid',
+      user: { email: user.email, name: user.name, _id: user?._id },
+    })
   } catch (error) {
     throw new Error((error as Error).message)
   }

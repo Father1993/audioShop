@@ -120,9 +120,8 @@ export const triggerLoginCheck = () => {
   loginCheck({ jwt: auth.accessToken })
 }
 
-export const isItemInList = (array: ICartItem[], productId: string) => {
+export const isItemInList = (array: ICartItem[], productId: string) =>
   array.some((item) => item.productId === productId)
-}
 
 export const handleShowSizeTable = (product: IProduct) => {
   setCurrentProduct(product)
@@ -130,3 +129,10 @@ export const handleShowSizeTable = (product: IProduct) => {
   addOverflowHiddenToBody()
   showSizeTable()
 }
+
+export const getCartItemCountBySize = (
+  cartItems: ICartItem[],
+  currentSize: string
+) =>
+  cartItems.find((item) => item.size === currentSize.toLocaleLowerCase())
+    ?.count || 0

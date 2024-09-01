@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 import { useState } from 'react'
 import { useUnit } from 'effector-react'
 import { useCartAction } from '@/hooks/useCartAction'
@@ -7,6 +9,7 @@ import { closeSizeTableByCheck } from '@/lib/utils/common'
 import { useLang } from '@/hooks/useLang'
 import AddToCartBtn from '../ProductListItem/AddToCartBtn'
 import styles from '@/styles/size-table/index.module.scss'
+import ProductCountBySize from '../ProductListItem/ProductCountBySize'
 
 const SizeTable = () => {
   const { lang, translations } = useLang()
@@ -16,11 +19,18 @@ const SizeTable = () => {
   const [lSize, setLSize] = useState(false)
   const [xlSize, setXLSize] = useState(false)
   const [xxlSize, setXXLSize] = useState(false)
-
-  const { selectedSize, setSelectedSize, product } = useCartAction()
-
+  const {
+    selectedSize,
+    setSelectedSize,
+    handleAddToCart,
+    cartItemBySize,
+    addToCartSpinner,
+    currentCartItems,
+  } = useCartAction(true)
   const productSizes = useUnit($sizeTableSizes)
   const isHeaddressType = productSizes.type === 'headdress'
+  const isAnySizeSelected =
+    sSize || lSize || mSize || xlSize || xxlSize || selectedSize
 
   const handleSelectSSize = () => {
     setSelectedSize('s')
@@ -180,6 +190,8 @@ const SizeTable = () => {
 
   const handleCloseSizeTable = () => closeSizeTableByCheck(showQuickViewModal)
 
+  const addToCart = () => handleAddToCart(+(cartItemBySize?.count || 1))
+
   const trProps = (
     item:
       | {
@@ -216,12 +228,14 @@ const SizeTable = () => {
 
   return (
     <div
-      className={`${styles.size_table} ${isHeaddressType ? styles.size_table_headdress : ''}`}
+      className={`${styles.size_table} ${
+        isHeaddressType ? styles.size_table_headdress : ''
+      }`}
     >
       <button
         className={`btn-reset ${styles.size_table__close}`}
         onClick={handleCloseSizeTable}
-      ></button>
+      />
       <h2 className={styles.size_table__title}>
         {translations[lang].size_table.title}
       </h2>
@@ -253,7 +267,13 @@ const SizeTable = () => {
                     ) as React.HTMLAttributes<HTMLTableRowElement>)}
                   >
                     <td>{headdressSizesItem.headCircumference}</td>
-                    <td>{headdressSizesItem.manufacturerSize}</td>
+                    <td>
+                      <ProductCountBySize
+                        size={headdressSizesItem.manufacturerSize}
+                        products={currentCartItems}
+                      />
+                      {headdressSizesItem.manufacturerSize}
+                    </td>
                   </tr>
                 ))
               : dressSizes.map((item) => (
@@ -267,14 +287,24 @@ const SizeTable = () => {
                     <td>{item.manufacturerSize}</td>
                     <td>{item.bust}</td>
                     <td>{item.waist}</td>
-                    <td>{item.hipGirth}</td>
+                    <td>
+                      <ProductCountBySize
+                        size={item.manufacturerSize}
+                        products={currentCartItems}
+                      />
+                      {item.hipGirth}
+                    </td>
                   </tr>
                 ))}
           </tbody>
         </table>
       </div>
       <AddToCartBtn
+        minWidth={172}
         className={styles.size_table__btn}
+        handleAddToCart={addToCart}
+        addToCartSpinner={addToCartSpinner}
+        btnDisabled={!isAnySizeSelected || addToCartSpinner}
         text={translations[lang].product.to_cart}
       />
     </div>

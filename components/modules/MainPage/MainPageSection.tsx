@@ -31,7 +31,7 @@ const MainPageSection = ({ title, goods, spinner }: IMainPageSectionProps) => (
             {...basePropsForMotion}
           >
             {goods.map((item) => (
-              <ProductListItem key={item.id} item={item} title={title} />
+              <ProductListItem key={item._id} item={item} title={title} />
             ))}
           </motion.ul>
         )}

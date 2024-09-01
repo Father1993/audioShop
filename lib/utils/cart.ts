@@ -1,7 +1,7 @@
 import toast from 'react-hot-toast'
 import { ICartItem } from '@/types/cart'
 import { IProduct } from '@/types/common'
-import { idGenerator, isUserAuth } from './common'
+import { handleShowSizeTable, idGenerator, isUserAuth } from './common'
 import { addProductToCart, setCartFromLS } from '@/context/cart'
 import { productWithoutSizes } from '@/constants/products'
 
@@ -102,4 +102,6 @@ export const addProductToCartBySizeTable = (
     addItemToCart(product, setSpinner, count, selectedSize)
     return
   }
+
+  handleShowSizeTable(product)
 }
