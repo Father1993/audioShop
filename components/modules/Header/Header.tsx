@@ -19,7 +19,7 @@ import { loginCheckFx } from '@/api/auth'
 import { useEffect } from 'react'
 import { $user } from '@/context/user'
 import { useCartByAuth } from '@/hooks/useCartByAuth'
-import { setCartFromLS } from '@/context/cart'
+import { addProductsFromLSToCart, setCartFromLS } from '@/context/cart'
 import { setLang } from '@/context/lang'
 
 const Header = () => {
@@ -56,6 +56,20 @@ const Header = () => {
     }
     triggerLoginCheck()
   }, [])
+
+  useEffect(() => {
+    if (isAuth) {
+      const auth = JSON.parse(localStorage.getItem('auth') as string)
+      const cartFromLS = JSON.parse(localStorage.getItem('cart') as string)
+
+      if (cartFromLS && Array.isArray(cartFromLS)) {
+        addProductsFromLSToCart({
+          jwt: auth.accessToken,
+          cartItems: cartFromLS,
+        })
+      }
+    }
+  }, [isAuth])
 
   return (
     <header className='header'>
