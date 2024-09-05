@@ -3,7 +3,6 @@ import jwt, { VerifyErrors } from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import { shuffle } from './common'
 import { NextResponse } from 'next/server'
-import clientPromise from '../mongodb'
 
 export const getDbAndReqBody = async (
   clientPromise: Promise<MongoClient>,
@@ -203,4 +202,25 @@ export const replaceProductsInCollection = async (
     status: 201,
     items,
   })
+}
+
+export const deleteProduct = async (
+  clientPromise: Promise<MongoClient>,
+  req: Request,
+  id: string,
+  collection: string
+) => {
+  const { db, validatedTokenResult } = await getAuthRouteData(
+    clientPromise,
+    req,
+    false
+  )
+
+  if (validatedTokenResult.status !== 200) {
+    return NextResponse.json(validatedTokenResult)
+  }
+
+  await db.collection(collection).deleteOne({ _id: new ObjectId(id) })
+
+  return NextResponse.json({ status: 204, id })
 }

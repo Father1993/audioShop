@@ -14,10 +14,14 @@ const CartPopupItem = ({ item }: { item: ICartItem }) => {
     count,
     setCount,
     animatedPrice,
+    handleDeleteCartItem,
   } = useCartItemAction(item)
   return (
     <>
-      <DeleteCartItemBtn btnDisabled={deleteSpinner} callback={() => ''} />
+      <DeleteCartItemBtn
+        btnDisabled={deleteSpinner}
+        callback={handleDeleteCartItem}
+      />
       <div className='cart-list__item__img'>
         <Image src={item.image} alt={item.name} width={96} height={96} />
       </div>
