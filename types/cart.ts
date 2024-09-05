@@ -30,7 +30,12 @@ export interface IAddProductsFromLSToCartFx {
   jwt: string
   cartItems: ICartItem[]
 }
-
 export interface IUpdateCartItemCountFx extends IBaseEffectProps {
   count: number
+}
+
+export interface IDeleteCartItemBtnProps {
+  btnDisabled: boolean
+  callback: VoidFunction
+  className?: string
 }

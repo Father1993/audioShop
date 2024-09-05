@@ -48,6 +48,7 @@ export const addProductToCart = cart.createEvent<IAddProductToCartFx>()
 export const addProductsFromLSToCart =
   cart.createEvent<IAddProductsFromLSToCartFx>()
 export const updateCartItemCount = cart.createEvent<IUpdateCartItemCountFx>()
+export const setTotalPrice = cart.createEvent<number>()
 
 export const $cart = cart
   .createStore<ICartItem[]>([])
@@ -66,6 +67,10 @@ export const $cart = cart
 export const $cartFromLs = cart
   .createStore<ICartItem[]>([])
   .on(setCartFromLS, (_, cart) => cart)
+
+export const $totalPrice = cart
+  .createStore<number>(0)
+  .on(setTotalPrice, (_, value) => value)
 
 sample({
   clock: addProductToCart,

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import toast from 'react-hot-toast'
 import { ICartItem } from '@/types/cart'
 import { IProduct } from '@/types/common'
@@ -50,12 +51,17 @@ export const addCartItemToLS = (
   )
 
   if (existingItem) {
-    const updatedCount =
-      existingItem.count !== count ? count : existingItem.count + 1
+    const updateCountWithSize =
+      existingItem.count !== count ? count : +existingItem.count + 1
 
     const updatedCart = cartFromLS.map((item) =>
       item.productId === existingItem.productId && item.size === selectedSize
-        ? { ...existingItem, count: updatedCount }
+        ? {
+            ...existingItem,
+            count: selectedSize.length
+              ? updateCountWithSize
+              : +existingItem.count + 1,
+          }
         : item
     )
 
@@ -104,4 +110,19 @@ export const addProductToCartBySizeTable = (
   }
 
   handleShowSizeTable(product)
+}
+
+export const updateCartItemCountInLS = (cartItemId: string, count: number) => {
+  let cart: ICartItem[] = JSON.parse(localStorage.getItem('cart') as string)
+
+  if (!cart) {
+    cart = []
+  }
+
+  const updateCart = cart.map((item) =>
+    item.clientId === cartItemId ? { ...item, count } : item
+  )
+
+  localStorage.setItem('cart', JSON.stringify(updateCart))
+  setCartFromLS(updateCart as ICartItem[])
 }

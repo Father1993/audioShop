@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { $currentProduct } from '@/context/goods'
 import { useCartByAuth } from './useCartByAuth'
-import { isItemInList, isUserAuth } from '@/lib/utils/common'
+import { isUserAuth } from '@/lib/utils/common'
 import {
   addCartItemToLS,
   addItemToCart,
@@ -23,9 +23,9 @@ export const useCartAction = (isSizeTable = false) => {
   const existingItem = currentCartByAuth.find(
     (item) => item.productId === product._id && item.size === selectedSize
   )
-  const isProductInCart = isItemInList(currentCartByAuth, product._id)
   const [addToCartSpinner, setAddToCartSpinner] = useState(false)
   const [updateCountSpinner, setUpdateCountSpinner] = useState(false)
+  const [count, setCount] = useState(+(existingItem?.count as string) || 1)
 
   const handleAddToCart = (countFromCounter?: number) => {
     if (existingItem) {
@@ -50,7 +50,7 @@ export const useCartAction = (isSizeTable = false) => {
           : +existingItem.count + 1,
       })
 
-      addCartItemToLS(product, selectedSize, count)
+      addCartItemToLS(product, selectedSize, countFromCounter || 1)
       return
     }
 
@@ -72,6 +72,11 @@ export const useCartAction = (isSizeTable = false) => {
     )
   }
 
+  const allCurrentCartItemCount = useMemo(
+    () => currentCartItems.reduce((a, { count }) => a + +count, 0),
+    [currentCartItems]
+  )
+
   return {
     product,
     setSelectedSize,
@@ -80,9 +85,12 @@ export const useCartAction = (isSizeTable = false) => {
     currentCartItems,
     cartItemBySize,
     handleAddToCart,
-    isProductInCart,
+    count,
+    setCount,
+    existingItem,
     currentCartByAuth,
     setAddToCartSpinner,
     updateCountSpinner,
+    allCurrentCartItemCount,
   }
 }

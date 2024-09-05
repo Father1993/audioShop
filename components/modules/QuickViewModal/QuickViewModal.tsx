@@ -15,16 +15,31 @@ import AddToCartBtn from '../ProductListItem/AddToCartBtn'
 import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
 import stylesForProduct from '@/styles/product-list-item/index.module.scss'
 import styles from '@/styles/quick-view-modal/index.module.scss'
+import { ICartItem } from '@/types/cart'
 
 const QuickViewModal = () => {
   const { lang, translations } = useLang()
-  const { product, selectedSize, setSelectedSize } = useCartAction()
+  const {
+    product,
+    selectedSize,
+    setSelectedSize,
+    handleAddToCart,
+    updateCountSpinner,
+    addToCartSpinner,
+    allCurrentCartItemCount,
+    currentCartItems,
+    setCount,
+    existingItem,
+    count,
+  } = useCartAction()
   const images = useProductImages(product)
 
   const handleCloseModal = () => {
     removeOverflowHiddenFromBody()
     closeQuickViewModal()
   }
+
+  const addToCart = () => handleAddToCart(count)
 
   return (
     <div className={styles.modal}>
@@ -83,7 +98,7 @@ const QuickViewModal = () => {
                     currentSize={[key, value]}
                     selectedSize={selectedSize}
                     setSelectedSize={setSelectedSize}
-                    currentCartItems={[]}
+                    currentCartItems={currentCartItems}
                   />
                 ))}
               </ul>
@@ -99,19 +114,34 @@ const QuickViewModal = () => {
               {!!selectedSize ? (
                 <ProductCounter
                   className={`counter ${styles.modal__right__bottom__counter}`}
-                  count={0}
+                  count={count}
+                  totalCount={+product.inStock}
+                  initialCount={+(existingItem as ICartItem)}
+                  setCount={setCount}
+                  cartItem={existingItem as ICartItem}
+                  updateCountAsync={false}
                 />
               ) : (
                 <div
                   className={`counter ${styles.modal__right__bottom__counter}`}
                   style={{ justifyContent: 'center' }}
                 >
-                  <span>{translations[lang].product.total_in_cart} 0</span>
+                  <span>
+                    {translations[lang].product.total_in_cart}{' '}
+                    {allCurrentCartItemCount}
+                  </span>
                 </div>
               )}
               <AddToCartBtn
                 className={styles.modal__right__bottom__add}
                 text={translations[lang].product.to_cart}
+                handleAddToCart={addToCart}
+                addToCartSpinner={addToCartSpinner || updateCountSpinner}
+                btnDisabled={
+                  addToCartSpinner ||
+                  updateCountSpinner ||
+                  allCurrentCartItemCount === +product.inStock
+                }
               />
             </div>
           </div>
