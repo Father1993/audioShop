@@ -4,8 +4,9 @@ import {
   IAddProductsFromLSToCartFx,
   IAddProductToCartFx,
   ICartItem,
+  IUpdateCartItemCountFx,
 } from '@/types/cart'
-import { addProductToCartFx } from '@/api/cart'
+import { addProductToCartFx, updateCartItemCountFx } from '@/api/cart'
 import { handleJWTError } from '@/lib/utils/errors'
 import api from '../api/apiInstance'
 
@@ -46,6 +47,7 @@ export const setCartFromLS = cart.createEvent<ICartItem[]>()
 export const addProductToCart = cart.createEvent<IAddProductToCartFx>()
 export const addProductsFromLSToCart =
   cart.createEvent<IAddProductsFromLSToCartFx>()
+export const updateCartItemCount = cart.createEvent<IUpdateCartItemCountFx>()
 
 export const $cart = cart
   .createStore<ICartItem[]>([])
@@ -55,6 +57,11 @@ export const $cart = cart
       [...cart, result.newCartItem].map((item) => [item.clientId, item])
     ).values(),
   ])
+  .on(updateCartItemCountFx.done, (cart, { result }) =>
+    cart.map((item) =>
+      item._id === result.id ? { ...item, count: result.count } : item
+    )
+  )
 
 export const $cartFromLs = cart
   .createStore<ICartItem[]>([])
@@ -72,4 +79,11 @@ sample({
   source: $cart,
   fn: (_, data) => data,
   target: addProductsFromLSToCartFx,
+})
+
+sample({
+  clock: updateCartItemCount,
+  source: $cart,
+  fn: (_, data) => data,
+  target: updateCartItemCountFx,
 })

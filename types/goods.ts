@@ -22,7 +22,6 @@ export interface IAddToCartBtnProps {
   addToCartSpinner: boolean
   text: string
   btnDisabled?: boolean
-  minWidth?: number
   className?: string
 }
 

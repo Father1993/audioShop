@@ -8,6 +8,7 @@ import {
   addItemToCart,
   addProductToCartBySizeTable,
 } from '@/lib/utils/cart'
+import { updateCartItemCount } from '@/context/cart'
 
 export const useCartAction = (isSizeTable = false) => {
   const product = useUnit($currentProduct)
@@ -19,29 +20,38 @@ export const useCartAction = (isSizeTable = false) => {
   const cartItemBySize = currentCartItems.find(
     (item) => item.size === selectedSize
   )
+  const existingItem = currentCartByAuth.find(
+    (item) => item.productId === product._id && item.size === selectedSize
+  )
   const isProductInCart = isItemInList(currentCartByAuth, product._id)
   const [addToCartSpinner, setAddToCartSpinner] = useState(false)
+  const [updateCountSpinner, setUpdateCountSpinner] = useState(false)
 
   const handleAddToCart = (countFromCounter?: number) => {
-    if (isProductInCart) {
+    if (existingItem) {
       if (!isUserAuth()) {
         addCartItemToLS(product, selectedSize, countFromCounter || 1)
         return
       }
 
-      if (cartItemBySize) {
-        const auth = JSON.parse(localStorage.getItem('auth') as string)
-        const count = !!countFromCounter
-          ? +cartItemBySize.count !== countFromCounter
-            ? countFromCounter
-            : +cartItemBySize.count + 1
-          : +cartItemBySize.count + 1
+      const auth = JSON.parse(localStorage.getItem('auth') as string)
+      const updateCountWithSize = !!countFromCounter
+        ? +existingItem.count !== countFromCounter
+          ? countFromCounter
+          : +existingItem.count + 1
+        : +existingItem.count + 1
 
-        //TODO: add event form updating cart item on server
+      updateCartItemCount({
+        jwt: auth.accessToken,
+        id: existingItem._id as string,
+        setSpinner: setUpdateCountSpinner,
+        count: selectedSize.length
+          ? updateCountWithSize
+          : +existingItem.count + 1,
+      })
 
-        addCartItemToLS(product, selectedSize, count)
-        return
-      }
+      addCartItemToLS(product, selectedSize, count)
+      return
     }
 
     if (isSizeTable) {
@@ -73,5 +83,6 @@ export const useCartAction = (isSizeTable = false) => {
     isProductInCart,
     currentCartByAuth,
     setAddToCartSpinner,
+    updateCountSpinner,
   }
 }

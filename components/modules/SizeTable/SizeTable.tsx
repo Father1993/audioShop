@@ -26,6 +26,7 @@ const SizeTable = () => {
     cartItemBySize,
     addToCartSpinner,
     currentCartItems,
+    updateCountSpinner,
   } = useCartAction(true)
   const productSizes = useUnit($sizeTableSizes)
   const isHeaddressType = productSizes.type === 'headdress'
@@ -300,11 +301,12 @@ const SizeTable = () => {
         </table>
       </div>
       <AddToCartBtn
-        minWidth={172}
         className={styles.size_table__btn}
         handleAddToCart={addToCart}
-        addToCartSpinner={addToCartSpinner}
-        btnDisabled={!isAnySizeSelected || addToCartSpinner}
+        addToCartSpinner={addToCartSpinner || updateCountSpinner}
+        btnDisabled={
+          !isAnySizeSelected || addToCartSpinner || updateCountSpinner
+        }
         text={translations[lang].product.to_cart}
       />
     </div>

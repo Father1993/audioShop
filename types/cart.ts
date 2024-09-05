@@ -1,3 +1,5 @@
+import { IBaseEffectProps } from './common'
+
 export interface ICartItem {
   _id: string
   clientId: string
@@ -27,4 +29,8 @@ export interface IAddProductToCartFx {
 export interface IAddProductsFromLSToCartFx {
   jwt: string
   cartItems: ICartItem[]
+}
+
+export interface IUpdateCartItemCountFx extends IBaseEffectProps {
+  count: number
 }

@@ -30,3 +30,9 @@ export interface ISelectedSizes {
   type: string
   className?: string
 }
+
+export interface IBaseEffectProps {
+  jwt: string
+  id: string
+  setSpinner: (arg0: boolean) => void
+}
