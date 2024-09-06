@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useUnit } from 'effector-react'
 import { EarthoOneProvider } from '@eartho/one-client-react'
+import { motion } from 'framer-motion'
 import {
   $showQuickViewModal,
   $showSizeTable,
@@ -15,12 +16,14 @@ import {
   removeOverflowHiddenFromBody,
 } from '@/lib/utils/common'
 import { $openAuthPopup } from '@/context/auth'
+import CookieAlert from '../modules/CookieAlert/CookieAlert'
 
 const PagesLayout = ({ children }: { children: React.ReactNode }) => {
+  const [isClient, setIsClient] = useState(false)
+  const [cookieAlertOpen, setCookieAlertOpen] = useState(false)
   const showQuickViewModal = useUnit($showQuickViewModal)
   const showSizeTable = useUnit($showSizeTable)
   const openAuthPopup = useUnit($openAuthPopup)
-  const [isClient, setIsClient] = useState(false)
 
   useEffect(() => setIsClient(true), [])
 
@@ -30,6 +33,13 @@ const PagesLayout = ({ children }: { children: React.ReactNode }) => {
   }
 
   const handleCloseSizeTable = () => closeSizeTableByCheck(showQuickViewModal)
+
+  useEffect(() => {
+    const checkCookie = document.cookie.indexOf('CookieBy=Magnitola.ru')
+    checkCookie != -1
+      ? setCookieAlertOpen(false)
+      : setTimeout(() => setCookieAlertOpen(true), 3000)
+  }, [])
 
   return (
     <>
@@ -55,6 +65,16 @@ const PagesLayout = ({ children }: { children: React.ReactNode }) => {
                 className={`auth-overlay ${openAuthPopup ? 'overlay-active' : ''}`}
                 onClick={handleCloseAuthPopup}
               />
+              {cookieAlertOpen && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.5 }}
+                  className='cookie-popup'
+                >
+                  <CookieAlert setCookieAlertOpen={setCookieAlertOpen} />
+                </motion.div>
+              )}
               <Toaster position='top-center' reverseOrder={false} />
             </body>
           </html>
