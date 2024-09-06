@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useUnit } from 'effector-react'
 import { EarthoOneProvider } from '@eartho/one-client-react'
+import { Next13ProgressBar } from 'next13-progressbar'
 import { motion } from 'framer-motion'
 import {
   $showQuickViewModal,
@@ -50,6 +51,7 @@ const PagesLayout = ({ children }: { children: React.ReactNode }) => {
         >
           <html lang='ru'>
             <body>
+              <Next13ProgressBar height='4px' color='#9466FF' showOnShallow />
               <Layout>{children}</Layout>
               <div
                 className={`quick-view-modal-overlay ${showQuickViewModal ? 'overlay-active' : ''}`}

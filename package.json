@@ -27,6 +27,7 @@
         "mongodb": "^6.8.0",
         "mongoose": "^8.5.2",
         "next": "14.2.5",
+        "next13-progressbar": "^1.2.2",
         "nodemailer": "^6.9.14",
         "react": "^18",
         "react-dom": "^18",

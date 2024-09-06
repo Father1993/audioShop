@@ -31,3 +31,15 @@ export interface IProductLabelProps {
   isNew: boolean
   isBestseller: boolean
 }
+
+export interface IBreadcrumbsProps {
+  getTextGenerator: (arg0: string, query: string[]) => void
+  getDefaultTextGenerator: (arg0: string, href: string) => void
+}
+
+export interface ICrumbProps {
+  text: string
+  textGenerator: () => string
+  href: string
+  last: boolean
+}
