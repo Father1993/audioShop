@@ -126,3 +126,6 @@ export const updateCartItemCountInLS = (cartItemId: string, count: number) => {
   localStorage.setItem('cart', JSON.stringify(updateCart))
   setCartFromLS(updateCart as ICartItem[])
 }
+
+export const countWholeCartItemsAmount = (cart: ICartItem[]) =>
+  cart.reduce((defaultCount, item) => defaultCount + +item.count, 0)

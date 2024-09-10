@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useCrumbText } from './useCrumbText'
 import { usePageTitle } from './usePageTitle'
 //import { useLang } from './useLang'
@@ -6,6 +6,8 @@ import { usePageTitle } from './usePageTitle'
 export const useBreadcrumbs = (page: string) => {
   //const { lang, translations } = useLang()
   const { crumbText } = useCrumbText(page)
+  const getDefaultTextGenerator = useCallback(() => crumbText, [crumbText])
+  const getTextGenerator = useCallback((param: string) => ({})[param], [])
   usePageTitle(page)
 
   useEffect(() => {
@@ -15,4 +17,6 @@ export const useBreadcrumbs = (page: string) => {
       lastCrumb.textContent = crumbText
     }
   }, [crumbText])
+
+  return { getDefaultTextGenerator, getTextGenerator }
 }
