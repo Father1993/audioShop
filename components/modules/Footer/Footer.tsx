@@ -57,7 +57,7 @@ const Footer = () => {
           </div>
           <div className='footer__policy'>
             <div className='footer__policy__inner'>
-              <Link href='/data-processing-policy'>
+              <Link href='/personal-data-policy'>
                 {translations[lang].footer.policy}
               </Link>
               <Link href='/privacy-policy'>

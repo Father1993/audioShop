@@ -1,4 +1,4 @@
-import { Collection, ObjectId } from 'mongodb'
+import { ObjectId } from 'mongodb'
 import { NextResponse } from 'next/server'
 import { corsHeaders } from '@/constants/corsHeaders'
 import clientPromise from '@/lib/mongodb'
@@ -45,3 +45,5 @@ export async function GET(req: Request) {
     throw new Error((error as Error).message)
   }
 }
+
+export const dynamic = 'force-dynamic'
