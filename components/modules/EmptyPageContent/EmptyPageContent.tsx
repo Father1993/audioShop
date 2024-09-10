@@ -1,9 +1,9 @@
 import { useLang } from '@/hooks/useLang'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { IEmptyPageContentProps } from '@/types/modules'
-import styles from '@/styles/empty-content/index.module.scss'
 import ContentTitle from './ContentTitle'
 import ContentLinks from './ContentLinks'
+import styles from '@/styles/empty-content/index.module.scss'
 
 const EmptyPageContent = ({
   subtitle,

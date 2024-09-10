@@ -3,7 +3,11 @@ import toast from 'react-hot-toast'
 import { ICartItem } from '@/types/cart'
 import { IProduct } from '@/types/common'
 import { handleShowSizeTable, idGenerator, isUserAuth } from './common'
-import { addProductToCart, setCartFromLS } from '@/context/cart'
+import {
+  addProductToCart,
+  setCartFromLS,
+  setShouldShowEmpty,
+} from '@/context/cart'
 import { productWithoutSizes } from '@/constants/products'
 
 export const addItemToCart = (
@@ -45,6 +49,8 @@ export const addCartItemToLS = (
   if (!cartFromLS) {
     cartFromLS = []
   }
+
+  setShouldShowEmpty(false)
 
   const existingItem = cartFromLS.find(
     (item) => item.productId === product._id && item.size === selectedSize

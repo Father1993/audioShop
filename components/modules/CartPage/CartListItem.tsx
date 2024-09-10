@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
 import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { useCartItemAction } from '@/hooks/useCartItemAction'
 import { ICartItem } from '@/types/cart'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
@@ -27,7 +29,11 @@ const CartListItem = ({ item }: { item: ICartItem }) => {
         onClick={handleDeleteCartItem}
         className={`btn-reset ${styles.cart__list__item__delete}`}
       >
-        <span />
+        {deleteSpinner ? (
+          <FontAwesomeIcon icon={faSpinner} spin color='#fff' />
+        ) : (
+          <span />
+        )}
       </button>
       <div
         className={`${styles.cart__list__item__img}} ${styles.cart__list__item__block}`}
