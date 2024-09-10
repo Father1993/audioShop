@@ -6,9 +6,11 @@ import Hero from '@/components/modules/MainPage/Hero/Hero'
 import BestsellerGoods from '@/components/modules/MainPage/BestsellerGoods'
 import NewGoods from '@/components/modules/MainPage/NewGoods'
 import BrandLife from '@/components/modules/MainPage/BrandLife'
+import { usePageTitle } from '@/hooks/usePageTitle'
 
 const MainPage = () => {
   useGate(MainPageGate)
+  usePageTitle('main')
 
   return (
     <main>

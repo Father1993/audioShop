@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import { useCartByAuth } from '@/hooks/useCartByAuth'
 import {
   closeCatalogMenu,
   closeMenu,
@@ -12,6 +13,7 @@ import CatalogMenu from '../Header/CatalogMenu'
 
 const MobileNavbar = () => {
   const { lang, translations } = useLang()
+  const currenCartByAuth = useCartByAuth()
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()
@@ -42,6 +44,9 @@ const MobileNavbar = () => {
           {translations[lang].breadcrumbs.favorites}
         </Link>
         <Link href='/cart' className='mobile-navbar__btn'>
+          {!!currenCartByAuth.length && (
+            <span className='not-empty not-empty-mobile' />
+          )}
           {translations[lang].breadcrumbs.cart}
         </Link>
         <button
