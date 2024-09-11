@@ -28,6 +28,11 @@ export const useCartAction = (isSizeTable = false) => {
   const [count, setCount] = useState(+(existingItem?.count as string) || 1)
 
   const handleAddToCart = (countFromCounter?: number) => {
+    if (!product.sizes || Object.keys(product.sizes).length === 0) {
+      // Товар без размеров, добавляем напрямую
+      addItemToCart(product, setAddToCartSpinner, countFromCounter || 1)
+      return
+    }
     if (existingItem) {
       if (!isUserAuth()) {
         addCartItemToLS(product, selectedSize, countFromCounter || 1)
