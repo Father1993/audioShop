@@ -21,12 +21,14 @@ export const useAuthForm = (
 
   useEffect(() => {
     if (isSideActive) {
-      event({
-        name: user?.user.displayName,
-        email: user?.user.email,
-        password: user?.user.uid,
-        isOAuth: true,
-      })
+      if (isConnected) {
+        event({
+          name: user?.user.displayName,
+          email: user?.user.email,
+          password: user?.user.uid,
+          isOAuth: true,
+        })
+      }
     }
   }, [isConnected])
 

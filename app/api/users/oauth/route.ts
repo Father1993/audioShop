@@ -1,11 +1,11 @@
 import clientPromise from '@/lib/mongodb'
+import { NextResponse } from 'next/server'
 import {
   createUserAndGenerateTokens,
   findUserByEmail,
   generateTokens,
   getDbAndReqBody,
 } from '@/lib/utils/api-routes'
-import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   const { db, reqBody } = await getDbAndReqBody(clientPromise, req)

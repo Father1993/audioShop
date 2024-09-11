@@ -32,7 +32,7 @@ export const addProductToCartFx = createEffect(
   async ({ jwt, setSpinner, ...dataFields }: IAddProductToCartFx) => {
     try {
       setSpinner(true)
-      const { data } = await api.post('/api/cat/add', dataFields, {
+      const { data } = await api.post('/api/cart/add', dataFields, {
         headers: { Authorization: `Bearer ${jwt}` },
       })
 

@@ -11,7 +11,7 @@ export const $user = user
   .on(loginCheckFx.done, (_, { result }) => result)
 
 sample({
-  clock: loginCheckFx,
+  clock: loginCheck,
   source: $user,
   fn: (_, { jwt }) => ({
     jwt,

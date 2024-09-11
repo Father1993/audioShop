@@ -65,7 +65,7 @@ export const createUserAndGenerateTokens = async (
   reqBody: { name: string; password: string; email: string }
 ) => {
   const salt = bcrypt.genSaltSync(10)
-  const hash = bcrypt.hash(reqBody.password, salt)
+  const hash = bcrypt.hashSync(reqBody.password, salt)
 
   await db.collection('users').insertOne({
     name: reqBody.name,

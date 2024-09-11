@@ -1,4 +1,5 @@
 'use client'
+import { MutableRefObject, useRef } from 'react'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useUnit } from 'effector-react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -19,7 +20,6 @@ import QuickViewModal from '../modules/QuickViewModal/QuickViewModal'
 import SizeTable from '../modules/SizeTable/SizeTable'
 import { $openAuthPopup } from '@/context/auth'
 import AuthPopup from '../modules/AuthPopup/AuthPopup'
-import { MutableRefObject, useRef } from 'react'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const isMedia800 = useMediaQuery(800)
