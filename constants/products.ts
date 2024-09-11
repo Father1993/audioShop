@@ -1,8 +1,6 @@
-import { m } from 'framer-motion'
-
 export const productWithoutSizes = [
-  'adapters',
-  'pen',
+  'audio',
+  'subwoofers',
   'notebook',
   'promotional-souvenirs',
   'business-souvenirs',

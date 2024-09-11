@@ -105,7 +105,11 @@ export const addProductToCartBySizeTable = (
   count: number,
   selectedSize = ''
 ) => {
-  if (productWithoutSizes.includes(product.type)) {
+  if (
+    !product.sizes ||
+    Object.keys(product.sizes).length === 0 ||
+    productWithoutSizes.includes(product.type)
+  ) {
     addItemToCart(product, setSpinner, count)
     return
   }
