@@ -111,27 +111,16 @@ const QuickViewModal = () => {
               {translations[lang].product.count}
             </span>
             <div className={styles.modal__right__bottom__inner}>
-              {!!selectedSize ? (
-                <ProductCounter
-                  className={`counter ${styles.modal__right__bottom__counter}`}
-                  count={count}
-                  totalCount={+product.inStock}
-                  initialCount={+(existingItem as ICartItem)}
-                  setCount={setCount}
-                  cartItem={existingItem as ICartItem}
-                  updateCountAsync={false}
-                />
-              ) : (
-                <div
-                  className={`counter ${styles.modal__right__bottom__counter}`}
-                  style={{ justifyContent: 'center' }}
-                >
-                  <span>
-                    {translations[lang].product.total_in_cart}{' '}
-                    {allCurrentCartItemCount}
-                  </span>
-                </div>
-              )}
+              <ProductCounter
+                className={`counter ${styles.modal__right__bottom__counter}`}
+                count={count}
+                totalCount={+product.inStock}
+                initialCount={+(existingItem as ICartItem)}
+                setCount={setCount}
+                cartItem={existingItem as ICartItem}
+                updateCountAsync={false}
+              />
+
               <AddToCartBtn
                 className={styles.modal__right__bottom__add}
                 text={translations[lang].product.to_cart}
