@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable max-len */
 import Link from 'next/link'
 import { useMemo } from 'react'
@@ -54,7 +55,7 @@ const Breadcrumbs = ({
           crumb.text ? (
             <li key={idx} className='breadcrumbs__item'>
               {/**eslint-disable-next-line @typescript-eslint/ban-ts-comment
-               * @ts-ignore */}
+               * @ts-expect-error */}
               <Crumb
                 {...crumb}
                 key={idx}

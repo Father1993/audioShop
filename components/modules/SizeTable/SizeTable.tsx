@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable indent */
+/* eslint-disable react/jsx-indent */
 import { useState } from 'react'
 import { useUnit } from 'effector-react'
 import { useCartAction } from '@/hooks/useCartAction'
