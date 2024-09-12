@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link'
-import { useCartByAuth } from '@/hooks/useCartByAuth'
+import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import {
   closeCatalogMenu,
   closeMenu,
@@ -10,10 +10,11 @@ import {
 import { useLang } from '@/hooks/useLang'
 import { addOverflowHiddenToBody } from '@/lib/utils/common'
 import CatalogMenu from '../Header/CatalogMenu'
+import { $cart, $cartFromLs } from '@/context/cart'
 
 const MobileNavbar = () => {
   const { lang, translations } = useLang()
-  const currenCartByAuth = useCartByAuth()
+  const currenCartByAuth = useGoodsByAuth($cart, $cartFromLs)
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()

@@ -2,10 +2,11 @@ import { MutableRefObject, useRef, useState } from 'react'
 import Link from 'next/link'
 import { IOrderInfoBlockProps } from '@/types/modules'
 import { useLang } from '@/hooks/useLang'
-import { useCartByAuth } from '@/hooks/useCartByAuth'
+import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import { useTotalPrice } from '@/hooks/useTotalPrice'
 import { formatPrice, showCountMessage } from '@/lib/utils/common'
 import { countWholeCartItemsAmount } from '@/lib/utils/cart'
+import { $cart, $cartFromLs } from '@/context/cart'
 import styles from '@/styles/order-block/index.module.scss'
 
 const OrferInfoBlock = ({
@@ -13,7 +14,7 @@ const OrferInfoBlock = ({
   isOrderPage,
 }: IOrderInfoBlockProps) => {
   const { lang, translations } = useLang()
-  const currentCartByAuth = useCartByAuth()
+  const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
   const [isUserAgree, setIsUserAgree] = useState(false)
   const { animatedPrice } = useTotalPrice()
   const checkboxRef = useRef() as MutableRefObject<HTMLInputElement>
