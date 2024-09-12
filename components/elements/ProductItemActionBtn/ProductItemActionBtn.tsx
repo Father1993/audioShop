@@ -1,14 +1,17 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IProductItemActionsBtnProps } from '@/types/elements'
 import Tooltip from '../Tooltip/Tooltip'
-import styles from '@/styles/product-item-action-btn/index.module.scss'
 import tooltipStyles from '@/styles/tooltip/index.module.scss'
+import styles from '@/styles/product-item-action-btn/index.module.scss'
 
 const ProductItemActionBtn = ({
   text,
   callback,
   iconClass,
+  spinner,
   marginBottom,
   withTooltip = true,
 }: IProductItemActionsBtnProps) => {
@@ -32,7 +35,9 @@ const ProductItemActionBtn = ({
         onMouseEnter={showTooltip}
         onMouseLeave={hideTooltip}
         style={{ marginBottom: marginBottom || 16 }}
-      />
+      >
+        {spinner && <FontAwesomeIcon icon={faSpinner} spin color='#fff' />}
+      </button>
 
       {withTooltip && (
         <AnimatePresence>

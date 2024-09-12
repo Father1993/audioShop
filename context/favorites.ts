@@ -9,6 +9,7 @@ export const addProductToFavorites =
   favorites.createEvent<Omit<IAddProductToCartFx, 'count'>>()
 export const loadFavoriteItems = favorites.createEvent<{ jwt: string }>()
 export const setFavoritesFromLS = favorites.createEvent<IFavoriteItem[]>()
+export const setIsAddToFavorites = favorites.createEvent<boolean>()
 
 export const $favorites = favorites
   .createStore<IFavoriteItem[]>([])
@@ -22,6 +23,10 @@ export const $favorites = favorites
 export const $favoritesFormLS = favorites
   .createStore<IFavoriteItem[]>([])
   .on(setFavoritesFromLS, (_, favorites) => favorites)
+
+export const $isAddToFavorites = favorites
+  .createStore(false)
+  .on(setIsAddToFavorites, (_, value) => value)
 
 sample({
   clock: addProductToFavorites,

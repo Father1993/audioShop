@@ -1,25 +1,30 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable indent */
 /* eslint-disable react/jsx-indent */
-import { useState } from 'react'
 import { useUnit } from 'effector-react'
+import toast from 'react-hot-toast'
 import { useCartAction } from '@/hooks/useCartAction'
 import { $sizeTableSizes } from '@/context/sizeTable'
 import { $showQuickViewModal } from '@/context/modals'
-import { closeSizeTableByCheck } from '@/lib/utils/common'
+import { closeSizeTableByCheck, isUserAuth } from '@/lib/utils/common'
 import { useLang } from '@/hooks/useLang'
 import AddToCartBtn from '../ProductListItem/AddToCartBtn'
-import styles from '@/styles/size-table/index.module.scss'
 import ProductCountBySize from '../ProductListItem/ProductCountBySize'
+import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
+import {
+  $favorites,
+  $favoritesFormLS,
+  $isAddToFavorites,
+  addProductToFavorites,
+} from '@/context/favorites'
+import { addToFavoriteItemsToLS } from '@/lib/utils/favorites'
+import { useFavoritesAction } from '@/hooks/useFavoritesActions'
+import styles from '@/styles/size-table/index.module.scss'
 
 const SizeTable = () => {
   const { lang, translations } = useLang()
   const showQuickViewModal = useUnit($showQuickViewModal)
-  const [sSize, setSSize] = useState(false)
-  const [mSize, setMSize] = useState(false)
-  const [lSize, setLSize] = useState(false)
-  const [xlSize, setXLSize] = useState(false)
-  const [xxlSize, setXXLSize] = useState(false)
+  const isAddToFavorites = useUnit($isAddToFavorites)
   const {
     selectedSize,
     setSelectedSize,
@@ -28,56 +33,30 @@ const SizeTable = () => {
     addToCartSpinner,
     currentCartItems,
     updateCountSpinner,
+    product,
   } = useCartAction(true)
+  const { addToFavoritesSpinner, setAddToFavoritesSpinner } =
+    useFavoritesAction(product)
   const productSizes = useUnit($sizeTableSizes)
   const isHeaddressType = productSizes.type === 'headdress'
-  const isAnySizeSelected =
-    sSize || lSize || mSize || xlSize || xxlSize || selectedSize
+  const currentFavoriteByAuth = useGoodsByAuth($favorites, $favoritesFormLS)
+  const favoriteItemBySize = currentFavoriteByAuth.find(
+    (item) => item.size === selectedSize && item.productId === product._id
+  )
 
-  const handleSelectSSize = () => {
-    setSelectedSize('s')
-    setSSize(true)
-    setMSize(false)
-    setLSize(false)
-    setXLSize(false)
-    setXXLSize(false)
-  }
+  const handleSelectSSize = () => setSelectedSize('s')
 
-  const handleSelectMSize = () => {
-    setSelectedSize('m')
-    setSSize(false)
-    setMSize(true)
-    setLSize(false)
-    setXLSize(false)
-    setXXLSize(false)
-  }
+  const handleSelectMSize = () => setSelectedSize('m')
 
-  const handleSelectLSize = () => {
-    setSelectedSize('l')
-    setSSize(false)
-    setMSize(false)
-    setLSize(true)
-    setXLSize(false)
-    setXXLSize(false)
-  }
+  const handleSelectLSize = () => setSelectedSize('l')
 
-  const handleSelectXLSize = () => {
-    setSelectedSize('xl')
-    setSSize(false)
-    setMSize(false)
-    setLSize(false)
-    setXLSize(true)
-    setXXLSize(false)
-  }
+  const handleSelectXLSize = () => setSelectedSize('xl')
 
-  const handleSelectXXLSize = () => {
-    setSelectedSize('xxl')
-    setSSize(false)
-    setMSize(false)
-    setLSize(false)
-    setXLSize(false)
-    setXXLSize(true)
-  }
+  const handleSelectXXLSize = () => setSelectedSize('xxl')
+
+  const isSizeSelected = (size: string) => selectedSize === size
+
+  const checkInFavorites = (size: string) => favoriteItemBySize?.size === size
 
   const headdressSizes = [
     {
@@ -85,45 +64,45 @@ const SizeTable = () => {
       headCircumference: '55',
       manufacturerSize: 'S',
       selectHandler: handleSelectSSize,
-      isSelected: sSize,
+      isSelected: isSizeSelected('s'),
       isAvailable: productSizes.sizes.s,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('s'),
     },
     {
       id: 2,
       headCircumference: '56-57',
       manufacturerSize: 'M',
       selectHandler: handleSelectMSize,
-      isSelected: mSize,
+      isSelected: isSizeSelected('m'),
       isAvailable: productSizes.sizes.m,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('m'),
     },
     {
       id: 3,
       headCircumference: '58-59',
       manufacturerSize: 'L',
       selectHandler: handleSelectLSize,
-      isSelected: lSize,
+      isSelected: isSizeSelected('l'),
       isAvailable: productSizes.sizes.l,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('l'),
     },
     {
       id: 4,
       headCircumference: '60-61',
       manufacturerSize: 'XL',
       selectHandler: handleSelectXLSize,
-      isSelected: xlSize,
+      isSelected: isSizeSelected('xl'),
       isAvailable: productSizes.sizes.xl,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('xl'),
     },
     {
       id: 5,
       headCircumference: '62-63',
       manufacturerSize: 'XXL',
       selectHandler: handleSelectXXLSize,
-      isSelected: xxlSize,
+      isSelected: isSizeSelected('xxl'),
       isAvailable: productSizes.sizes.xxl,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('xxl'),
     },
   ]
 
@@ -136,9 +115,9 @@ const SizeTable = () => {
       waist: '58-62',
       hipGirth: '86-90',
       selectHandler: handleSelectSSize,
-      isSelected: sSize,
+      isSelected: isSizeSelected('s'),
       isAvailable: productSizes.sizes.s,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('s'),
     },
     {
       id: 2,
@@ -148,9 +127,9 @@ const SizeTable = () => {
       waist: '62-66',
       hipGirth: '90-94',
       selectHandler: handleSelectMSize,
-      isSelected: mSize,
+      isSelected: isSizeSelected('m'),
       isAvailable: productSizes.sizes.m,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('m'),
     },
     {
       id: 3,
@@ -160,9 +139,9 @@ const SizeTable = () => {
       waist: '66-70',
       hipGirth: '94-98',
       selectHandler: handleSelectLSize,
-      isSelected: lSize,
+      isSelected: isSizeSelected('l'),
       isAvailable: productSizes.sizes.l,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('l'),
     },
     {
       id: 4,
@@ -172,9 +151,9 @@ const SizeTable = () => {
       waist: '70-74',
       hipGirth: '98-102',
       selectHandler: handleSelectXLSize,
-      isSelected: xlSize,
+      isSelected: isSizeSelected('xl'),
       isAvailable: productSizes.sizes.xl,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('xl'),
     },
     {
       id: 5,
@@ -184,9 +163,9 @@ const SizeTable = () => {
       waist: '74-78',
       hipGirth: '102-106',
       selectHandler: handleSelectXXLSize,
-      isSelected: xxlSize,
+      isSelected: isSizeSelected('xxl'),
       isAvailable: productSizes.sizes.xxl,
-      isInFavorites: false,
+      isInFavorites: checkInFavorites('xxl'),
     },
   ]
 
@@ -228,6 +207,31 @@ const SizeTable = () => {
     },
   })
 
+  const handleAddProductToFavorites = () => {
+    if (!isUserAuth()) {
+      addToFavoriteItemsToLS(product, selectedSize)
+      return
+    }
+
+    if (favoriteItemBySize) {
+      toast.success('Добавлено в избранное!')
+      return
+    }
+
+    const auth = JSON.parse(localStorage.getItem('auth') as string)
+
+    const clientId = addToFavoriteItemsToLS(product, selectedSize, false)
+
+    addProductToFavorites({
+      jwt: auth.accessToken,
+      productId: product._id,
+      setSpinner: setAddToFavoritesSpinner,
+      size: selectedSize,
+      category: product.category,
+      clientId,
+    })
+  }
+
   return (
     <div
       className={`${styles.size_table} ${
@@ -268,7 +272,12 @@ const SizeTable = () => {
                       headdressSizesItem
                     ) as React.HTMLAttributes<HTMLTableRowElement>)}
                   >
-                    <td>{headdressSizesItem.headCircumference}</td>
+                    <td>
+                      {headdressSizesItem.isInFavorites && (
+                        <span className={styles.size_table__favorite} />
+                      )}
+                      {headdressSizesItem.headCircumference}
+                    </td>
                     <td>
                       <ProductCountBySize
                         size={headdressSizesItem.manufacturerSize}
@@ -285,7 +294,12 @@ const SizeTable = () => {
                       item
                     ) as React.HTMLAttributes<HTMLTableRowElement>)}
                   >
-                    <td>{item.russianSize}</td>
+                    <td>
+                      {item.isInFavorites && (
+                        <span className={styles.size_table__favorite} />
+                      )}
+                      {item.russianSize}
+                    </td>
                     <td>{item.manufacturerSize}</td>
                     <td>{item.bust}</td>
                     <td>{item.waist}</td>
@@ -303,15 +317,169 @@ const SizeTable = () => {
       </div>
       <AddToCartBtn
         className={styles.size_table__btn}
-        handleAddToCart={addToCart}
-        addToCartSpinner={addToCartSpinner || updateCountSpinner}
-        btnDisabled={
-          !isAnySizeSelected || addToCartSpinner || updateCountSpinner
+        handleAddToCart={
+          isAddToFavorites ? handleAddProductToFavorites : addToCart
         }
-        text={translations[lang].product.to_cart}
+        addToCartSpinner={
+          addToCartSpinner || updateCountSpinner || addToFavoritesSpinner
+        }
+        btnDisabled={
+          !!selectedSize ||
+          addToCartSpinner ||
+          updateCountSpinner ||
+          addToFavoritesSpinner
+        }
+        text={
+          isAddToFavorites
+            ? translations[lang].product.add_to_favorites
+            : translations[lang].product.to_cart
+        }
       />
     </div>
   )
 }
 
 export default SizeTable
+
+/* Custom SIZE-TABLE
+
+const SizeTable = () => {
+  const { lang, translations } = useLang()
+  const showQuickViewModal = useUnit($showQuickViewModal)
+  const {
+    selectedSize,
+    setSelectedSize,
+    handleAddToCart,
+    cartItemBySize,
+    addToCartSpinner,
+    currentCartItems,
+    updateCountSpinner,
+  } = useCartAction(true)
+  const productSizes = useUnit($sizeTableSizes)
+  const isAudioType = productSizes.category === 'audio'
+  const isSubwooferType = productSizes.category === 'subwoofers'
+
+  const isSizeSelected = (size: string) => selectedSize === size
+
+  const audioSizes = [
+    {
+      id: 1,
+      type: '1din',
+      size: '178x50mm',
+      selectHandler: () => setSelectedSize('178x50mm'),
+      isSelected: isSizeSelected('178x50mm'),
+      isAvailable: productSizes.type === '1din',
+    },
+    {
+      id: 2,
+      type: '2din',
+      size: '178x100mm',
+      selectHandler: () => setSelectedSize('178x100mm'),
+      isSelected: isSizeSelected('178x100mm'),
+      isAvailable: productSizes.type === '2din',
+    },
+  ]
+
+  const subwooferSizes = [
+    {
+      id: 1,
+      size: '10 inches',
+      selectHandler: () => setSelectedSize('10 inches'),
+      isSelected: isSizeSelected('10 inches'),
+      isAvailable: true,
+    },
+    {
+      id: 2,
+      size: '12 inches',
+      selectHandler: () => setSelectedSize('12 inches'),
+      isSelected: isSizeSelected('12 inches'),
+      isAvailable: true,
+    },
+    {
+      id: 3,
+      size: '15 inches',
+      selectHandler: () => setSelectedSize('15 inches'),
+      isSelected: isSizeSelected('15 inches'),
+      isAvailable: true,
+    },
+  ]
+
+  const handleCloseSizeTable = () => closeSizeTableByCheck(showQuickViewModal)
+
+  const addToCart = () => handleAddToCart(+(cartItemBySize?.count || 1))
+
+  const trProps = (item: any) => ({
+    onClick: item.selectHandler,
+    style: {
+      backgroundColor: item.isSelected ? '#9466FF' : 'transparent',
+      pointerEvents: item.isAvailable ? 'auto' : 'none',
+      opacity: item.isAvailable ? 1 : 0.5,
+      color: item.isAvailable ? '#fff' : 'rgba(255, 255, 255, .2)',
+    },
+  })
+
+  return (
+    <div className={styles.size_table}>
+      <button
+        className={`btn-reset ${styles.size_table__close}`}
+        onClick={handleCloseSizeTable}
+      />
+      <h2 className={styles.size_table__title}>
+        {translations[lang].size_table.title}
+      </h2>
+      <div className={styles.size_table__inner}>
+        <table className={styles.size_table__table}>
+          <thead>
+            {isAudioType && (
+              <tr>
+                <th>{translations[lang].size_table.type}</th>
+                <th>{translations[lang].size_table.size}</th>
+              </tr>
+            )}
+            {isSubwooferType && (
+              <tr>
+                <th>{translations[lang].size_table.size}</th>
+              </tr>
+            )}
+          </thead>
+          <tbody>
+            {isAudioType &&
+              audioSizes.map((item) => (
+                <tr key={item.id} {...trProps(item)}>
+                  <td>{item.type}</td>
+                  <td>
+                    <ProductCountBySize
+                      size={item.size}
+                      products={currentCartItems}
+                    />
+                    {item.size}
+                  </td>
+                </tr>
+              ))}
+            {isSubwooferType &&
+              subwooferSizes.map((item) => (
+                <tr key={item.id} {...trProps(item)}>
+                  <td>
+                    <ProductCountBySize
+                      size={item.size}
+                      products={currentCartItems}
+                    />
+                    {item.size}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
+      <AddToCartBtn
+        className={styles.size_table__btn}
+        handleAddToCart={addToCart}
+        addToCartSpinner={addToCartSpinner || updateCountSpinner}
+        btnDisabled={!selectedSize || addToCartSpinner || updateCountSpinner}
+        text={translations[lang].product.to_cart}
+      />
+    </div>
+  )
+}
+
+*/

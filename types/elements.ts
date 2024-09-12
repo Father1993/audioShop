@@ -8,6 +8,7 @@ export interface IProductSubtitleProps {
 export interface IProductItemActionsBtnProps {
   text: string
   iconClass: string
+  spinner?: boolean
   callback?: VoidFunction
   withTooltip?: boolean
   marginBottom?: number

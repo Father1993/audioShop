@@ -1,6 +1,8 @@
 /* eslint-disable indent */
 import Link from 'next/link'
 import Image from 'next/image'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IProductListItemProps } from '@/types/modules'
 import { useLang } from '@/hooks/useLang'
 import {
@@ -15,13 +17,13 @@ import ProductAvailable from '@/components/elements/ProductAvailable/ProductAvai
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { showQuickViewModal } from '@/context/modals'
 import { setCurrentProduct } from '@/context/goods'
-import styles from '@/styles/product-list-item/index.module.scss'
-import stylesForAd from '@/styles/ad/index.module.scss'
 import { productsWithoutSizes } from '@/constants/product'
 import { useCartAction } from '@/hooks/useCartAction'
 import { addProductToCartBySizeTable } from '@/lib/utils/cart'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { setIsAddToFavorites } from '@/context/favorites'
+import { useFavoritesAction } from '@/hooks/useFavoritesActions'
+import styles from '@/styles/product-list-item/index.module.scss'
+import stylesForAd from '@/styles/ad/index.module.scss'
 
 const ProductListItem = ({ item, title }: IProductListItemProps) => {
   const isMedia800 = useMediaQuery(800)
@@ -30,6 +32,11 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
   const { addToCartSpinner, setAddToCartSpinner, currentCartByAuth } =
     useCartAction()
   const isProductInCart = isItemInList(currentCartByAuth, item._id)
+  const {
+    addToFavoritesSpinner,
+    isProductInFavorites,
+    handleAddProductToFavorites,
+  } = useFavoritesAction(item)
 
   const handleShowQuickViewModal = () => {
     addOverflowHiddenToBody()
@@ -38,6 +45,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
   }
 
   const addToCart = () => {
+    setIsAddToFavorites(false)
     addProductToCartBySizeTable(item, setAddToCartSpinner, 1)
   }
 
@@ -96,8 +104,10 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
           )}
           <div className={styles.list__item__actions}>
             <ProductItemActionBtn
+              spinner={addToFavoritesSpinner}
               text={translations[lang].product.add_to_favorites}
-              iconClass='actions__btn_favorite'
+              iconClass={`${isProductInFavorites ? 'actions__btn_favorite_checked' : 'actions__btn_favorite'}`}
+              callback={handleAddProductToFavorites}
             />
 
             <ProductItemActionBtn
