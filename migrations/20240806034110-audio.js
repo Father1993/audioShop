@@ -3,6 +3,21 @@ const { faker } = require('@faker-js/faker')
 
 const getRandomArrayValue = (arr) => arr[Math.floor(Math.random() * arr.length)]
 
+const getRandomImages = (imgArr) => {
+  if (imgArr.length < 2) {
+    throw new Error('В массиве должно быть минимум 2 изображения')
+  }
+
+  const shuffled = [...imgArr]
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+
+  return shuffled.slice(0, 2)
+}
+
 const collections = ['premium', 'sport', 'classic', 'luxury', 'budget']
 const audioTypes = ['1din', '2din']
 const features = [
