@@ -25,14 +25,19 @@ import {
   setShouldShowEmpty,
 } from '@/context/cart'
 import { setLang } from '@/context/lang'
-import { addProductsFromLSToFavorites } from '@/context/favorites'
+import {
+  $favorites,
+  $favoritesFormLS,
+  addProductsFromLSToFavorites,
+} from '@/context/favorites'
+import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 
 const Header = () => {
   const isAuth = useUnit($isAuth)
   const loginCheckSpinner = useUnit(loginCheckFx.pending)
   const { lang, translations } = useLang()
   // const user = useUnit($user)
-  // const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
+  const currentFavoriteByAuth = useGoodsByAuth($favorites, $favoritesFormLS)
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()
@@ -114,7 +119,9 @@ const Header = () => {
             <Link
               href='/favorites'
               className='header__links__item__btn header__links__item__btn--favorites'
-            />
+            >
+              {!!currentFavoriteByAuth.length && <span className='not-empty' />}
+            </Link>
           </li>
           <li className='header__links__item'>
             <Link
