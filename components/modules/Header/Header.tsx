@@ -18,7 +18,7 @@ import HeaderProfile from './HeaderProfile'
 import { $isAuth } from '@/context/auth'
 import { loginCheckFx } from '@/api/auth'
 // import { $user } from '@/context/user'
-// import { useCartByAuth } from '@/hooks/useCartByAuth'
+// import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import {
   addProductsFromLSToCart,
   setCartFromLS,
@@ -31,7 +31,7 @@ const Header = () => {
   const loginCheckSpinner = useUnit(loginCheckFx.pending)
   const { lang, translations } = useLang()
   // const user = useUnit($user)
-  // const currentCartByAuth = useCartByAuth()
+  // const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()
