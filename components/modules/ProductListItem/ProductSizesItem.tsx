@@ -7,7 +7,6 @@ const ProductSizesItem = ({
   currentSize,
   selectedSize,
   setSelectedSize,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   currentCartItems,
 }: IProductSizesItemProps) => {
   const handleSelectSize = () => setSelectedSize(currentSize[0])

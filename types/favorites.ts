@@ -5,11 +5,16 @@ export interface IFavoriteItem {
   productId: string
   image: string
   name: string
-  size: string
+  size?: string
   price: string
   type: string
   vendorCode: string
   category: string
   inStock: string
   color?: string
+}
+
+export interface IAddProductsFromLSToFavoriteFx {
+  jwt: string
+  favoriteItems: IFavoriteItem[]
 }

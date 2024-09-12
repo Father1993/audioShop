@@ -40,23 +40,22 @@ const SizeTable = () => {
   const productSizes = useUnit($sizeTableSizes)
   const isHeaddressType = productSizes.type === 'headdress'
   const currentFavoriteByAuth = useGoodsByAuth($favorites, $favoritesFormLS)
-  const favoriteItemBySize = currentFavoriteByAuth.find(
-    (item) => item.size === selectedSize && item.productId === product._id
+  const currentFavoriteItems = currentFavoriteByAuth.filter(
+    (item) => item.productId === product._id
+  )
+  const favoriteItemBySize = currentFavoriteItems.find(
+    (item) => item.size === selectedSize
   )
 
   const handleSelectSSize = () => setSelectedSize('s')
-
   const handleSelectMSize = () => setSelectedSize('m')
-
   const handleSelectLSize = () => setSelectedSize('l')
-
   const handleSelectXLSize = () => setSelectedSize('xl')
-
   const handleSelectXXLSize = () => setSelectedSize('xxl')
 
   const isSizeSelected = (size: string) => selectedSize === size
-
-  const checkInFavorites = (size: string) => favoriteItemBySize?.size === size
+  const checkInFavorites = (size: string) =>
+    currentFavoriteItems.find((item) => item.size === size)
 
   const headdressSizes = [
     {
@@ -316,7 +315,7 @@ const SizeTable = () => {
         </table>
       </div>
       <AddToCartBtn
-        className={styles.size_table__btn}
+        className={`${styles.size_table__btn} ${styles.size_table__btn_favorite}`}
         handleAddToCart={
           isAddToFavorites ? handleAddProductToFavorites : addToCart
         }
@@ -324,7 +323,7 @@ const SizeTable = () => {
           addToCartSpinner || updateCountSpinner || addToFavoritesSpinner
         }
         btnDisabled={
-          !!selectedSize ||
+          !!!selectedSize ||
           addToCartSpinner ||
           updateCountSpinner ||
           addToFavoritesSpinner

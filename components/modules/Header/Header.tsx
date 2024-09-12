@@ -25,6 +25,7 @@ import {
   setShouldShowEmpty,
 } from '@/context/cart'
 import { setLang } from '@/context/lang'
+import { addProductsFromLSToFavorites } from '@/context/favorites'
 
 const Header = () => {
   const isAuth = useUnit($isAuth)
@@ -72,11 +73,21 @@ const Header = () => {
     if (isAuth) {
       const auth = JSON.parse(localStorage.getItem('auth') as string)
       const cartFromLS = JSON.parse(localStorage.getItem('cart') as string)
+      const favoritesFromLS = JSON.parse(
+        localStorage.getItem('favorites') as string
+      )
 
       if (cartFromLS && Array.isArray(cartFromLS)) {
         addProductsFromLSToCart({
           jwt: auth.accessToken,
           cartItems: cartFromLS,
+        })
+      }
+
+      if (favoritesFromLS && Array.isArray(favoritesFromLS)) {
+        addProductsFromLSToFavorites({
+          jwt: auth.accessToken,
+          favoriteItems: favoritesFromLS,
         })
       }
     }

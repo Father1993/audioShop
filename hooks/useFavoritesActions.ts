@@ -8,8 +8,7 @@ import {
   addProductToFavorites,
   setIsAddToFavorites,
 } from '@/context/favorites'
-import { productWithoutSizes } from '@/constants/products'
-import { handleShowSizeTable, isUserAuth } from '@/lib/utils/common'
+import { isUserAuth } from '@/lib/utils/common'
 import { addToFavoriteItemsToLS } from '@/lib/utils/favorites'
 
 export const useFavoritesAction = (product: IProduct) => {
@@ -21,33 +20,28 @@ export const useFavoritesAction = (product: IProduct) => {
   )
 
   const handleAddProductToFavorites = () => {
-    if (productWithoutSizes.includes(product.type)) {
-      if (existingItem) {
-        toast.success('Добавлено в избранное!')
-        return
-      }
-
-      if (!isUserAuth()) {
-        addToFavoriteItemsToLS(product, '')
-        return
-      }
-
-      const auth = JSON.parse(localStorage.getItem('auth') as string)
-      const clientId = addToFavoriteItemsToLS(product, '', false)
-
-      addProductToFavorites({
-        jwt: auth.accessToken,
-        productId: product._id,
-        setSpinner: setAddToFavoritesSpinner,
-        size: '',
-        category: product.category,
-        clientId,
-      })
+    if (existingItem) {
+      toast.success('Добавлено в избранное!')
       return
     }
 
+    if (!isUserAuth()) {
+      addToFavoriteItemsToLS(product, '')
+      return
+    }
+
+    const auth = JSON.parse(localStorage.getItem('auth') as string)
+    const clientId = addToFavoriteItemsToLS(product, '', false)
+
+    addProductToFavorites({
+      jwt: auth.accessToken,
+      productId: product._id,
+      setSpinner: setAddToFavoritesSpinner,
+      category: product.category,
+      clientId,
+    })
+
     setIsAddToFavorites(true)
-    handleShowSizeTable(product)
   }
 
   return {

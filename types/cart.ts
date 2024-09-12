@@ -19,7 +19,7 @@ export interface ICartItem {
 export interface IAddProductToCartFx {
   productId: string
   category: string
-  size: string
+  size?: string
   count: number
   jwt: string
   clientId: string
