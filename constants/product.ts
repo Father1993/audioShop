@@ -1,6 +1,6 @@
 export const productsWithoutSizes = [
-  'amplifiers',
-  'pen',
+  'audio',
+  'subwoofers',
   'notebook',
   'promotional-souvenirs',
   'business-souvenirs',

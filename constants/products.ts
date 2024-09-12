@@ -6,28 +6,16 @@ export const productWithoutSizes = [
   'business-souvenirs',
 ]
 
-export const productTypes = [
-  'long-sleeves',
-  'chips',
-  'business-souvenirs',
-  'headdress',
-  'hoodie',
-  'notebook',
-  'pen',
-  'outwear',
-  'promotional-souvenirs',
-  't-shirts',
-  'adapters',
-]
+export const productTypes = ['1din', '2din', 'passive', 'active']
 
-export const productCategories = ['cloth', 'accessories', 'office', 'souvenirs']
-export const allowedColors = ['purpure', 'yellow', 'orange', 'black', 'white']
-export const allowedSizes = ['s', '1', 'm', 'x1', 'xxl']
+export const productCategories = ['audio', 'subwoofers']
+export const allowedColors = ['black', 'silver', 'gray', 'blue']
+export const allowedSizes = ['s', 'l', 'm', 'x1', 'xxl']
 export const allowedCollectionsCategories = ['cloth', 'accessories']
 export const allowedCollections = [
-  'street',
-  'black',
-  'casual',
-  'orange',
-  'line',
+  'premium',
+  'sport',
+  'classic',
+  'luxury',
+  'budget',
 ]
