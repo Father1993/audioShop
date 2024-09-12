@@ -19,15 +19,15 @@ const sizes = {
   '2din': '178x100mm',
 }
 
-const images = [
-  '/img/audio/cloth-amplifiers1.png',
-  '/img/audio/cloth-headunits-1.png',
-  '/img/audio/cloth-headunits-2.png',
-  '/img/audio/cloth-speakers-1.png',
-  '/img/audio/cloth-speakers-2.png',
-  '/img/audio/cloth-subwoofers-1.png',
-  '/img/audio/cloth-subwoofers-2.png',
-]
+const images = {
+  '1din': ['/img/audio/audio-1din.png', '/img/audio/audio-1din_2.png'],
+  '2din': [
+    '/img/audio/audio-2din.png',
+    '/img/audio/audio-2din_2.png',
+    '/img/audio/audio-2din_3.png',
+    '/img/audio/audio-2din_4.png',
+  ],
+}
 
 module.exports = {
   async up(db) {
@@ -66,7 +66,7 @@ module.exports = {
           name: faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
           characteristics,
-          images: getRandomArrayValue(images),
+          images: getRandomImages(images[type]),
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),
