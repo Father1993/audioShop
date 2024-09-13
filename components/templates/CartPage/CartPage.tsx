@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-indent */
+/* eslint-disable prettier/prettier */
 'use client'
 import { useState } from 'react'
 import { useUnit } from 'effector-react'
@@ -16,8 +18,10 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PromotionalCode from '@/components/modules/CartPage/PromotionalCode'
 import EmptyPageContent from '@/components/modules/EmptyPageContent/EmptyPageContent'
 import { $cart, $cartFromLs, $shouldShowEmpty } from '@/context/cart'
-import styles from '@/styles/cart-page/index.module.scss'
+import { loginCheckFx } from '@/api/auth'
+import { isUserAuth } from '@/lib/utils/common'
 import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
+import styles from '@/styles/cart-page/index.module.scss'
 
 const CartPage = () => {
   const cartSpinner = useUnit(getCartItemsFx.pending)
@@ -28,6 +32,7 @@ const CartPage = () => {
   const [isCorrectPromotionalCode, setIsCorrectPromotionalCode] =
     useState(false)
   const shouldShowEmpty = useUnit($shouldShowEmpty)
+  const loginCheckSpinner = useUnit(loginCheckFx.pending)
 
   return (
     <main>
@@ -45,7 +50,9 @@ const CartPage = () => {
             />
             <div className={styles.cart__inner}>
               <div className={styles.cart__left}>
-                {cartSpinner && (
+                {(isUserAuth()
+                  ? cartSpinner || loginCheckSpinner
+                  : cartSpinner) && (
                   <motion.ul
                     {...basePropsForMotion}
                     className={cartSkeletonStyles.skeleton}

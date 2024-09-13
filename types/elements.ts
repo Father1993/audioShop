@@ -28,3 +28,11 @@ export interface IHeadingWithCountProps {
   title: string
   spinner?: boolean
 }
+
+export interface IAddToCartIconProps {
+  isProductInCart: boolean
+  addedClassName: string
+  className: string
+  addToCartSpinner: boolean
+  callback: VoidFunction
+}

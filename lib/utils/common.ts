@@ -11,7 +11,6 @@ import { setSizeTableSizes } from '@/context/sizeTable'
 import { loginCheck } from '@/context/user'
 import { ICartItem } from '@/types/cart'
 import { IProduct } from '@/types/common'
-import { setShouldShowEmpty } from '@/context/cart'
 
 export const removeOverflowHiddenFromBody = () => {
   const body = document.querySelector('body') as HTMLBodyElement
@@ -144,6 +143,7 @@ export const deleteProductFromLS = <T>(
   id: string,
   key: string,
   event: EventCallable<T>,
+  setShouldShowEmpty: (arg0: boolean) => void,
   message: string,
   withToast = true
 ) => {
