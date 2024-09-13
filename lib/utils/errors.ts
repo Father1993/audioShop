@@ -22,6 +22,15 @@ import {
   IAddProductToCartFx,
   IDeleteCartItemsFx,
 } from '@/types/cart'
+import {
+  IAddProductsFromLSToComparisonFx,
+  IAddProductToComparisonFx,
+} from '@/types/comparison'
+import {
+  addProductsFromLSToComparisonFx,
+  addProductToComparisonFx,
+  getComparisonItemsFx,
+} from '@/context/comparison'
 
 export const handleJWTError = async (
   errorName: string,
@@ -41,9 +50,24 @@ export const handleJWTError = async (
           return getCartItemsFx({
             jwt: newTokens.accessToken,
           })
+        case 'addProductToComparisonFx':
+          return addProductToComparisonFx({
+            ...(payload as IAddProductToComparisonFx),
+            jwt: newTokens.accessToken,
+          })
         case 'addProductToCartFx':
           return addProductToCartFx({
             ...(payload as IAddProductToCartFx),
+            jwt: newTokens.accessToken,
+          })
+        case 'getComparisonItemsFx':
+          return getComparisonItemsFx({
+            jwt: newTokens.accessToken,
+          })
+
+        case 'addProductsFromLSToComparisonFx':
+          return addProductsFromLSToComparisonFx({
+            ...(payload as IAddProductsFromLSToComparisonFx),
             jwt: newTokens.accessToken,
           })
         case 'addProductsFromLSToCartFx':
