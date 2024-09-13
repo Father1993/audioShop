@@ -27,3 +27,13 @@ export interface IAddProductsFromLSToComparisonFx {
   jwt: string
   comparisonItems: IComparisonItem[]
 }
+
+export interface IComparisonLinksListProps {
+  links: {
+    href: string
+    title: string
+    itemsCount: number
+    isActive: boolean
+  }[]
+  className?: string
+}
