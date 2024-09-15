@@ -43,7 +43,7 @@ const ProductCounter = ({
 
   const updateCountWithRequest = (count: number) => {
     updateCartItemCountInLS(cartItem.clientId, count)
-    if (!isUserAuth) {
+    if (!isUserAuth()) {
       return
     }
 
