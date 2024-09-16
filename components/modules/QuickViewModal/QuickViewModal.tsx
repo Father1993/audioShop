@@ -16,6 +16,8 @@ import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/Pro
 import stylesForProduct from '@/styles/product-list-item/index.module.scss'
 import styles from '@/styles/quick-view-modal/index.module.scss'
 import { ICartItem } from '@/types/cart'
+import { useComparisonAction } from '@/hooks/useComparisonAction'
+import { useFavoritesAction } from '@/hooks/useFavoritesActions'
 
 const QuickViewModal = () => {
   const { lang, translations } = useLang()
@@ -33,6 +35,17 @@ const QuickViewModal = () => {
     count,
   } = useCartAction()
   const images = useProductImages(product)
+  const {
+    handleAddToComparison,
+    isProductInComparison,
+    addToComparisonSpinner,
+  } = useComparisonAction(product)
+
+  const {
+    handleAddProductToFavorites,
+    addToFavoritesSpinner,
+    isProductInFavorites,
+  } = useFavoritesAction(product)
 
   const handleCloseModal = () => {
     removeOverflowHiddenFromBody()
@@ -49,15 +62,31 @@ const QuickViewModal = () => {
       />
       <div className={styles.modal__actions}>
         <ProductItemActionBtn
+          spinner={addToFavoritesSpinner}
           text={translations[lang].product.add_to_favorites}
-          iconClass='actions__btn_favorite'
+          iconClass={`${
+            addToFavoritesSpinner
+              ? 'actions__btn_spinner'
+              : isProductInFavorites
+                ? 'actions__btn_favorite_checked'
+                : 'actions__btn_favorite'
+          }`}
           withTooltip={false}
+          callback={handleAddProductToFavorites}
         />
 
         <ProductItemActionBtn
+          spinner={addToComparisonSpinner}
           text={translations[lang].product.add_to_comparison}
-          iconClass='actions__btn_comparison'
+          iconClass={`${
+            addToComparisonSpinner
+              ? 'actions__btn_spinner'
+              : isProductInComparison
+                ? 'actions__btn_comparison_checked'
+                : 'actions__btn_comparison'
+          }`}
           withTooltip={false}
+          callback={handleAddToComparison}
         />
       </div>
       <div className={styles.modal__left}>

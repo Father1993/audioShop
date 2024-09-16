@@ -1,5 +1,4 @@
 /* eslint-disable indent */
-import { loginCheckFx, refreshTokenFx } from '@/api/auth'
 import {
   addProductToCartFx,
   deleteCartItemFx,
@@ -25,12 +24,16 @@ import {
 import {
   IAddProductsFromLSToComparisonFx,
   IAddProductToComparisonFx,
+  IDeleteComparisonItemsFx,
 } from '@/types/comparison'
 import {
   addProductsFromLSToComparisonFx,
   addProductToComparisonFx,
+  deleteComparisonItemFx,
   getComparisonItemsFx,
 } from '@/context/comparison'
+import { refreshTokenFx } from '@/context/auth'
+import { loginCheckFx } from '@/context/user'
 
 export const handleJWTError = async (
   errorName: string,
@@ -73,6 +76,11 @@ export const handleJWTError = async (
         case 'addProductsFromLSToCartFx':
           return addProductsFromLSToCartFx({
             ...(payload as IAddProductsFromLSToCartFx),
+            jwt: newTokens.accessToken,
+          })
+        case 'deleteComparisonItemFx':
+          return deleteComparisonItemFx({
+            ...(payload as IDeleteComparisonItemsFx),
             jwt: newTokens.accessToken,
           })
         case 'deleteCartItemFx':

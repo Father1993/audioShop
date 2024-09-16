@@ -15,12 +15,12 @@ import {
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import { useLang } from '@/hooks/useLang'
-import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
-import styles from '@/styles/favorites/index.module.scss'
 import { basePropsForMotion } from '@/constants/motion'
 import FavoritesList from '@/components/modules/FavoritesPage/FavoritesList'
-import { loginCheckFx } from '@/api/auth'
 import { isUserAuth } from '@/lib/utils/common'
+import { loginCheckFx } from '@/context/user'
+import styles from '@/styles/favorites/index.module.scss'
+import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
 
 const FavoritesPage = () => {
   const { lang, translations } = useLang()

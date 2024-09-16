@@ -5,3 +5,13 @@ export const productsWithoutSizes = [
   'promotional-souvenirs',
   'business-souvenirs',
 ]
+
+export const productTypes = [
+  '1din',
+  '2din',
+  'passive',
+  'active',
+  'video-recorder',
+  'charger',
+  'fastening',
+]

@@ -1,28 +1,39 @@
+/* eslint-disable indent */
 /* eslint-disable prettier/prettier */
+import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { IComparisonItem } from '@/types/comparison'
 import { basePropsForMotion } from '@/constants/motion'
 import AddToCartIcon from '@/components/elements/AddToCartIcon/AddToCartIcon'
-import { isUserAuth } from '@/lib/utils/common'
-import { productsWithoutSizes } from '@/constants/product'
+import DeleteItemBtn from '@/components/elements/DeleteItemBtn/DeleteItemBtn'
+import { useProductDelete } from '@/hooks/useProductDelete'
+import {
+  deleteProductFromComparison,
+  setComparisonFromLS,
+  setShouldShowEmptyComparison,
+} from '@/context/comparison'
+import { deleteProductFromLS, isUserAuth } from '@/lib/utils/common'
+import { productWithoutSizes } from '@/constants/products'
 import { addCartItemToLS } from '@/lib/utils/cart'
 import { IProduct } from '@/types/common'
-import { useMemo, useState } from 'react'
 import { $cart, $cartFromLs, addProductToCart } from '@/context/cart'
 import { loadOneProduct } from '@/context/goods'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import styles from '@/styles/comparison/index.module.scss'
-import DeleteItemBtn from '@/components/elements/DeleteItemBtn/DeleteItemBtn'
 
 const ComparisonItem = ({ item }: { item: IComparisonItem }) => {
   const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
   const [addToCartSpinner, setAddToCartSpinner] = useState(false)
   const [loadProductSpinner, setLoadProductSpinner] = useState(false)
+  const { handleDelete, deleteSpinner } = useProductDelete(
+    item._id,
+    deleteProductFromComparison
+  )
 
   const isProductInCart = useMemo(
     () =>
-      productsWithoutSizes.includes(item.characteristics.type)
+      productWithoutSizes.includes(item.characteristics.type)
         ? currentCartByAuth.find(
             (cartItem) => cartItem.productId === item.productId
           )
@@ -38,7 +49,8 @@ const ComparisonItem = ({ item }: { item: IComparisonItem }) => {
   )
 
   const addToCart = () => {
-    if (productsWithoutSizes.includes(item.characteristics.type)) {
+    // Проверка на тип без размера
+    if (productWithoutSizes.includes(item.characteristics.type)) {
       const product = {
         ...item,
         _id: item.productId,
@@ -73,20 +85,42 @@ const ComparisonItem = ({ item }: { item: IComparisonItem }) => {
     })
   }
 
+  const handleDeleteComparisonItem = () => {
+    if (!isUserAuth()) {
+      deleteProductFromLS(
+        item.clientId,
+        'comparison',
+        setComparisonFromLS,
+        setShouldShowEmptyComparison,
+        'Удалено из сравнения!'
+      )
+      return
+    }
+    handleDelete()
+    deleteProductFromLS(
+      item.clientId,
+      'comparison',
+      setComparisonFromLS,
+      setShouldShowEmptyComparison,
+      '',
+      false
+    )
+  }
+
   return (
     <motion.li
       className={styles.comparison__list__item}
       {...basePropsForMotion}
     >
       <DeleteItemBtn
-        btnDisabled={false}
-        callback={() => ''}
+        btnDisabled={deleteSpinner}
+        callback={handleDeleteComparisonItem}
         className={styles.comparison__list__item__delete}
       />
       <AddToCartIcon
-        isProductInCart={false}
-        addToCartSpinner={false}
-        callback={() => ''}
+        isProductInCart={!!isProductInCart}
+        addToCartSpinner={addToCartSpinner || loadProductSpinner}
+        callback={addToCart}
         className={styles.comparison__list__item__cart}
         addedClassName={styles.comparison__list__item__cart_added}
       />
