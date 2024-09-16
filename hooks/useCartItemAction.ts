@@ -36,7 +36,7 @@ export const useCartItemAction = (cartItem: ICartItem) => {
   }
 
   const handleDeleteCartItem = () => {
-    if (!isUserAuth) {
+    if (!isUserAuth()) {
       deleteProductFromLS(
         cartItem.clientId,
         'cart',

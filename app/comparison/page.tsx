@@ -1,3 +1,5 @@
+import ComparisonPage from '@/components/templates/ComparisonPage/ComparisonPage'
+
 export default function Comparison() {
-  return <h1>Comparison</h1>
+  return <ComparisonPage />
 }

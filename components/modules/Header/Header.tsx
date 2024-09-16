@@ -16,7 +16,7 @@ import { openMenu, openSearchModal } from '@/context/modals'
 import CartPopup from './CartPopup/CartPopup'
 import HeaderProfile from './HeaderProfile'
 import { $isAuth } from '@/context/auth'
-import { loginCheckFx } from '@/api/auth'
+
 // import { $user } from '@/context/user'
 // import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import {
@@ -34,10 +34,13 @@ import {
 } from '@/context/favorites'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import {
+  $comparison,
+  $comparisonFromLs,
   addProductsFromLSToComparison,
   setComparisonFromLS,
   setShouldShowEmptyComparison,
 } from '@/context/comparison'
+import { loginCheckFx } from '@/context/user'
 
 const Header = () => {
   const isAuth = useUnit($isAuth)
@@ -45,6 +48,7 @@ const Header = () => {
   const { lang, translations } = useLang()
   // const user = useUnit($user)
   const currentFavoriteByAuth = useGoodsByAuth($favorites, $favoritesFormLS)
+  const currentComparisonByAuth = useGoodsByAuth($comparison, $comparisonFromLs)
 
   const handleOpenMenu = () => {
     addOverflowHiddenToBody()
@@ -175,7 +179,11 @@ const Header = () => {
             <Link
               href='/comparison'
               className='header__links__item__btn header__links__item__btn--compare'
-            />
+            >
+              {!!currentComparisonByAuth.length && (
+                <span className='not-empty' />
+              )}
+            </Link>
           </li>
           <li className='header__links__item'>
             <CartPopup />

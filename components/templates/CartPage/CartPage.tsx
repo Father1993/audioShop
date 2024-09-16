@@ -18,8 +18,9 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PromotionalCode from '@/components/modules/CartPage/PromotionalCode'
 import EmptyPageContent from '@/components/modules/EmptyPageContent/EmptyPageContent'
 import { $cart, $cartFromLs, $shouldShowEmpty } from '@/context/cart'
-import { loginCheckFx } from '@/api/auth'
+
 import { isUserAuth } from '@/lib/utils/common'
+import { loginCheckFx } from '@/context/user'
 import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
 import styles from '@/styles/cart-page/index.module.scss'
 

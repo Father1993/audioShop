@@ -1,4 +1,4 @@
-import { ISizes } from './common'
+import { IBaseEffectProps, ISizes } from './common'
 
 export interface IAddProductToComparisonFx {
   productId: string
@@ -27,3 +27,15 @@ export interface IAddProductsFromLSToComparisonFx {
   jwt: string
   comparisonItems: IComparisonItem[]
 }
+
+export interface IComparisonLinksListProps {
+  links: {
+    href: string
+    title: string
+    itemsCount: number
+    isActive: boolean
+  }[]
+  className?: string
+}
+
+export type IDeleteComparisonItemsFx = IBaseEffectProps
