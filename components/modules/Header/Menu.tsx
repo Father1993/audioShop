@@ -53,7 +53,7 @@ const Menu = () => {
     {
       id: 1,
       text: translations[lang].comparison['audio_player'],
-      href: '/catalog/cloth?offset=0&type=audio_player',
+      href: '/catalog/audio?offset=0&type=audio_player',
     },
     {
       id: 2,
@@ -76,17 +76,17 @@ const Menu = () => {
     {
       id: 1,
       text: translations[lang].comparison.chips,
-      href: '/catalog/accessories?offset=0&type=chips',
+      href: '/catalog/subwoofers?offset=0&type=chips',
     },
     {
       id: 2,
       text: translations[lang].comparison.headdress,
-      href: '/catalog/accessories?offset=0&type=headdress',
+      href: '/catalog/subwoofers?offset=0&type=headdress',
     },
     {
       id: 3,
       text: translations[lang].comparison.adapters,
-      href: '/catalog/accessories?offset=0&type=adapters',
+      href: '/catalog/subwoofers?offset=0&type=adapters',
     },
   ]
 
@@ -94,12 +94,12 @@ const Menu = () => {
     {
       id: 1,
       text: translations[lang].comparison['business-souvenirs'],
-      href: '/catalog/souvenirs?offset=0&type=business-souvenirs',
+      href: '/catalog/accessories?offset=0&type=business-souvenirs',
     },
     {
       id: 2,
       text: translations[lang].comparison['promotional-souvenirs'],
-      href: '/catalog/souvenirs?offset=0&type=promotional-souvenirs',
+      href: '/catalog/accessories?offset=0&type=promotional-souvenirs',
     },
   ]
 
@@ -107,12 +107,12 @@ const Menu = () => {
     {
       id: 1,
       text: translations[lang].comparison.notebook,
-      href: '/catalog/office?offset=0&type=notebook',
+      href: '/catalog/speakers?offset=0&type=notebook',
     },
     {
       id: 2,
       text: translations[lang].comparison.pen,
-      href: '/catalog/office?offset=0&type=pen',
+      href: '/catalog/speakers?offset=0&type=pen',
     },
   ]
 

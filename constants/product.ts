@@ -15,3 +15,10 @@ export const productTypes = [
   'charger',
   'fastening',
 ]
+
+export const productCategories = [
+  'audio',
+  'subwoofers',
+  'accessories',
+  'speakers',
+]

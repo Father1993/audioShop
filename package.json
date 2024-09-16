@@ -34,6 +34,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",
     "react-hot-toast": "^2.4.1",
+    "react-paginate": "^8.2.0",
     "sass": "^1.77.8",
     "sharp": "^0.33.5",
     "slick-carousel": "^1.8.1",
