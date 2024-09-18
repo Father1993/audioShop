@@ -14,11 +14,7 @@ const images = {
     '/img/speakers/speaker-coax-1.png',
     '/img/speakers/speaker-coax-2.png',
   ],
-  fullRange: [
-    '/img/speakers/speaker.png',
-    '/img/speakers/speaker-2.png',
-    '/img/speakers/speaker-oval.png',
-  ],
+  fullRange: ['/img/speakers/speaker.png', '/img/speakers/speaker-2.png'],
 }
 
 const speakersModel = ['Model A', 'Model B', 'Model C', 'Model D', 'Model E']

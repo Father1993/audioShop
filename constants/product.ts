@@ -14,6 +14,9 @@ export const productTypes = [
   'video-recorder',
   'charger',
   'fastening',
+  'coaxial',
+  'component',
+  'fullRange',
 ]
 
 export const productCategories = [
