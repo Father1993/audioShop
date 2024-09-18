@@ -58,8 +58,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
 
   return (
     <>
-      {item.characteristics.collection == 'premium' &&
-      item.type === 'speakers' ? (
+      {item.characteristics.collection == 'premium' && item.type === '1din' ? (
         <li className={styles.list__item_ad}>
           <Link
             href={`/catalog/${item.category}/${item._id}`}
@@ -77,7 +76,8 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
                 src={item.images[0]}
                 alt={item.name}
                 width={224}
-                height={275}
+                height={0}
+                style={{ width: '100%', height: 'auto' }}
               />
             </div>
             <p className={styles.list__item_ad__title}>
