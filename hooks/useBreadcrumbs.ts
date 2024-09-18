@@ -1,22 +1,43 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { useCrumbText } from './useCrumbText'
 import { usePageTitle } from './usePageTitle'
-//import { useLang } from './useLang'
+import { useLang } from './useLang'
 
 export const useBreadcrumbs = (page: string) => {
-  //const { lang, translations } = useLang()
+  const [dynamicTitle, setDynamicTitle] = useState('')
+  const breadcrumbs = document.querySelector('.breadcrumbs') as HTMLUListElement
+  const { lang, translations } = useLang()
+  const pathname = usePathname()
   const { crumbText } = useCrumbText(page)
   const getDefaultTextGenerator = useCallback(() => crumbText, [crumbText])
   const getTextGenerator = useCallback((param: string) => ({})[param], [])
-  usePageTitle(page)
+  usePageTitle(page, dynamicTitle)
 
   useEffect(() => {
     const lastCrumb = document.querySelector('.last-crumb') as HTMLElement
 
     if (lastCrumb) {
-      lastCrumb.textContent = crumbText
+      const productTypePathname = pathname
+        .split(`/${page}`)[1]
+        ?.split('/')[1]
+        ?.split('?')[0]
+
+      if (!productTypePathname) {
+        setDynamicTitle('')
+        lastCrumb.textContent = crumbText
+        return
+      }
+
+      const text = (
+        translations[lang][
+          page === 'comparison' ? 'comparison' : 'breadcrumbs'
+        ] as { [index: string]: string }
+      )[productTypePathname]
+      setDynamicTitle(text)
+      lastCrumb.textContent = text
     }
-  }, [crumbText])
+  }, [breadcrumbs, crumbText, lang, pathname, translations, page])
 
   return { getDefaultTextGenerator, getTextGenerator }
 }

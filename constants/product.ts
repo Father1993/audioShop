@@ -1,8 +1,8 @@
 export const productsWithoutSizes = [
   'audio',
   'subwoofers',
-  'notebook',
-  'promotional-souvenirs',
+  'accessories',
+  'speakers',
   'business-souvenirs',
 ]
 
@@ -14,4 +14,11 @@ export const productTypes = [
   'video-recorder',
   'charger',
   'fastening',
+]
+
+export const productCategories = [
+  'audio',
+  'subwoofers',
+  'accessories',
+  'speakers',
 ]

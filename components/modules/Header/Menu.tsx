@@ -52,67 +52,62 @@ const Menu = () => {
   const clothLinks = [
     {
       id: 1,
-      text: translations[lang].comparison['audio_player'],
-      href: '/catalog/cloth?offset=0&type=audio_player',
+      text: translations[lang].comparison['audio_player'] + ` 1-din (50мм)`,
+      href: '/catalog/audio?offset=0&type=1-din',
     },
     {
       id: 2,
-      text: translations[lang].comparison['long-sleeves'],
-      href: '/catalog/cloth?offset=0&type=long-sleeves',
-    },
-    {
-      id: 3,
-      text: translations[lang].comparison.hoodie,
-      href: '/catalog/cloth?offset=0&type=hoodie',
-    },
-    {
-      id: 4,
-      text: translations[lang].comparison.outerwear,
-      href: '/catalog/cloth?offset=0&type=outerwear',
+      text: translations[lang].comparison['audio_player'] + ` 2-din (178мм)`,
+      href: '/catalog/audio?offset=0&type=2-din',
     },
   ]
 
   const accessoriesLinks = [
     {
       id: 1,
-      text: translations[lang].comparison.chips,
-      href: '/catalog/accessories?offset=0&type=chips',
+      text: translations[lang].main_menu.active,
+      href: '/catalog/subwoofers?offset=0&type=active',
     },
     {
       id: 2,
-      text: translations[lang].comparison.headdress,
-      href: '/catalog/accessories?offset=0&type=headdress',
-    },
-    {
-      id: 3,
-      text: translations[lang].comparison.adapters,
-      href: '/catalog/accessories?offset=0&type=adapters',
+      text: translations[lang].main_menu.passive,
+      href: '/catalog/subwoofers?offset=0&type=passive',
     },
   ]
 
   const souvenirsLinks = [
     {
       id: 1,
-      text: translations[lang].comparison['business-souvenirs'],
-      href: '/catalog/souvenirs?offset=0&type=business-souvenirs',
+      text: translations[lang].main_menu.component,
+      href: '/catalog/speakers?offset=0&type=component',
     },
     {
       id: 2,
-      text: translations[lang].comparison['promotional-souvenirs'],
-      href: '/catalog/souvenirs?offset=0&type=promotional-souvenirs',
+      text: translations[lang].main_menu.coaxial,
+      href: '/catalog/speakers?offset=0&type=coaxial',
+    },
+    {
+      id: 3,
+      text: translations[lang].main_menu.fullRange,
+      href: '/catalog/speakers?offset=0&type=fullRange',
     },
   ]
 
   const officeLinks = [
     {
       id: 1,
-      text: translations[lang].comparison.notebook,
-      href: '/catalog/office?offset=0&type=notebook',
+      text: translations[lang].comparison.videoRecorder,
+      href: '/catalog/accessories?offset=0&type=video-recorder',
     },
     {
       id: 2,
-      text: translations[lang].comparison.pen,
-      href: '/catalog/office?offset=0&type=pen',
+      text: translations[lang].main_menu.charger,
+      href: '/catalog/accessories?offset=0&type=charger',
+    },
+    {
+      id: 3,
+      text: translations[lang].main_menu.fastening,
+      href: '/catalog/accessories?offset=0&type=fastening',
     },
   ]
 
@@ -165,7 +160,7 @@ const Menu = () => {
                   >
                     <li className='nav-menu__accordion__item'>
                       <Accordion
-                        title={translations[lang].main_menu.cloth}
+                        title={translations[lang].main_menu.audio}
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className='list-reset nav-menu__accordion__item__list'>
@@ -181,7 +176,7 @@ const Menu = () => {
                     </li>
                     <li className='nav-menu__accordion__item'>
                       <Accordion
-                        title={translations[lang].main_menu.accessories}
+                        title={translations[lang].main_menu.subwoofers}
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className='list-reset nav-menu__accordion__item__list'>
@@ -197,7 +192,7 @@ const Menu = () => {
                     </li>
                     <li className='nav-menu__accordion__item'>
                       <Accordion
-                        title={translations[lang].main_menu.souvenirs}
+                        title={translations[lang].main_menu.speakers}
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className='list-reset nav-menu__accordion__item__list'>
@@ -213,7 +208,7 @@ const Menu = () => {
                     </li>
                     <li className='nav-menu__accordion__item'>
                       <Accordion
-                        title={translations[lang].main_menu.office}
+                        title={translations[lang].main_menu.accessories}
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className='list-reset nav-menu__accordion__item__list'>

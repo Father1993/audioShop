@@ -1,11 +1,8 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { usePathname } from 'next/navigation'
 import { useUnit } from 'effector-react'
+import { usePathname } from 'next/navigation'
 import { useLang } from '@/hooks/useLang'
-import { usePageTitle } from '@/hooks/usePageTitle'
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
-import { useCrumbText } from '@/hooks/useCrumbText'
 import Breadcrumbs from '../modules/Breadcrumbs/Breadcrumbs'
 import HeadingWithCount from '../elements/HeadingWithCount/HeadingWithCount'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
@@ -26,13 +23,10 @@ import skeletonListsStyles from '@/styles/comparison-list-skeleton/index.module.
 import comparisonSkeleton from '@/styles/comparison-skeleton/index.module.scss'
 
 const ComparisonLayout = ({ children }: { children: React.ReactNode }) => {
-  const [dynamicTitle, setDynamicTitle] = useState('')
-  const { crumbText } = useCrumbText('comparison')
+  const { lang, translations } = useLang()
   const pathname = usePathname()
   const { getDefaultTextGenerator, getTextGenerator } =
     useBreadcrumbs('comparison')
-  const breadcrumbs = document.querySelector('.breadcrumbs') as HTMLUListElement
-  const { lang, translations } = useLang()
   const currentComparisonByAuth = useGoodsByAuth($comparison, $comparisonFromLs)
   const { availableProductLinks, linksSpinner } = useComparisonLinks()
   const shouldShowEmptyComparison = useUnit($shouldShowEmptyComparison)
@@ -40,28 +34,6 @@ const ComparisonLayout = ({ children }: { children: React.ReactNode }) => {
   const mainSpinner = isUserAuth()
     ? linksSpinner || loginCheckSpinner
     : linksSpinner
-
-  usePageTitle('comparison', dynamicTitle)
-
-  useEffect(() => {
-    const lastCrumb = document.querySelector('.last-crumb') as HTMLElement
-
-    if (lastCrumb) {
-      const productTypePathname = pathname.split('/comparison/')[1]
-
-      if (!productTypePathname) {
-        setDynamicTitle('')
-        lastCrumb.textContent = crumbText
-        return
-      }
-
-      const text = (
-        translations[lang].comparison as { [index: string]: string }
-      )[productTypePathname]
-      setDynamicTitle(text)
-      lastCrumb.textContent = text
-    }
-  }, [breadcrumbs, crumbText, lang, pathname, translations])
 
   return (
     <main>
@@ -83,7 +55,7 @@ const ComparisonLayout = ({ children }: { children: React.ReactNode }) => {
               ) : (
                 <ComparisonLinksList
                   links={availableProductLinks}
-                  className={styles.comparison__list}
+                  className={styles.comparison_links}
                 />
               ))}
             <div>

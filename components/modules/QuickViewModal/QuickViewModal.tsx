@@ -13,11 +13,12 @@ import ProductSizesItem from '../ProductListItem/ProductSizesItem'
 import ProductCounter from '../ProductListItem/ProductCounter'
 import AddToCartBtn from '../ProductListItem/AddToCartBtn'
 import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
-import stylesForProduct from '@/styles/product-list-item/index.module.scss'
-import styles from '@/styles/quick-view-modal/index.module.scss'
 import { ICartItem } from '@/types/cart'
 import { useComparisonAction } from '@/hooks/useComparisonAction'
 import { useFavoritesAction } from '@/hooks/useFavoritesActions'
+import { setIsAddToFavorites } from '@/context/favorites'
+import stylesForProduct from '@/styles/product-list-item/index.module.scss'
+import styles from '@/styles/quick-view-modal/index.module.scss'
 
 const QuickViewModal = () => {
   const { lang, translations } = useLang()
@@ -52,7 +53,10 @@ const QuickViewModal = () => {
     closeQuickViewModal()
   }
 
-  const addToCart = () => handleAddToCart(count)
+  const addToCart = () => {
+    setIsAddToFavorites(false)
+    handleAddToCart(count)
+  }
 
   return (
     <div className={styles.modal}>

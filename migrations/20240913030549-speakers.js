@@ -7,17 +7,17 @@ const speakersTypes = ['coaxial', 'component', 'fullRange']
 
 const images = {
   component: [
-    '/img/speakers/speaker-component-1.jpg',
+    '/img/speakers/speaker-component-1.png',
     '/img/speakers/speaker-component-2.png',
   ],
   coaxial: [
-    '/img/speakers/speaker-coax-1.jpg',
-    '/img/speakers/speaker-coax-2.jpg',
+    '/img/speakers/speaker-coax-1.png',
+    '/img/speakers/speaker-coax-2.png',
   ],
   fullRange: [
-    '/img/speakers/speaker.jpg',
+    '/img/speakers/speaker.png',
     '/img/speakers/speaker-2.png',
-    '/img/speakers/speaker-oval.jpg',
+    '/img/speakers/speaker-oval.png',
   ],
 }
 
@@ -39,9 +39,6 @@ const getImageByType = (type) => {
   }
   return imageArray[Math.floor(Math.random() * imageArray.length)]
 }
-
-const getRandomSpeakerType = () =>
-  speakersTypes[Math.floor(Math.random() * speakersTypes.length)]
 
 module.exports = {
   async up(db) {
@@ -74,8 +71,8 @@ module.exports = {
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
           name: faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
-          characteristics,
-          images: getImageByType(getRandomSpeakerType()),
+          characteristics: characteristics.find((item) => item.type === type),
+          images: [getImageByType(type), getImageByType(type)],
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),
