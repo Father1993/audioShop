@@ -13,7 +13,7 @@ const ComparisonLinksList = ({
       <li key={item.title} className={`${item.isActive ? styles.active : ''}`}>
         <Link href={item.href}>
           <span>{item.title}</span>
-          <span>{item.itemsCount}</span>
+          <span>{item.itemsCount} -шт</span>
         </Link>
       </li>
     ))}

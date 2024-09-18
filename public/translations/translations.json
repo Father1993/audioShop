@@ -82,7 +82,9 @@
       "audio_player": "Audio player",
       "main_heading": "Comparison",
       "1din": "1 DIN",
-      "2din": "2 DIN"
+      "2din": "2 DIN",
+      "passive": "Passive",
+      "active": "Active"
     },
     "breadcrumbs": {
       "main": "Main",
@@ -350,8 +352,10 @@
       "notebook": "Тетради",
       "audio_player": "Магнитола",
       "main_heading": "Сравнение",
-      "1din": "1 DIN",
-      "2din": "2 DIN"
+      "1din": "Магнитола: 1 DIN",
+      "2din": "Магнитола: 2 DIN",
+      "passive": "Сабвуфер: Пассивный",
+      "active": "Сабвуфер: Активный"
     },
     "breadcrumbs": {
       "main": "Главная",

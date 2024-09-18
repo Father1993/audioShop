@@ -4,9 +4,9 @@ import { motion } from 'framer-motion'
 import { useProductFilters } from '@/hooks/useProductFilters'
 import { IProductsPage } from '@/types/catalog'
 import { basePropsForMotion } from '@/constants/motion'
+import ProductListItem from '@/components/modules/ProductListItem/ProductListItem'
 import styles from '@/styles/catalog/index.module.scss'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
-import ProductListItem from '@/components/modules/ProductListItem/ProductListItem'
 
 const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
   const { products, productsSpinner, paginationProps, handlePageChange } =

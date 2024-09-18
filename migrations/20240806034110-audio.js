@@ -35,12 +35,21 @@ const sizes = {
 }
 
 const images = {
-  '1din': ['/img/audio/audio-1din.png', '/img/audio/audio-1din_2.png'],
+  '1din': [
+    '/img/audio/audio-1din.png',
+    '/img/audio/audio-1din_2.png',
+    '/img/audio/audio-1din_3.png',
+    '/img/audio/audio-1din_4.png',
+    '/img/audio/audio-1din_5.png',
+    '/img/audio/audio-1din_6.png',
+  ],
   '2din': [
     '/img/audio/audio-2din.png',
     '/img/audio/audio-2din_2.png',
     '/img/audio/audio-2din_3.png',
     '/img/audio/audio-2din_4.png',
+    '/img/audio/audio-2din_5.png',
+    '/img/audio/audio-2din_6.png',
   ],
 }
 

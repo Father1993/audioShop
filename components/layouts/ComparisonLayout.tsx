@@ -55,7 +55,7 @@ const ComparisonLayout = ({ children }: { children: React.ReactNode }) => {
               ) : (
                 <ComparisonLinksList
                   links={availableProductLinks}
-                  className={styles.comparison__list}
+                  className={styles.comparison_links}
                 />
               ))}
             <div>

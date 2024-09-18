@@ -3,11 +3,27 @@ const { faker } = require('@faker-js/faker')
 
 const getRandomArrayValue = (arr) => arr[Math.floor(Math.random() * arr.length)]
 
+const getRandomImages = (imgArr) => {
+  if (imgArr.length < 2) {
+    throw new Error('В массиве должно быть минимум 2 изображения')
+  }
+
+  const shuffled = [...imgArr]
+
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+
+  return shuffled.slice(0, 2)
+}
+
 const images = [
-  '/img/accessories/accessories-1.jpg',
-  '/img/accessories/accessories-2.jpg',
-  '/img/accessories/accessories-3.jpg',
-  '/img/accessories/accessories-4.jpg',
+  '/img/accessories/accessories-1.png',
+  '/img/accessories/accessories-2.png',
+  '/img/accessories/accessories-3.png',
+  '/img/accessories/accessories-4.png',
+  '/img/accessories/accessories-5.png',
 ]
 
 const accessoriesTypes = ['video-recorder', 'charger', 'fastening']
@@ -37,7 +53,7 @@ module.exports = {
           name: faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
-          images: getRandomArrayValue(images),
+          images: getRandomImages(images),
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),
