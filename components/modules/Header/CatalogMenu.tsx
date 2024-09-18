@@ -34,18 +34,16 @@ const CatalogMenu = () => {
 
   const items = [
     {
-      name: translations[lang].main_menu.cloth,
+      name: translations[lang].main_menu.audio,
       id: 1,
       items: [
         translations[lang].comparison['audio_player'],
-        translations[lang].comparison['long-sleeves'],
-        translations[lang].comparison.hoodie,
-        translations[lang].comparison.outerwear,
+        translations[lang].comparison['subwoofers'],
       ],
       handler: () => setActiveListId(1),
     },
     {
-      name: translations[lang].main_menu.accessories,
+      name: translations[lang].main_menu.speakers,
       id: 2,
       items: [
         translations[lang].comparison.chips,
@@ -55,16 +53,16 @@ const CatalogMenu = () => {
       handler: () => setActiveListId(2),
     },
     {
-      name: translations[lang].main_menu.souvenirs,
+      name: translations[lang].main_menu.subwoofers,
       id: 3,
       items: [
-        translations[lang].comparison['business-souvenirs'],
-        translations[lang].comparison['promotional-souvenirs'],
+        translations[lang].comparison['active'],
+        translations[lang].comparison['passive'],
       ],
       handler: () => setActiveListId(3),
     },
     {
-      name: translations[lang].main_menu.office,
+      name: translations[lang].main_menu.accessories,
       id: 4,
       items: [
         translations[lang].comparison.notebook,

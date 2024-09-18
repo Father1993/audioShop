@@ -84,7 +84,13 @@
       "1din": "1 DIN",
       "2din": "2 DIN",
       "passive": "Passive",
-      "active": "Active"
+      "active": "Active",
+      "video-recorder": "video-recorder",
+      "charger": "charger",
+      "fastening": "fastening",
+      "coaxial": "Coaxial",
+      "component": "Component",
+      "fullRange": "Full-Range"
     },
     "breadcrumbs": {
       "main": "Main",
@@ -355,7 +361,13 @@
       "1din": "Магнитола: 1 DIN",
       "2din": "Магнитола: 2 DIN",
       "passive": "Сабвуфер: Пассивный",
-      "active": "Сабвуфер: Активный"
+      "active": "Сабвуфер: Активный",
+      "video-recorder": "Видео-регистраторы",
+      "charger": "Зарядки для смартфона",
+      "fastening": "Держатели",
+      "coaxial": "Коаксиальная",
+      "component": "Компонентная",
+      "fullRange": "Широкополосная"
     },
     "breadcrumbs": {
       "main": "Главная",
@@ -384,8 +396,8 @@
     "main_page": {
       "hero_hidden_title": "Магазин аудиотехники для вашего авто",
       "hero_title": "Магнитола",
-      "hero_description": "Будь на стиле",
-      "hero_subtitle": "с новой линейкой от «Kenwood»",
+      "hero_description": "Драйв со звуком",
+      "hero_subtitle": "с новой коллекцией из «Premium» сегмента",
       "catalog_btn": "Каталог",
       "category_title": "Категории",
       "category_cloth": "Аудио-плееры",
