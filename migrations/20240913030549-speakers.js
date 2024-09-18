@@ -74,7 +74,7 @@ module.exports = {
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
           name: faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
-          characteristics,
+          characteristics: characteristics.find((item) => item.type === type),
           images: getImageByType(getRandomSpeakerType()),
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),

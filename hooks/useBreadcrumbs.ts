@@ -18,7 +18,10 @@ export const useBreadcrumbs = (page: string) => {
     const lastCrumb = document.querySelector('.last-crumb') as HTMLElement
 
     if (lastCrumb) {
-      const productTypePathname = pathname.split(`/${page}`)[1]
+      const productTypePathname = pathname
+        .split(`/${page}`)[1]
+        ?.split('/')[1]
+        ?.split('?')[0]
 
       if (!productTypePathname) {
         setDynamicTitle('')

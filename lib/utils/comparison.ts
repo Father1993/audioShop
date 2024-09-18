@@ -40,7 +40,7 @@ export const addComparisonItemToLS = (product: IProduct, withToast = true) => {
       inStock: product.inStock,
       category: product.category,
       characteristics: product.characteristics,
-      type: product.type,
+      type: product.characteristics.type,
       sizes: product.sizes,
     },
   ]
