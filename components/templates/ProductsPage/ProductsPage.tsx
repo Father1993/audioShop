@@ -21,6 +21,9 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
     paginationProps,
     handlePageChange,
     handleApplyFiltersWithCategory,
+    handleApplyFiltersWithPrice,
+    handleApplyFiltersWithSizes,
+    handleApplyFiltersWithColors,
   } = useProductFilters(searchParams, pageName, pageName === 'catalog')
   const { lang, translations } = useLang()
 
@@ -143,7 +146,11 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
         }
         spinner={productsSpinner}
       />
-      <CatalogFilters />
+      <CatalogFilters
+        handleApplyFiltersWithPrice={handleApplyFiltersWithPrice}
+        handleApplyFiltersWithSizes={handleApplyFiltersWithSizes}
+        handleApplyFiltersWithColors={handleApplyFiltersWithColors}
+      />
       {productsSpinner && (
         <motion.ul
           {...basePropsForMotion}

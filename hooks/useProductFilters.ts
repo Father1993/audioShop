@@ -80,6 +80,30 @@ export const useProductFilters = (
     handlePageChange({ selected: 0 })
   }
 
+  const handleApplyFiltersWithPrice = (priceFrom: string, priceTo: string) => {
+    updateSearchParam('priceFrom', priceFrom, pathname)
+    updateSearchParam('priceTo', priceTo, pathname)
+    handlePageChange({ selected: 0 })
+  }
+
+  const handleApplyFiltersWithSizes = (sizes: string[]) => {
+    updateSearchParam(
+      'sizes',
+      encodeURIComponent(JSON.stringify(sizes)),
+      pathname
+    )
+    handlePageChange({ selected: 0 })
+  }
+
+  const handleApplyFiltersWithColors = (colors: string[]) => {
+    updateSearchParam(
+      'colors',
+      encodeURIComponent(JSON.stringify(colors)),
+      pathname
+    )
+    handlePageChange({ selected: 0 })
+  }
+
   const paginationProps = {
     containerClassName: `list-reset ${styles.catalog__bottom__list}`,
     pageClassName: `catalog-pagination-item ${styles.catalog__bottom__list__item}`,
@@ -100,5 +124,8 @@ export const useProductFilters = (
     productsSpinner,
     handlePageChange,
     handleApplyFiltersWithCategory,
+    handleApplyFiltersWithPrice,
+    handleApplyFiltersWithSizes,
+    handleApplyFiltersWithColors,
   }
 }

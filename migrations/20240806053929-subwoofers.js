@@ -50,7 +50,6 @@ module.exports = {
             composition: getRandomArrayValue(compositions),
             collection: getRandomArrayValue(collections),
             subwooferType: subwooferTypes[0],
-            size: getRandomArrayValue(sizes),
             material: getRandomArrayValue(materials),
             power: getRandomArrayValue(powerHandling),
             impedances: getRandomArrayValue(impedance),
@@ -62,7 +61,6 @@ module.exports = {
             composition: getRandomArrayValue(compositions),
             collection: getRandomArrayValue(collections),
             subwooferType: subwooferTypes[1],
-            size: getRandomArrayValue(sizes),
             material: getRandomArrayValue(materials),
             power: getRandomArrayValue(powerHandling),
             impedances: getRandomArrayValue(impedance),
@@ -83,6 +81,7 @@ module.exports = {
           isBestseller: faker.datatype.boolean(),
           isNew: faker.datatype.boolean(),
           popularity: +faker.string.numeric(3),
+          sizes: getRandomArrayValue(sizes),
         }
       })
     )

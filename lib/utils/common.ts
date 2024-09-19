@@ -202,3 +202,19 @@ export const updateSearchParam = (
   const newPath = `${pathname}?${urlParams.toString()}`
   window.history.pushState({ path: newPath }, '', newPath)
 }
+
+export const checkPriceParam = (price: number) =>
+  // Здесь условия по цене не более 10 000р
+  price && !isNaN(price) && price >= 0 && price <= 10000
+
+export const getCheckedArrayParam = (param: string) => {
+  try {
+    const sizeArr = JSON.parse(decodeURIComponent(param))
+
+    if (Array.isArray(sizeArr) && sizeArr.length) {
+      return sizeArr
+    }
+  } catch (error) {
+    return false
+  }
+}

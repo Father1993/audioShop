@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import clientPromise from '@/lib/mongodb'
 import { getDbAndReqBody } from '@/lib/utils/api-routes'
+import { checkPriceParam, getCheckedArrayParam } from '@/lib/utils/common'
 
 export async function GET(req: Request) {
   try {
@@ -11,8 +12,32 @@ export async function GET(req: Request) {
     const isCatalogParam = url.searchParams.get('catalog')
     const typeParam = url.searchParams.get('type')
     const categoryParam = url.searchParams.get('category')
+    const priceFromParam = url.searchParams.get('priceFrom')
+    const priceToParam = url.searchParams.get('priceTo')
+    const sizesParam = url.searchParams.get('sizes')
+    const colorsParam = url.searchParams.get('colors')
+    const isFullPriceRange =
+      priceFromParam &&
+      priceToParam &&
+      checkPriceParam(+priceFromParam) &&
+      checkPriceParam(+priceToParam)
+    const sizesArr = getCheckedArrayParam(sizesParam as string)
+    const colorsArr = getCheckedArrayParam(colorsParam as string)
     const filter = {
       ...(typeParam && { type: typeParam }),
+      ...(isFullPriceRange && {
+        price: { $gt: +priceFromParam, $lt: +priceToParam },
+      }),
+      ...(sizesArr && {
+        $or: (sizesArr as string[]).map((sizes) => ({
+          ['sizes']: sizes.toLowerCase(),
+        })),
+      }),
+      ...(colorsArr && {
+        $or: (colorsArr as string[]).map((color) => ({
+          ['characteristics.color']: color.toLowerCase(),
+        })),
+      }),
     }
 
     if (isCatalogParam) {
