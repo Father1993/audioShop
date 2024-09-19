@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useClickUOutside } from '@/hooks/useClickOutside'
+import { useClickOutside } from '@/hooks/useClickOutside'
 import { useLang } from '@/hooks/useLang'
 import { usePriceFilter } from '@/hooks/usePriceFilter'
 import SelectBtn from './SelectBtn'
@@ -24,7 +24,7 @@ const PriceSelect = ({
     handleChangePriceTo,
   } = usePriceFilter()
   const { lang, translations } = useLang()
-  const { open, toggle, ref, setOpen } = useClickUOutside()
+  const { open, toggle, ref, setOpen } = useClickOutside()
 
   const handleSelectPrice = () => {
     const validPriceFrom = +priceFrom > 10000 ? '5000' : priceFrom

@@ -4,7 +4,7 @@ import CheckboxSelectItem from './CheckboxSelectItem'
 import { useLang } from '@/hooks/useLang'
 import { useColorsFilter } from '@/hooks/useColorsFilter'
 import SelectBtn from './SelectBtn'
-import { useClickUOutside } from '@/hooks/useClickOutside'
+import { useClickOutside } from '@/hooks/useClickOutside'
 import styles from '@/styles/catalog/index.module.scss'
 
 const ColorsSelect = ({
@@ -13,7 +13,7 @@ const ColorsSelect = ({
   handleApplyFiltersWithColors: (sizes: string[]) => void
 }) => {
   const { lang, translations } = useLang()
-  const { open, ref, toggle } = useClickUOutside()
+  const { open, ref, toggle } = useClickOutside()
   const { handleSelectColor, colors, colorsOptions } = useColorsFilter(
     handleApplyFiltersWithColors
   )

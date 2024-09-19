@@ -1,6 +1,6 @@
 import { MutableRefObject, useRef, useState, useEffect } from 'react'
 
-export const useClickUOutside = () => {
+export const useClickOutside = () => {
   const ref = useRef() as MutableRefObject<HTMLDivElement>
   const [open, setOpen] = useState(false)
 

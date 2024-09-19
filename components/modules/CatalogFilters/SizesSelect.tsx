@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { useClickUOutside } from '@/hooks/useClickOutside'
+import { useClickOutside } from '@/hooks/useClickOutside'
 import { useLang } from '@/hooks/useLang'
 import { useSizeFilter } from '@/hooks/useSizeFilter'
 import { basePropsForMotion } from '@/constants/motion'
@@ -13,7 +13,7 @@ const SizesSelect = ({
   handleApplyFiltersWithSizes: (sizes: string[]) => void
 }) => {
   const { lang, translations } = useLang()
-  const { open, toggle, ref } = useClickUOutside()
+  const { open, toggle, ref } = useClickOutside()
   const { handleSelectSize, sizes, sizesOptions } = useSizeFilter(
     handleApplyFiltersWithSizes
   )

@@ -104,6 +104,17 @@ export const useProductFilters = (
     handlePageChange({ selected: 0 })
   }
 
+  const handleApplyFiltersBySort = (sort: string) => {
+    const urlParams = getSearchParamsUrl()
+    const offset = urlParams.get('offset')
+
+    updateSearchParam('sort', sort, pathname)
+
+    handlePageChange({
+      selected: checkOffsetParam(offset as string) ? +(offset || 0) : 0,
+    })
+  }
+
   const paginationProps = {
     containerClassName: `list-reset ${styles.catalog__bottom__list}`,
     pageClassName: `catalog-pagination-item ${styles.catalog__bottom__list__item}`,
@@ -127,5 +138,6 @@ export const useProductFilters = (
     handleApplyFiltersWithPrice,
     handleApplyFiltersWithSizes,
     handleApplyFiltersWithColors,
+    handleApplyFiltersBySort,
   }
 }

@@ -9,6 +9,7 @@ import {
 } from '@/context/catalog'
 import { useLang } from './useLang'
 import { getCheckedArrayParam, getSearchParamsUrl } from '@/lib/utils/common'
+import { allowedSizes } from '@/constants/product'
 
 export const useSizeFilter = (
   handleApplyFiltersWithSizes: (arg0: string[]) => void
@@ -46,7 +47,10 @@ export const useSizeFilter = (
     if (sizesParam) {
       const validSizes = getCheckedArrayParam(sizesParam)
 
-      if (validSizes) {
+      if (
+        validSizes &&
+        validSizes.every((size) => allowedSizes.includes(size.toLowerCase()))
+      ) {
         applySizes(validSizes)
         validSizes.forEach((size) => updateSizesOptionBySize(size))
       }

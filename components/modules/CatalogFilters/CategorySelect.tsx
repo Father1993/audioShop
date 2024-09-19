@@ -1,6 +1,6 @@
 import { AnimatePresence } from 'framer-motion'
 import { useCategoryFilter } from '@/hooks/useCategoryFilter'
-import { useClickUOutside } from '@/hooks/useClickOutside'
+import { useClickOutside } from '@/hooks/useClickOutside'
 import { useLang } from '@/hooks/useLang'
 import CatalogFilterList from './CatalogFilterList'
 import styles from '@/styles/catalog/index.module.scss'
@@ -8,7 +8,7 @@ import SelectBtn from './SelectBtn'
 
 const CategorySelect = () => {
   const { translations, lang } = useLang()
-  const { open, toggle, ref } = useClickUOutside()
+  const { open, toggle, ref } = useClickOutside()
   const {
     option,
     handleSelectAllCategories,
