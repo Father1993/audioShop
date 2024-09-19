@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Magnitola.ru
 
-## Getting Started
+Magnitola.ru - это интернет-магазин автомобильной аудиотехники, предлагающий широкий выбор автомагнитол, динамиков, сабвуферов и аксессуаров.
 
-First, run the development server:
+## Особенности
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Каталог продуктов с фильтрацией и сортировкой
+- Сравнение товаров
+- Корзина покупок
+- Оформление заказа
+- Многоязычность (русский и английский)
+- Адаптивный дизайн
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Технологии
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js 14
+- TypeScript
+- Effector для управления состоянием
+- SASS для стилизации
+- Framer Motion для анимаций
+- React Hook Form для работы с формами
+- MongoDB в качестве базы данных
+- Axios для HTTP-запросов
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Установка и запуск
 
-## Learn More
+1. Клонируйте репозиторий:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/your-username/magnitola.git
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Установите зависимости:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```bash
+   cd magnitola
+   npm install
+   ```
 
-## Deploy on Vercel
+3. Создайте файл `.env` в корневой директории проекта и добавьте необходимые переменные окружения.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+4. Запустите проект в режиме разработки:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```bash
+   npm run dev
+   ```
+
+5. Откройте [http://localhost:3000](http://localhost:3000) в вашем браузере.
+
+## Структура проекта
+
+- `app/`: Директория с роутами Next.js
+- `components/`: React компоненты
+- `context/`: Effector сторы и эффекты
+- `hooks/`: Пользовательские React хуки
+- `lib/`: Вспомогательные функции и утилиты
+- `public/`: Статические файлы
+- `styles/`: SASS стили
+
+## Основные компоненты
+
+- `CatalogFilters`: Фильтры для каталога товаров
+- `ProductListItem`: Элемент списка товаров
+- `CartPopup`: Всплывающее окно корзины
+- `OrderInfoBlock`: Блок информации о заказе
+
+## Лицензия
+
+Этот проект лицензирован под [MIT License](LICENSE).
+
+## Контакты
+
+Если у вас есть вопросы или предложения, пожалуйста, свяжитесь с нами по адресу [support@magnitola.ru](mailto:support@magnitola.ru).
