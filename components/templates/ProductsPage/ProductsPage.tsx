@@ -2,34 +2,33 @@
 'use client'
 import ReactPaginate from 'react-paginate'
 import { motion } from 'framer-motion'
+import { useEffect } from 'react'
 import { useProductFilters } from '@/hooks/useProductFilters'
 import { IProductsPage } from '@/types/catalog'
 import { basePropsForMotion } from '@/constants/motion'
 import { useLang } from '@/hooks/useLang'
 import ProductListItem from '@/components/modules/ProductListItem/ProductListItem'
 import HeadingWithCount from '@/components/elements/HeadingWithCount/HeadingWithCount'
+import { setCatalogCategoryOptions } from '@/context/catalog'
+import CatalogFilters from '@/components/modules/CatalogFilters/CatalogFilters'
 import styles from '@/styles/catalog/index.module.scss'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
-import { useEffect } from 'react'
-import {
-  $catalogCategoryOptions,
-  setCatalogCategoryOptions,
-} from '@/context/catalog'
-import { useUnit } from 'effector-react'
 
 const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
-  const { products, productsSpinner, paginationProps, handlePageChange } =
-    useProductFilters(searchParams, pageName, pageName === 'catalog')
+  const {
+    products,
+    productsSpinner,
+    paginationProps,
+    handlePageChange,
+    handleApplyFiltersWithCategory,
+  } = useProductFilters(searchParams, pageName, pageName === 'catalog')
   const { lang, translations } = useLang()
-  const catalogCategoryOptions = useUnit($catalogCategoryOptions)
-
-  console.log(catalogCategoryOptions)
 
   useEffect(() => {
     switch (pageName) {
       case 'catalog':
         setCatalogCategoryOptions({
-          catalogCategoryOptions: [
+          rootCategoryOptions: [
             {
               id: 2,
               title: translations[lang].main_menu.audio,
@@ -59,12 +58,71 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
             {
               id: 1,
               title: translations[lang].main_menu.active,
-              filterHandler: () => '',
+              filterHandler: () => handleApplyFiltersWithCategory('active'),
             },
             {
               id: 2,
               title: translations[lang].main_menu.passive,
-              filterHandler: () => '',
+              filterHandler: () => handleApplyFiltersWithCategory('passive'),
+            },
+          ],
+        })
+        break
+      case 'audio':
+        setCatalogCategoryOptions({
+          audioCategoryOptions: [
+            {
+              id: 1,
+              title: translations[lang].comparison['1din'],
+              filterHandler: () => handleApplyFiltersWithCategory('1din'),
+            },
+            {
+              id: 2,
+              title: translations[lang].comparison['2din'],
+              filterHandler: () => handleApplyFiltersWithCategory('2din'),
+            },
+          ],
+        })
+        break
+      case 'speakers':
+        setCatalogCategoryOptions({
+          speakerCategoryOptions: [
+            {
+              id: 1,
+              title: translations[lang].main_menu.coaxial,
+              filterHandler: () => handleApplyFiltersWithCategory('coaxial'),
+            },
+            {
+              id: 2,
+              title: translations[lang].main_menu.component,
+              filterHandler: () => handleApplyFiltersWithCategory('component'),
+            },
+            {
+              id: 2,
+              title: translations[lang].main_menu.fullRange,
+              filterHandler: () => handleApplyFiltersWithCategory('fullRange'),
+            },
+          ],
+        })
+        break
+      case 'accessories':
+        setCatalogCategoryOptions({
+          accessoriesCategoryOptions: [
+            {
+              id: 1,
+              title: translations[lang].main_menu.fastening,
+              filterHandler: () => handleApplyFiltersWithCategory('fastening'),
+            },
+            {
+              id: 2,
+              title: translations[lang].main_menu.charger,
+              filterHandler: () => handleApplyFiltersWithCategory('charger'),
+            },
+            {
+              id: 2,
+              title: translations[lang].comparison['video-recorder'],
+              filterHandler: () =>
+                handleApplyFiltersWithCategory('video-recorder'),
             },
           ],
         })
@@ -72,7 +130,7 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
       default:
         break
     }
-  }, [])
+  }, [lang])
 
   return (
     <>
@@ -85,6 +143,7 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
         }
         spinner={productsSpinner}
       />
+      <CatalogFilters />
       {productsSpinner && (
         <motion.ul
           {...basePropsForMotion}
