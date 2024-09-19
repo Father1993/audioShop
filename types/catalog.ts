@@ -6,7 +6,7 @@ export interface IProductsPage {
 }
 
 export interface ICatalogCategoryOptions {
-  catalogCategoryOptions?: {
+  rootCategoryOptions?: {
     id: number
     title: string
     href: string
@@ -21,4 +21,21 @@ export interface ICategoryOptions {
   id: number
   title: string
   filterHandler: VoidFunction
+}
+
+export interface ICategoryFilterListProps {
+  handleSelectAllCategories: VoidFunction
+  currentOptions: ICategoryOptions[]
+  option: string
+  setOption: (arg0: string) => void
+  allCategoriesTitle: string
+  catalogCategoryOptions: ICatalogCategoryOptions
+  mobileClassName?: string
+}
+
+export interface ISelectItemProps {
+  item: ICategoryOptions
+  isActive: boolean
+  setOption: (arg0: string) => void
+  mobileClassName?: string
 }
