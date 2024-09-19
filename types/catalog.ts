@@ -52,6 +52,7 @@ export interface ICatalogFiltersProps {
   handleApplyFiltersWithPrice: (arg0: string, arg1: string) => void
   handleApplyFiltersWithSizes: (sizes: string[]) => void
   handleApplyFiltersWithColors: (sizes: string[]) => void
+  handleApplyFiltersBySort: (arg0: string) => void
 }
 
 export interface ISizeOption {
@@ -76,4 +77,10 @@ export interface IColorOption {
   colorCode: string
   checked: boolean
   colorText: string
+}
+
+export interface ISelectInfoItem {
+  text: string
+  handleRemoveItem: (arg0: number) => void
+  id: number
 }
