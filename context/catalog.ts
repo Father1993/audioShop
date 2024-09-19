@@ -15,6 +15,7 @@ export const updateSizesOptionBySize = catalog.createEvent<string>()
 export const updateColorsOptionByCode = catalog.createEvent<string>()
 export const setColors = catalog.createEvent<string[]>()
 export const setSizes = catalog.createEvent<string[]>()
+export const setFiltersPopup = catalog.createEvent<boolean>()
 
 export const $catalogCategoryOptions = catalog
   .createStore<ICatalogCategoryOptions>({})
@@ -62,3 +63,7 @@ export const $sizes = catalog
 export const $colors = catalog
   .createStore<string[]>([])
   .on(setColors, (_, colors) => colors)
+
+export const $filtersPopup = catalog
+  .createStore(false)
+  .on(setFiltersPopup, (_, value) => value)

@@ -3,8 +3,8 @@ import { useCategoryFilter } from '@/hooks/useCategoryFilter'
 import { useClickOutside } from '@/hooks/useClickOutside'
 import { useLang } from '@/hooks/useLang'
 import CatalogFilterList from './CatalogFilterList'
-import styles from '@/styles/catalog/index.module.scss'
 import SelectBtn from './SelectBtn'
+import styles from '@/styles/catalog/index.module.scss'
 
 const CategorySelect = () => {
   const { translations, lang } = useLang()
