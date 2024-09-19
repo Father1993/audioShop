@@ -3,7 +3,6 @@ export const productsWithoutSizes = [
   'subwoofers',
   'accessories',
   'speakers',
-  'business-souvenirs',
 ]
 
 export const productTypes = [

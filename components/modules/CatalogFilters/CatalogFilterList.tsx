@@ -2,8 +2,8 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ICategoryFilterListProps } from '@/types/catalog'
 import { getSearchParamsUrl } from '@/lib/utils/common'
-import styles from '@/styles/catalog/index.module.scss'
 import SelectItem from './SelectItem'
+import styles from '@/styles/catalog/index.module.scss'
 
 const CatalogFilterList = ({
   mobileClassName,

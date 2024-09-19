@@ -4,6 +4,7 @@ import { useClickUOutside } from '@/hooks/useClickOutside'
 import { useLang } from '@/hooks/useLang'
 import CatalogFilterList from './CatalogFilterList'
 import styles from '@/styles/catalog/index.module.scss'
+import SelectBtn from './SelectBtn'
 
 const CategorySelect = () => {
   const { translations, lang } = useLang()
@@ -18,21 +19,13 @@ const CategorySelect = () => {
   } = useCategoryFilter()
   return (
     <div ref={ref} className={styles.catalog__filters__select}>
-      <button
-        className={`btn-reset ${styles.catalog__filters__btn} ${styles.bg_category} ${open ? styles.is_open : ''}`}
-        onClick={toggle}
-      >
-        {option ? (
-          <span className={styles.catalog__filters__btn__inner}>
-            <span className={styles.catalog__filters__btn__text}>
-              {translations[lang].catalog.categories}
-            </span>
-            <span className={styles.catalog__filters__btn__info}>{option}</span>
-          </span>
-        ) : (
-          translations[lang].catalog.categories
-        )}
-      </button>
+      <SelectBtn
+        open={open}
+        toggle={toggle}
+        bgClassName={styles.bg_category}
+        defaultText={translations[lang].catalog.categories}
+        dynamicText={option}
+      />
       <AnimatePresence>
         {open && (
           <CatalogFilterList

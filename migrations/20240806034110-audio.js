@@ -68,7 +68,7 @@ module.exports = {
               getRandomArrayValue(features),
               getRandomArrayValue(features),
             ],
-            size: sizes['1din'],
+            sizes: sizes['1din'],
           },
           {
             type: '2din',
@@ -79,7 +79,7 @@ module.exports = {
               getRandomArrayValue(features),
               getRandomArrayValue(features),
             ],
-            size: sizes['2din'],
+            sizes: sizes['2din'],
           },
         ]
 
@@ -96,7 +96,7 @@ module.exports = {
           isBestseller: faker.datatype.boolean(),
           isNew: faker.datatype.boolean(),
           popularity: +faker.string.numeric(3),
-          size: getRandomArrayValue(sizes),
+          sizes: characteristics.find((item) => item.type === type).sizes,
         }
       })
     )
