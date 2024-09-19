@@ -4,6 +4,7 @@ import { useLang } from '@/hooks/useLang'
 import { usePriceFilter } from '@/hooks/usePriceFilter'
 import SelectBtn from './SelectBtn'
 import { basePropsForMotion } from '@/constants/motion'
+import { getCheckedPriceFrom, getCheckedPriceTo } from '@/lib/utils/catalog'
 import styles from '@/styles/catalog/index.module.scss'
 
 const PriceSelect = ({
@@ -27,8 +28,8 @@ const PriceSelect = ({
   const { open, toggle, ref, setOpen } = useClickOutside()
 
   const handleSelectPrice = () => {
-    const validPriceFrom = +priceFrom > 10000 ? '5000' : priceFrom
-    const validPriceTo = +priceTo > 10000 ? '10000' : priceTo
+    const validPriceFrom = getCheckedPriceFrom(+priceFrom) as string
+    const validPriceTo = getCheckedPriceTo(+priceTo) as string
 
     setPriceFrom(validPriceFrom)
     setPriceTo(validPriceTo)
