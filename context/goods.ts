@@ -20,7 +20,7 @@ export const loadOneProductFx = createEffect(
     withShowingSizeTable,
   }: ILoadOneProductFx) => {
     try {
-      setSpinner(true)
+      setSpinner && setSpinner(true)
       const { data } = await api.post('/api/goods/one', { productId, category })
 
       if (withShowingSizeTable) {
@@ -35,7 +35,7 @@ export const loadOneProductFx = createEffect(
     } catch (error) {
       toast.error((error as Error).message)
     } finally {
-      setSpinner(false)
+      setSpinner && setSpinner(false)
     }
   }
 )

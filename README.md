@@ -70,4 +70,4 @@ Magnitola.ru - это интернет-магазин автомобильной
 
 ## Контакты
 
-Если у вас есть вопросы или предложения, пожалуйста, свяжитесь с нами по адресу [support@magnitola.ru](mailto:support@magnitola.ru).
+Если у вас есть вопросы или предложения, пожалуйста, свяжитесь с нами по адресу [enjoyhillol@gmail.com](mailto:enjoyhillol@gmail.com).
