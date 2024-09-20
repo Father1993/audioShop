@@ -18,6 +18,7 @@ export async function GET(req: Request) {
     const priceToParam = url.searchParams.get('priceTo')
     const sizesParam = url.searchParams.get('sizes')
     const colorsParam = url.searchParams.get('colors')
+    const collectionParam = url.searchParams.get('collection')
     const sortParam = url.searchParams.get('sort') || 'default'
     const isFullPriceRange =
       priceFromParam &&
@@ -45,6 +46,9 @@ export async function GET(req: Request) {
         $or: (colorsArr as string[]).map((color) => ({
           ['characteristics.color']: color.toLowerCase(),
         })),
+      }),
+      ...(collectionParam && {
+        ['characteristics.collection']: collectionParam,
       }),
     }
 

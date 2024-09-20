@@ -38,3 +38,6 @@ export const allowedSizes = [
   '178x50mm',
   '178x100mm',
 ]
+
+// Выбираем категории товаров у которых есть коллекция в характеристиках
+export const allowedCollectionsCategories = ['audio']

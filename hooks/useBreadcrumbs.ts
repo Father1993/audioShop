@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation'
 import { useCrumbText } from './useCrumbText'
 import { usePageTitle } from './usePageTitle'
 import { useLang } from './useLang'
+import { productCategories } from '@/constants/product'
 
 export const useBreadcrumbs = (page: string) => {
   const [dynamicTitle, setDynamicTitle] = useState('')
@@ -26,6 +27,10 @@ export const useBreadcrumbs = (page: string) => {
       if (!productTypePathname) {
         setDynamicTitle('')
         lastCrumb.textContent = crumbText
+        return
+      }
+
+      if (productCategories.some((item) => item === productTypePathname)) {
         return
       }
 

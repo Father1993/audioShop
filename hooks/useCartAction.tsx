@@ -1,6 +1,5 @@
 import { useMemo, useState } from 'react'
 import { useUnit } from 'effector-react'
-import { $currentProduct } from '@/context/goods'
 import { useGoodsByAuth } from './useGoodsByAuth'
 import { isUserAuth } from '@/lib/utils/common'
 import {
@@ -9,6 +8,7 @@ import {
   addProductToCartBySizeTable,
 } from '@/lib/utils/cart'
 import { $cart, $cartFromLs, updateCartItemCount } from '@/context/cart'
+import { $currentProduct } from '@/context/goods/state'
 
 export const useCartAction = (isSizeTable = false) => {
   const product = useUnit($currentProduct)

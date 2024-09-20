@@ -4,16 +4,13 @@ import { useUnit } from 'effector-react'
 import { notFound } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import {
-  $currentProduct,
-  loadOneProduct,
-  loadOneProductFx,
-} from '@/context/goods'
+import { loadOneProduct, loadOneProductFx } from '@/context/goods'
 import { IProductPageProps } from '@/types/product'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { useLang } from '@/hooks/useLang'
 import ProductPageContent from '@/components/modules/ProductPage/ProductPageContent'
+import { $currentProduct } from '@/context/goods/state'
 import styles from '@/styles/product/index.module.scss'
 
 const ProductPage = ({ category, productId }: IProductPageProps) => {
