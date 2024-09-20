@@ -4,7 +4,7 @@ import { IProduct } from './common'
 export interface ILoadOneProductFx {
   productId: string
   category: string
-  setSpinner: (arg0: boolean) => void
+  setSpinner?: (arg0: boolean) => void
   withShowingSizeTable?: boolean
 }
 
