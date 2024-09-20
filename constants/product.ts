@@ -41,3 +41,11 @@ export const allowedSizes = [
 
 // Выбираем категории товаров у которых есть коллекция в характеристиках
 export const allowedCollectionsCategories = ['audio']
+
+export const allowedCollections = [
+  'premium',
+  'sport',
+  'classic',
+  'luxury',
+  'budget',
+]
