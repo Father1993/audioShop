@@ -18,7 +18,7 @@ import {
 } from '@/lib/utils/common'
 import { $openAuthPopup } from '@/context/auth'
 import CookieAlert from '../modules/CookieAlert/CookieAlert'
-import '@/context/goods'
+import '@/context/goods/init'
 
 const PagesLayout = ({ children }: { children: React.ReactNode }) => {
   const [isClient, setIsClient] = useState(false)

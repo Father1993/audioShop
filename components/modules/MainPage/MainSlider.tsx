@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import Image, { StaticImageData } from 'next/image'
 import useImagePreloader from '@/hooks/useImagePreloader'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { baseSliderSettings } from '@/constants/slider'
 import styles from '@/styles/main-page/index.module.scss'
 
 const MainSlider = ({
@@ -19,15 +20,6 @@ const MainSlider = ({
   const isMedia420 = useMediaQuery(420)
   const { handleLoadingImageComplete, imgSpinner } = useImagePreloader()
   const imgSpinnerClass = imgSpinner ? styles.img_loading : ''
-  const settings = {
-    dots: false,
-    infinite: true,
-    slidesToScroll: 1,
-    variableWidth: true,
-    autoplay: true,
-    speed: 500,
-    arrows: false,
-  }
 
   useEffect(() => {
     const slider = document.querySelectorAll(`.${styles.categories__slider}`)
@@ -41,7 +33,7 @@ const MainSlider = ({
   }, [isMedia420])
 
   return (
-    <Slider {...settings} className={styles.categories__slider}>
+    <Slider {...baseSliderSettings} className={styles.categories__slider}>
       {images.map((item) => (
         <Link
           key={item.id}

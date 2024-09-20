@@ -221,3 +221,15 @@ export const getCheckedArrayParam = (param: string) => {
 
 export const capitalizeFirsLetter = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1)
+
+export const getWatchedProductFromLS = () => {
+  let watchedProducts: IProduct[] = JSON.parse(
+    localStorage.getItem('watched') as string
+  )
+
+  if (!watchedProducts || !Array.isArray(watchedProducts)) {
+    watchedProducts = []
+  }
+
+  return watchedProducts
+}
