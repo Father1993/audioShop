@@ -10,6 +10,7 @@ import {
   loadOneProductFx,
   loadProductsByFilterFx,
   goods,
+  loadWatchedProductsFx,
 } from '.'
 
 const goodStoreInstance = (effect: Effect<void, [], Error>) =>
@@ -43,3 +44,7 @@ export const $currentProduct = goods
 export const $products = goods
   .createStore<IProducts>({} as IProducts)
   .on(loadProductsByFilterFx.done, (_, { result }) => result)
+
+export const $watchedProducts = goods
+  .createStore<IProducts>({} as IProducts)
+  .on(loadWatchedProductsFx.done, (_, { result }) => result)

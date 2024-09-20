@@ -1,10 +1,12 @@
 import { useUnit } from 'effector-react'
+import { useEffect } from 'react'
 import ProductImages from './ProductImages'
 import { useLang } from '@/hooks/useLang'
 import {
   addOverflowHiddenToBody,
   capitalizeFirsLetter,
   formatPrice,
+  getWatchedProductFromLS,
 } from '@/lib/utils/common'
 import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
 import { useFavoritesAction } from '@/hooks/useFavoritesActions'
@@ -18,6 +20,8 @@ import { setIsAddToFavorites } from '@/context/favorites'
 import ProductInfoAccordion from './ProductInfoAccordion'
 import ProductsByCollection from './ProductsByCollection'
 import { $currentProduct } from '@/context/goods/state'
+import WatchedProducts from '../WatchedProducts/WatchedProducts'
+import { useWatchedProducts } from '@/hooks/useWatchedProducts'
 import styles from '@/styles/product/index.module.scss'
 
 const ProductPageContent = () => {
@@ -47,6 +51,26 @@ const ProductPageContent = () => {
     setIsAddToFavorites(false)
     handleAddToCart(count)
   }
+
+  const { watchedProducts } = useWatchedProducts(product._id)
+
+  useEffect(() => {
+    const watchedProducts = getWatchedProductFromLS()
+
+    const isInWatched = watchedProducts.find((item) => item._id === product._id)
+
+    if (isInWatched) {
+      return
+    }
+
+    localStorage.setItem(
+      'watched',
+      JSON.stringify([
+        ...watchedProducts,
+        { category: product.category, _id: product._id },
+      ])
+    )
+  }, [product._id, product.category])
 
   return (
     <>
@@ -176,6 +200,9 @@ const ProductPageContent = () => {
       </div>
       {!!product.characteristics.collection && (
         <ProductsByCollection collection={product.characteristics.collection} />
+      )}
+      {!!watchedProducts.items?.length && (
+        <WatchedProducts watchedProducts={watchedProducts} />
       )}
     </>
   )

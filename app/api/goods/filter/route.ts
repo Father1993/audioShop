@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
 import { Sort } from 'mongodb'
+import { NextResponse } from 'next/server'
 import clientPromise from '@/lib/mongodb'
 import { getDbAndReqBody } from '@/lib/utils/api-routes'
 import { checkPriceParam, getCheckedArrayParam } from '@/lib/utils/common'
