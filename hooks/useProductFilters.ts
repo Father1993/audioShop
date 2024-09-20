@@ -1,17 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { usePathname } from 'next/navigation'
-import {
-  $products,
-  loadProductsByFilter,
-  loadProductsByFilterFx,
-} from '@/context/goods'
+import { loadProductsByFilter, loadProductsByFilterFx } from '@/context/goods'
 import { SearchParams } from '@/types/catalog'
 import {
   checkOffsetParam,
   getSearchParamsUrl,
   updateSearchParam,
 } from '@/lib/utils/common'
+import { $products } from '@/context/goods/state'
 import styles from '@/styles/catalog/index.module.scss'
 
 export const useProductFilters = (

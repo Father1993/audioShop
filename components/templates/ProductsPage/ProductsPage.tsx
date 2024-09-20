@@ -11,8 +11,8 @@ import ProductListItem from '@/components/modules/ProductListItem/ProductListIte
 import HeadingWithCount from '@/components/elements/HeadingWithCount/HeadingWithCount'
 import { setCatalogCategoryOptions } from '@/context/catalog'
 import CatalogFilters from '@/components/modules/CatalogFilters/CatalogFilters'
-import styles from '@/styles/catalog/index.module.scss'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
+import styles from '@/styles/catalog/index.module.scss'
 
 const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
   const {

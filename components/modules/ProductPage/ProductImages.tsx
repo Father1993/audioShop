@@ -1,17 +1,14 @@
+import { useUnit } from 'effector-react'
 import Slider from 'react-slick'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import ProductImagesItem from './ProductImagesItem'
+import { useProductImages } from '@/hooks/useProductImages'
+import { $currentProduct } from '@/context/goods/state'
 import styles from '@/styles/product/index.module.scss'
 
-const ProductImages = ({
-  images,
-}: {
-  images: {
-    src: string
-    alt: string
-    id: string
-  }[]
-}) => {
+const ProductImages = () => {
+  const product = useUnit($currentProduct)
+  const images = useProductImages(product)
   const isMedia1420 = useMediaQuery(1420)
   const isMedia1040 = useMediaQuery(1040)
   const isMedia520 = useMediaQuery(520)

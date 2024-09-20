@@ -11,11 +11,12 @@ import {
   removeOverflowHiddenFromBody,
   showCountMessage,
 } from '@/lib/utils/common'
-import { $products, loadProductsByFilterFx } from '@/context/goods'
+import { loadProductsByFilterFx } from '@/context/goods'
 import PriceFilter from './PriceFilter'
 import CatalogFilterList from '../CatalogFilterList'
 import SizesFilter from './SizesFilter'
 import ColorsFilter from './ColorsFilter'
+import { $products } from '@/context/goods/state'
 import styles from '@/styles/catalog/index.module.scss'
 
 const FiltersPopup = ({

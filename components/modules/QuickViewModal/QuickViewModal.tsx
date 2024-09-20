@@ -124,7 +124,7 @@ const QuickViewModal = () => {
                   className={`sizes-table-btn ${styles.modal__right__info__sizes_btn}`}
                 />
               </div>
-              <ul className={`list-reset ${styles.modal__right__info__size}`}>
+              <ul className={`list-reset ${styles.modal__right__info__sizes}`}>
                 {Object.entries(product.sizes).map(([key, value], i) => (
                   <ProductSizesItem
                     key={i}
