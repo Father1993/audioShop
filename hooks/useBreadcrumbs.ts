@@ -30,7 +30,7 @@ export const useBreadcrumbs = (page: string) => {
         return
       }
 
-      if (productCategories.some((item) => item === productTypePathname)) {
+      if (!productCategories.some((item) => item === productTypePathname)) {
         return
       }
 
