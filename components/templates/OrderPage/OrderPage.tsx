@@ -2,6 +2,7 @@
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import OrderCartItem from '@/components/modules/OrderPage/OrderCartItem'
+import OrderDelivery from '@/components/modules/OrderPage/OrderDelivery'
 import OrderTitle from '@/components/modules/OrderPage/OrderTitle'
 import { $cart, $cartFromLs } from '@/context/cart/state'
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
@@ -67,6 +68,9 @@ const OrderPage = () => {
                       </tbody>
                     </table>
                   )}
+                </li>
+                <li className={styles.order__list__item}>
+                  <OrderDelivery />
                 </li>
               </ul>
             </div>

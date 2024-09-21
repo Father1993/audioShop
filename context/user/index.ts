@@ -2,11 +2,14 @@
 import { createDomain, createEffect } from 'effector'
 import { handleJWTError } from '@/lib/utils/errors'
 import { setIsAuth } from '../auth'
+import { IUserGeolocation } from '@/types/user'
+import { IGetGeolocationFx } from '@/types/common'
 import api from '@/api/apiInstance'
 
 export const user = createDomain()
 
 export const loginCheck = user.createEvent<{ jwt: string }>()
+export const setUserGeolocation = user.createEvent<IUserGeolocation>()
 
 export const loginCheckFx = createEffect(async ({ jwt }: { jwt: string }) => {
   try {
@@ -27,3 +30,17 @@ export const loginCheckFx = createEffect(async ({ jwt }: { jwt: string }) => {
     throw new Error((error as Error).message)
   }
 })
+
+export const getGeolocationFx = createEffect(
+  async ({ lon, lat }: IGetGeolocationFx) => {
+    try {
+      const data = await api.get(
+        // eslint-disable-next-line max-len
+        `https://api.geoapify.com/v1/geocode/reverse?lat=${lat}&lon=${lon}&apiKey=${process.env.NEXT_PUBLIC_GEOAPIFY_API_KEY}`
+      )
+      return data
+    } catch (error) {
+      throw new Error((error as Error).message)
+    }
+  }
+)

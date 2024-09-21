@@ -29,3 +29,12 @@ export interface IMagnitolaAddressData {
   lat: number
   lon: number
 }
+
+export interface ITabControlProps {
+  handleTab1: VoidFunction
+  handleTab2: VoidFunction
+  tab1Active: boolean
+  tab2Active: boolean
+  tab1Text: string
+  tab2Text: string
+}
