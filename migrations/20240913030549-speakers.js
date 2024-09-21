@@ -17,8 +17,36 @@ const images = {
   fullRange: ['/img/speakers/speaker.png', '/img/speakers/speaker-2.png'],
 }
 
-const speakersModel = ['Model A', 'Model B', 'Model C', 'Model D', 'Model E']
-const speakersManufacturer = ['Pioneer', 'Kenwood', 'Sony', 'JBL', 'Alpine']
+const speakersModel = ['DN1710', 'M7700', 'Model A', 'Model D', 'Model E']
+const companyNames = [
+  'Sony',
+  'Panasonic',
+  'Mitsubishi',
+  'Alpine',
+  'Pioneer',
+  'Kenwood',
+  'Sony',
+  'JBL',
+  'Bose',
+  'Harman Kardon',
+  'Infinity',
+  'Rockford Fosgate',
+  'Focal',
+  'Kicker',
+  'Clarion',
+  'JVC',
+  'Audison',
+  'Hertz',
+  'Polk Audio',
+  'Memphis Audio',
+  'MTX Audio',
+  'Morel',
+  'Dynaudio',
+  'Bang & Olufsen (B&O)',
+  'Blaupunkt',
+  'Nakamichi',
+  'Soundstream',
+]
 const speakersPower = ['50W', '100W', '150W', '200W', '300W']
 const sizes = [
   '10 см (4″)',
@@ -44,28 +72,24 @@ module.exports = {
         const characteristics = [
           {
             type: 'coaxial',
-            speakersModel: getRandomArrayValue(speakersModel),
-            speakersManufacturer: getRandomArrayValue(speakersManufacturer),
             speakersPower: getRandomArrayValue(speakersPower),
           },
           {
             type: 'component',
-            speakersModel: getRandomArrayValue(speakersModel),
-            speakersManufacturer: getRandomArrayValue(speakersManufacturer),
             speakersPower: getRandomArrayValue(speakersPower),
           },
           {
             type: 'fullRange',
-            speakersModel: getRandomArrayValue(speakersModel),
-            speakersManufacturer: getRandomArrayValue(speakersManufacturer),
             speakersPower: getRandomArrayValue(speakersPower),
           },
         ]
         return {
           category: 'speakers',
           type,
+          companyName: getRandomArrayValue(companyNames),
+          speakersModel: getRandomArrayValue(speakersModel),
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
-          name: faker.lorem.sentence(2),
+          name: 'Динамики ' + faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
           images: [getImageByType(type), getImageByType(type)],

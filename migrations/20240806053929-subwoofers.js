@@ -36,6 +36,35 @@ const materials = ['paper', 'kevlar', 'fiberglass']
 const powerHandling = ['200W', '400W', '600W', '800W']
 const impedance = ['2 ohms', '4 ohms', '8 ohms']
 const mountingDepth = ['7 cm', '9 cm', '11 cm']
+const companyNames = [
+  'Sony',
+  'Panasonic',
+  'Mitsubishi',
+  'Alpine',
+  'Pioneer',
+  'Kenwood',
+  'Sony',
+  'JBL',
+  'Bose',
+  'Harman Kardon',
+  'Infinity',
+  'Rockford Fosgate',
+  'Focal',
+  'Kicker',
+  'Clarion',
+  'JVC',
+  'Audison',
+  'Hertz',
+  'Polk Audio',
+  'Memphis Audio',
+  'MTX Audio',
+  'Morel',
+  'Dynaudio',
+  'Bang & Olufsen (B&O)',
+  'Blaupunkt',
+  'Nakamichi',
+  'Soundstream',
+]
 
 module.exports = {
   async up(db) {
@@ -72,7 +101,11 @@ module.exports = {
           category: 'subwoofers',
           type,
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
-          name: faker.lorem.sentence(2),
+          name:
+            'Сабвуфер ' +
+            getRandomArrayValue(companyNames) +
+            ' ' +
+            faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
           images: getRandomImages(images),

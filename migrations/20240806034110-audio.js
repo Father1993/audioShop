@@ -18,21 +18,79 @@ const getRandomImages = (imgArr) => {
   return shuffled.slice(0, 2)
 }
 
-const collections = ['premium', 'sport', 'classic', 'luxury', 'budget']
-const audioTypes = ['1din', '2din']
-const features = [
-  'backlight',
-  'Bluetooth',
-  'USB',
-  'AUX',
-  'FLAC support',
-  'equalizer',
+const collections = [
+  'Premium',
+  'Sport',
+  'Classic',
+  'Luxury',
+  'Бюджетный',
+  'Из Японии',
 ]
-const installationTypes = ['built-in', 'overlay', 'universal']
+
+const companyNames = [
+  'Sony',
+  'Panasonic',
+  'Mitsubishi',
+  'Alpine',
+  'Pioneer',
+  'Kenwood',
+  'Sony',
+  'JBL',
+  'Bose',
+  'Harman Kardon',
+  'Infinity',
+  'Rockford Fosgate',
+  'Focal',
+  'Kicker',
+  'Clarion',
+  'JVC',
+  'Audison',
+  'Hertz',
+  'Polk Audio',
+  'Memphis Audio',
+  'MTX Audio',
+  'Morel',
+  'Dynaudio',
+  'Bang & Olufsen (B&O)',
+  'Blaupunkt',
+  'Nakamichi',
+  'Soundstream',
+]
+
+const audioTypes = ['1din', '2din']
+
 const sizes = {
   '1din': '178x50mm',
   '2din': '178x100mm',
 }
+const features = [
+  'Bluetooth',
+  'USB',
+  'AUX',
+  'FLAC support',
+  'Equalizer',
+  'Mp3',
+  'CD',
+  'IPhone',
+  'CarPlay',
+  'Apple',
+  'Android',
+]
+const installationTypes = [
+  'Универсальный',
+  'Toyota',
+  'Nissan',
+  'Mazda',
+  'Honda',
+  'MMC',
+  'Subaru',
+  'Suzuki',
+  'Daihatsu',
+  'Lexus',
+  'Infiniti',
+  'Isuzu',
+  'Acura',
+]
 
 const images = {
   '1din': [
@@ -64,8 +122,8 @@ module.exports = {
             collection: getRandomArrayValue(collections),
             installationType: getRandomArrayValue(installationTypes),
             features: [
-              getRandomArrayValue(features),
-              getRandomArrayValue(features),
+              getRandomArrayValue(features) + ' ',
+              getRandomArrayValue(features) + ' ',
               getRandomArrayValue(features),
             ],
             sizes: sizes['1din'],
@@ -75,8 +133,8 @@ module.exports = {
             collection: getRandomArrayValue(collections),
             installationType: getRandomArrayValue(installationTypes),
             features: [
-              getRandomArrayValue(features),
-              getRandomArrayValue(features),
+              getRandomArrayValue(features) + ' ',
+              getRandomArrayValue(features) + ' ',
               getRandomArrayValue(features),
             ],
             sizes: sizes['2din'],
@@ -87,7 +145,11 @@ module.exports = {
           category: 'audio',
           type,
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
-          name: faker.lorem.sentence(2),
+          name:
+            'Плеер ' +
+            getRandomArrayValue(companyNames) +
+            ' ' +
+            faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
           images: getRandomImages(images[type]),

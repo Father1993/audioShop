@@ -384,7 +384,7 @@
       "personal_data_policy": "Политика обработки данных",
       "privacy_policy": "Политика конфиденциальности",
       "watched_products": "Просмотренные товары",
-      "collection_products": "Товары по коллекции"
+      "collection_products": "Товары по сегменту"
     },
     "footer": {
       "copyright": "«Magnitola.ru» Все права защищены",
@@ -427,7 +427,7 @@
       "to_favorite": "В избранное",
       "description": "Описание",
       "characteristics": "Характеристики",
-      "collection_goods": "Товары коллекции",
+      "collection_goods": "Товары из сегмента",
       "watched": "Вы смотрели",
       "add_to_favorites": "Добавить в избранное",
       "add_to_comparison": "Добавить в избранное",

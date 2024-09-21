@@ -43,9 +43,10 @@ export const allowedSizes = [
 export const allowedCollectionsCategories = ['audio']
 
 export const allowedCollections = [
-  'premium',
-  'sport',
-  'classic',
-  'luxury',
-  'budget',
+  'Premium',
+  'Sport',
+  'Classic',
+  'Luxury',
+  'Бюджетный',
+  'Из Японии',
 ]
