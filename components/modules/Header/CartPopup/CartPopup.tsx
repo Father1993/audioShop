@@ -4,7 +4,6 @@ import { useStore } from 'effector-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { getCartItemsFx } from '@/api/cart'
 import { withClickOutside } from '@/components/hocs/withClickOutside'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import { useLang } from '@/hooks/useLang'
@@ -12,7 +11,8 @@ import { IWrappedComponentProps } from '@/types/hocs'
 import CartPopupItem from './CartPopupItem'
 import { useTotalPrice } from '@/hooks/useTotalPrice'
 import { formatPrice } from '@/lib/utils/common'
-import { $cart, $cartFromLs } from '@/context/cart'
+import { $cart, $cartFromLs } from '@/context/cart/state'
+import { getCartItemsFx } from '@/context/cart'
 
 const CartPopup = forwardRef<HTMLDivElement, IWrappedComponentProps>(
   ({ open, setOpen }, ref) => {

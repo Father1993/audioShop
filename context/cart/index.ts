@@ -1,13 +1,57 @@
+'use client'
+import { createEffect, createDomain } from 'effector'
 import toast from 'react-hot-toast'
-import { createEffect } from 'effector'
+import api from '@/api/apiInstance'
 import { handleJWTError } from '@/lib/utils/errors'
 import {
-  IAddProductToCartFx,
+  IAddProductsFromLSToCartFx,
   ICartItem,
-  IDeleteCartItemsFx,
+  IAddProductToCartFx,
   IUpdateCartItemCountFx,
+  IDeleteCartItemsFx,
 } from '@/types/cart'
-import api from './apiInstance'
+
+export const cart = createDomain()
+
+export const loadCartItems = cart.createEvent<{ jwt: string }>()
+export const setCartFromLS = cart.createEvent<ICartItem[]>()
+export const addProductToCart = cart.createEvent<IAddProductToCartFx>()
+export const addProductsFromLSToCart =
+  cart.createEvent<IAddProductsFromLSToCartFx>()
+export const updateCartItemCount = cart.createEvent<IUpdateCartItemCountFx>()
+export const setTotalPrice = cart.createEvent<number>()
+export const deleteProductFromCart = cart.createEvent<IDeleteCartItemsFx>()
+export const setShouldShowEmpty = cart.createEvent<boolean>()
+
+export const addProductsFromLSToCartFx = createEffect(
+  async ({ jwt, cartItems }: IAddProductsFromLSToCartFx) => {
+    try {
+      const { data } = await api.post(
+        '/api/cart/add-many',
+        { items: cartItems },
+        {
+          headers: { Authorization: `Bearer ${jwt}` },
+        }
+      )
+
+      if (data?.error) {
+        const newData: { cartItems: ICartItem[] } = await handleJWTError(
+          data.error.name,
+          {
+            repeatRequestMethodName: 'IAddProductsFromLSToCartFx',
+            payload: { items: cartItems },
+          }
+        )
+        return newData
+      }
+
+      loadCartItems({ jwt })
+      return data
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+)
 
 export const getCartItemsFx = createEffect(async ({ jwt }: { jwt: string }) => {
   try {

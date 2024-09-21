@@ -4,21 +4,21 @@
 import { useUnit } from 'effector-react'
 import toast from 'react-hot-toast'
 import { useCartAction } from '@/hooks/useCartAction'
-import { $sizeTableSizes } from '@/context/sizeTable'
-import { $showQuickViewModal } from '@/context/modals'
 import { closeSizeTableByCheck, isUserAuth } from '@/lib/utils/common'
 import { useLang } from '@/hooks/useLang'
 import AddToCartBtn from '../ProductListItem/AddToCartBtn'
 import ProductCountBySize from '../ProductListItem/ProductCountBySize'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
-import {
-  $favorites,
-  $favoritesFormLS,
-  $isAddToFavorites,
-  addProductToFavorites,
-} from '@/context/favorites'
 import { addToFavoriteItemsToLS } from '@/lib/utils/favorites'
 import { useFavoritesAction } from '@/hooks/useFavoritesActions'
+import { addProductToFavorites } from '@/context/favorites'
+import {
+  $isAddToFavorites,
+  $favorites,
+  $favoritesFormLS,
+} from '@/context/favorites/state'
+import { $showQuickViewModal } from '@/context/modals/state'
+import { $sizeTableSizes } from '@/context/sizeTable/state'
 import styles from '@/styles/size-table/index.module.scss'
 
 const SizeTable = () => {

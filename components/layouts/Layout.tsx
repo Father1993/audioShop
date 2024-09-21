@@ -7,19 +7,19 @@ import Header from '../modules/Header/Header'
 import MobileNavbar from '../modules/MobileNavbar/MobileNavbar'
 import SearchModal from '../modules/Header/SearchModal'
 import {
-  $searchModals,
-  $showQuickViewModal,
-  $showSizeTable,
-} from '@/context/modals'
-import {
   handleCloseAuthPopup,
   handleCloseSearchModal,
 } from '@/lib/utils/common'
 import Footer from '../modules/Footer/Footer'
 import QuickViewModal from '../modules/QuickViewModal/QuickViewModal'
 import SizeTable from '../modules/SizeTable/SizeTable'
-import { $openAuthPopup } from '@/context/auth'
 import AuthPopup from '../modules/AuthPopup/AuthPopup'
+import { $openAuthPopup } from '@/context/auth/state'
+import {
+  $searchModals,
+  $showQuickViewModal,
+  $showSizeTable,
+} from '@/context/modals/state'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const isMedia800 = useMediaQuery(800)

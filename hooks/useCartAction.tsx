@@ -7,8 +7,9 @@ import {
   addItemToCart,
   addProductToCartBySizeTable,
 } from '@/lib/utils/cart'
-import { $cart, $cartFromLs, updateCartItemCount } from '@/context/cart'
 import { $currentProduct } from '@/context/goods/state'
+import { updateCartItemCount } from '@/context/cart'
+import { $cart, $cartFromLs } from '@/context/cart/state'
 
 export const useCartAction = (isSizeTable = false) => {
   const product = useUnit($currentProduct)

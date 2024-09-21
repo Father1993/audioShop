@@ -6,10 +6,10 @@ import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import { useTotalPrice } from '@/hooks/useTotalPrice'
 import { formatPrice, showCountMessage } from '@/lib/utils/common'
 import { countWholeCartItemsAmount } from '@/lib/utils/cart'
-import { $cart, $cartFromLs } from '@/context/cart'
+import { $cart, $cartFromLs } from '@/context/cart/state'
 import styles from '@/styles/order-block/index.module.scss'
 
-const OrferInfoBlock = ({
+const OrderInfoBlock = ({
   isCorrectPromotionalCode,
   isOrderPage,
 }: IOrderInfoBlockProps) => {
@@ -95,4 +95,4 @@ const OrferInfoBlock = ({
   )
 }
 
-export default OrferInfoBlock
+export default OrderInfoBlock

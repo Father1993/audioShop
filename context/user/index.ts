@@ -1,8 +1,12 @@
-import { createDomain, createEffect, sample } from 'effector'
-import { IUser } from '@/types/user'
+'use client'
+import { createDomain, createEffect } from 'effector'
 import { handleJWTError } from '@/lib/utils/errors'
-import { setIsAuth } from './auth'
-import api from '../api/apiInstance'
+import { setIsAuth } from '../auth'
+import api from '@/api/apiInstance'
+
+export const user = createDomain()
+
+export const loginCheck = user.createEvent<{ jwt: string }>()
 
 export const loginCheckFx = createEffect(async ({ jwt }: { jwt: string }) => {
   try {
@@ -22,21 +26,4 @@ export const loginCheckFx = createEffect(async ({ jwt }: { jwt: string }) => {
   } catch (error) {
     throw new Error((error as Error).message)
   }
-})
-
-const user = createDomain()
-
-export const loginCheck = user.createEvent<{ jwt: string }>()
-
-export const $user = user
-  .createStore<IUser>({} as IUser)
-  .on(loginCheckFx.done, (_, { result }) => result)
-
-sample({
-  clock: loginCheck,
-  source: $user,
-  fn: (_, { jwt }) => ({
-    jwt,
-  }),
-  target: loginCheckFx,
 })

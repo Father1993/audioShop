@@ -5,20 +5,23 @@ import { useUnit } from 'effector-react'
 import { EarthoOneProvider } from '@eartho/one-client-react'
 import { Next13ProgressBar } from 'next13-progressbar'
 import { motion } from 'framer-motion'
-import {
-  $showQuickViewModal,
-  $showSizeTable,
-  closeQuickViewModal,
-} from '@/context/modals'
+import { closeQuickViewModal } from '@/context/modals'
 import Layout from './Layout'
 import {
   closeSizeTableByCheck,
   handleCloseAuthPopup,
   removeOverflowHiddenFromBody,
 } from '@/lib/utils/common'
-import { $openAuthPopup } from '@/context/auth'
+
 import CookieAlert from '../modules/CookieAlert/CookieAlert'
+import { $openAuthPopup } from '@/context/auth/state'
+import { $showQuickViewModal, $showSizeTable } from '@/context/modals/state'
 import '@/context/goods/init'
+import '@/context/auth/init'
+import '@/context/cart/init'
+import '@/context/comparison/init'
+import '@/context/favorites/init'
+import '@/context/user/init'
 
 const PagesLayout = ({ children }: { children: React.ReactNode }) => {
   const [isClient, setIsClient] = useState(false)
