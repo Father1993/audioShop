@@ -1,0 +1,85 @@
+'use client'
+import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
+import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
+import OrderCartItem from '@/components/modules/OrderPage/OrderCartItem'
+import OrderTitle from '@/components/modules/OrderPage/OrderTitle'
+import { $cart, $cartFromLs } from '@/context/cart/state'
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
+import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
+import { useLang } from '@/hooks/useLang'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
+import styles from '@/styles/order/index.module.scss'
+
+const OrderPage = () => {
+  const { lang, translations } = useLang()
+  const { getDefaultTextGenerator, getTextGenerator } = useBreadcrumbs('order')
+  const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
+  const isMedia1220 = useMediaQuery(1220)
+
+  return (
+    <main>
+      <Breadcrumbs
+        getDefaultTextGenerator={getDefaultTextGenerator}
+        getTextGenerator={getTextGenerator}
+      />
+      <section className={styles.order}>
+        <div className='container'>
+          <h1 className={styles.order__title}>
+            {translations[lang].breadcrumbs.order}
+          </h1>
+          <div className={styles.order__inner}>
+            <div className={styles.order__inner__left}>
+              <ul className={`list-reset ${styles.order__list}`}>
+                <li className={styles.order__list__item}>
+                  <OrderTitle
+                    orderNumber='1'
+                    text={translations[lang].order.order}
+                  />
+                  {isMedia1220 ? (
+                    <ul className={styles.order__list__item__list}>
+                      {currentCartByAuth.map((item, i) => (
+                        <OrderCartItem
+                          key={item._id || item.clientId}
+                          item={item}
+                          position={i + 1}
+                        />
+                      ))}
+                    </ul>
+                  ) : (
+                    <table className={styles.order__list__item__table}>
+                      <thead>
+                        <tr>
+                          <th>{translations[lang].order.name}</th>
+                          <th>{translations[lang].order.size}</th>
+                          <th>{translations[lang].order.color}</th>
+                          <th>{translations[lang].order.count}</th>
+                          <th>{translations[lang].order.sum}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {currentCartByAuth.map((item, i) => (
+                          <OrderCartItem
+                            key={item._id || item.clientId}
+                            item={item}
+                            position={i + 1}
+                          />
+                        ))}
+                      </tbody>
+                    </table>
+                  )}
+                </li>
+              </ul>
+            </div>
+            <div className={styles.order__inner__right}>
+              <div className={styles.order__inner__right}>
+                <OrderInfoBlock isOrderPage />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  )
+}
+
+export default OrderPage
