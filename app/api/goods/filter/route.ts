@@ -69,11 +69,7 @@ export async function GET(req: Request) {
 
     if (isCatalogParam) {
       const getFilteredCollection = async (collection: string) => {
-        const goods = await db
-          .collection(collection)
-          .find()
-          .sort(sort as Sort)
-          .toArray()
+        const goods = await db.collection(collection).find(filter).toArray()
 
         return goods
       }
