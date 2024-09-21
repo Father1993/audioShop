@@ -23,6 +23,7 @@ import { $currentProduct } from '@/context/goods/state'
 import WatchedProducts from '../WatchedProducts/WatchedProducts'
 import { useWatchedProducts } from '@/hooks/useWatchedProducts'
 import styles from '@/styles/product/index.module.scss'
+import { openShareModal } from '@/context/modals'
 
 const ProductPageContent = () => {
   const { lang, translations } = useLang()
@@ -45,6 +46,7 @@ const ProductPageContent = () => {
 
   const handleProductShare = () => {
     addOverflowHiddenToBody()
+    openShareModal()
   }
 
   const addToCart = () => {

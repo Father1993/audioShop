@@ -13,11 +13,16 @@ import {
 } from '@/constants/product'
 import skeletonStyles from '@/styles/skeleton/index.module.scss'
 import styles from '@/styles/watched-products-page/index.module.scss'
+import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 
 const CollectionProductsPage = () => {
   const [currentCollection, setCurrentCollection] = useState('')
   const { title, products, spinner } =
     useProductsByCollection(currentCollection)
+  const { getDefaultTextGenerator, getTextGenerator } = useBreadcrumbs(
+    'collection_products'
+  )
 
   useEffect(() => {
     const urlParams = getSearchParamsUrl()
@@ -46,6 +51,10 @@ const CollectionProductsPage = () => {
 
   return (
     <main>
+      <Breadcrumbs
+        getDefaultTextGenerator={getDefaultTextGenerator}
+        getTextGenerator={getTextGenerator}
+      />
       <section className={styles.watched_products}>
         <div className='container'>
           <h1 className={`site-title ${styles.watched_products__title}`}>
