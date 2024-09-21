@@ -11,6 +11,8 @@ import {
   closeQuickViewModal,
   closeSizeTable,
   showSizeTable,
+  openShareModal,
+  closeShareModal,
 } from '.'
 
 export const $menuIsOpen = modals
@@ -37,3 +39,8 @@ export const $showSizeTable = modals
   .createStore(false)
   .on(closeSizeTable, () => true)
   .on(showSizeTable, () => false)
+
+export const $shareModal = modals
+  .createStore(false)
+  .on(openShareModal, () => true)
+  .on(closeShareModal, () => false)

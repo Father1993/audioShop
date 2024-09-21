@@ -4,6 +4,7 @@ import { closeAuthPopup, openAuthPopup, setIsAuth } from '@/context/auth'
 import { setCurrentProduct } from '@/context/goods'
 import {
   closeSearchModal,
+  closeShareModal,
   closeSizeTable,
   showSizeTable,
 } from '@/context/modals'
@@ -232,4 +233,9 @@ export const getWatchedProductFromLS = () => {
   }
 
   return watchedProducts
+}
+
+export const handleCloseShareModal = () => {
+  removeOverflowHiddenFromBody()
+  closeShareModal()
 }

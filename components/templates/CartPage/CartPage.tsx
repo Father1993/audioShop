@@ -16,7 +16,6 @@ import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PromotionalCode from '@/components/modules/CartPage/PromotionalCode'
 import EmptyPageContent from '@/components/modules/EmptyPageContent/EmptyPageContent'
-
 import { isUserAuth } from '@/lib/utils/common'
 import { loginCheckFx } from '@/context/user'
 import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
