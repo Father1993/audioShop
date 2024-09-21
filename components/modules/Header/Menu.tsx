@@ -54,12 +54,12 @@ const Menu = () => {
     {
       id: 1,
       text: translations[lang].comparison['audio_player'] + ` 1-din (50мм)`,
-      href: '/catalog/audio?offset=0&type=1-din',
+      href: '/catalog/audio?offset=0&type=1din',
     },
     {
       id: 2,
       text: translations[lang].comparison['audio_player'] + ` 2-din (178мм)`,
-      href: '/catalog/audio?offset=0&type=2-din',
+      href: '/catalog/audio?offset=0&type=2din',
     },
   ]
 
