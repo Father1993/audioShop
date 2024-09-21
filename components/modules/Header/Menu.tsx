@@ -6,7 +6,6 @@ import { usePathname } from 'next/navigation'
 import { AllowedLangs } from '@/constants/lang'
 import Logo from '@/components/elements/Logo/Logo'
 import { setLang } from '@/context/lang'
-import { $menuIsOpen, closeMenu } from '@/context/modals'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useLang } from '@/hooks/useLang'
 import { removeOverflowHiddenFromBody } from '@/lib/utils/common'
@@ -14,6 +13,8 @@ import Accordion from '../Accordion/Accordion'
 import MenuLinkItem from './MenuLinkItem'
 import BuyersListItems from './BuyersListItems'
 import ContactsListItems from './ContactsListItems'
+import { $menuIsOpen } from '@/context/modals/state'
+import { closeMenu } from '@/context/modals'
 
 const Menu = () => {
   const [activeListId, setActiveListId] = useState(0)

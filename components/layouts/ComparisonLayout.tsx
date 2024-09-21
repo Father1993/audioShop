@@ -6,20 +6,21 @@ import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import Breadcrumbs from '../modules/Breadcrumbs/Breadcrumbs'
 import HeadingWithCount from '../elements/HeadingWithCount/HeadingWithCount'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
-import {
-  $comparison,
-  $comparisonFromLs,
-  $shouldShowEmptyComparison,
-} from '@/context/comparison'
+
 import { useComparisonLinks } from '@/hooks/useComparisonLinks'
 import EmptyPageContent from '../modules/EmptyPageContent/EmptyPageContent'
 import { loginCheckFx } from '@/context/user'
 import Skeleton from '../elements/Skeleton/Skeleton'
 import { isUserAuth } from '@/lib/utils/common'
 import ComparisonLinksList from '../modules/Comparison/ComparisonLinksList'
+import {
+  $comparison,
+  $comparisonFromLs,
+  $shouldShowEmptyComparison,
+} from '@/context/comparison/state'
+import skeletonListsStyles from '@/styles/comparison-list-skeleton/index.module.scss'
 import skeletonLinksStyles from '@/styles/comparison-links-skeleton/index.module.scss'
 import styles from '@/styles/comparison/index.module.scss'
-import skeletonListsStyles from '@/styles/comparison-list-skeleton/index.module.scss'
 import comparisonSkeleton from '@/styles/comparison-skeleton/index.module.scss'
 
 const ComparisonLayout = ({ children }: { children: React.ReactNode }) => {

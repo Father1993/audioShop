@@ -15,7 +15,6 @@ import Menu from './Menu'
 import { openMenu, openSearchModal } from '@/context/modals'
 import CartPopup from './CartPopup/CartPopup'
 import HeaderProfile from './HeaderProfile'
-import { $isAuth } from '@/context/auth'
 
 // import { $user } from '@/context/user'
 // import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
@@ -26,21 +25,20 @@ import {
 } from '@/context/cart'
 import { setLang } from '@/context/lang'
 import {
-  $favorites,
-  $favoritesFormLS,
   addProductsFromLSToFavorites,
   setFavoritesFromLS,
   setShouldShowEmptyFavorites,
 } from '@/context/favorites'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import {
-  $comparison,
-  $comparisonFromLs,
   addProductsFromLSToComparison,
   setComparisonFromLS,
   setShouldShowEmptyComparison,
 } from '@/context/comparison'
 import { loginCheckFx } from '@/context/user'
+import { $favorites, $favoritesFormLS } from '@/context/favorites/state'
+import { $isAuth } from '@/context/auth/state'
+import { $comparison, $comparisonFromLs } from '@/context/comparison/state'
 
 const Header = () => {
   const isAuth = useUnit($isAuth)

@@ -2,10 +2,11 @@
 import { useUnit } from 'effector-react'
 import { addOverflowHiddenToBody } from '@/lib/utils/common'
 import { useLang } from '@/hooks/useLang'
-import { $showQuickViewModal, showSizeTable } from '@/context/modals'
 import { setSizeTableSizes } from '@/context/sizeTable'
 import { ISelectedSizes } from '@/types/common'
 import { setIsAddToFavorites } from '@/context/favorites'
+import { $showQuickViewModal } from '@/context/modals/state'
+import { showSizeTable } from '@/context/modals'
 
 const ProductSizeTableBtn = ({ sizes, type, className }: ISelectedSizes) => {
   const { lang, translations } = useLang()

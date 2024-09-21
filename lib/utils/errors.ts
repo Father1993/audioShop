@@ -1,15 +1,15 @@
 /* eslint-disable indent */
 import {
-  addProductToCartFx,
-  deleteCartItemFx,
-  getCartItemsFx,
-} from '@/api/cart'
-import {
   IAddProductsFromLSToFavoriteFx,
   IDeleteFavoriteItemsFx,
 } from '@/types/favorites'
 import { JWTError } from '@/constants/jwt'
-import { addProductsFromLSToCartFx } from '@/context/cart'
+import {
+  addProductsFromLSToCartFx,
+  addProductToCartFx,
+  deleteCartItemFx,
+  getCartItemsFx,
+} from '@/context/cart'
 import {
   addProductsFromLSToFavoritesFx,
   addProductToFavoriteFx,
@@ -26,14 +26,15 @@ import {
   IAddProductToComparisonFx,
   IDeleteComparisonItemsFx,
 } from '@/types/comparison'
-import {
-  addProductsFromLSToComparisonFx,
-  addProductToComparisonFx,
-  deleteComparisonItemFx,
-  getComparisonItemsFx,
-} from '@/context/comparison'
+
 import { refreshTokenFx } from '@/context/auth'
 import { loginCheckFx } from '@/context/user'
+import {
+  addProductToComparisonFx,
+  getComparisonItemsFx,
+  addProductsFromLSToComparisonFx,
+  deleteComparisonItemFx,
+} from '@/context/comparison'
 
 export const handleJWTError = async (
   errorName: string,

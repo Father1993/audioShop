@@ -54,9 +54,10 @@ const CollectionProductsPage = () => {
           {spinner && (
             <motion.ul
               className={skeletonStyles.skeleton}
+              style={{ marginBottom: 40 }}
               {...basePropsForMotion}
             >
-              {Array.from(new Array(4)).map((_, i) => (
+              {Array.from(new Array(12)).map((_, i) => (
                 <li key={i} className={skeletonStyles.skeleton__item}>
                   <div className={skeletonStyles.skeleton__item__light} />
                 </li>

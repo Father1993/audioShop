@@ -4,7 +4,6 @@
 import { useState } from 'react'
 import { useUnit } from 'effector-react'
 import { motion } from 'framer-motion'
-import { getCartItemsFx } from '@/api/cart'
 import HeadingWithCount from '@/components/elements/HeadingWithCount/HeadingWithCount'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
@@ -17,11 +16,12 @@ import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import PromotionalCode from '@/components/modules/CartPage/PromotionalCode'
 import EmptyPageContent from '@/components/modules/EmptyPageContent/EmptyPageContent'
-import { $cart, $cartFromLs, $shouldShowEmpty } from '@/context/cart'
 
 import { isUserAuth } from '@/lib/utils/common'
 import { loginCheckFx } from '@/context/user'
 import cartSkeletonStyles from '@/styles/cart-skeleton/index.module.scss'
+import { getCartItemsFx } from '@/context/cart'
+import { $cart, $cartFromLs, $shouldShowEmpty } from '@/context/cart/state'
 import styles from '@/styles/cart-page/index.module.scss'
 
 const CartPage = () => {

@@ -8,8 +8,6 @@ import ColorsSelect from './ColorsSelect'
 import SortSelect from './SortSelect'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import {
-  $colorsOptions,
-  $sizesOptions,
   setColors,
   setColorsOptions,
   setFiltersPopup,
@@ -21,6 +19,7 @@ import SelectInfoItem from './SelectInfoItem'
 import FiltersPopup from './FiltersPopup/FiltersPopup'
 import { addOverflowHiddenToBody } from '@/lib/utils/common'
 import styles from '@/styles/catalog/index.module.scss'
+import { $sizesOptions, $colorsOptions } from '@/context/catalog/state'
 
 const CatalogFilters = ({
   handleApplyFiltersWithPrice,

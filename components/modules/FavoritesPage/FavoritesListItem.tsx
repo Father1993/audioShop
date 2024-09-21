@@ -3,7 +3,6 @@ import Image from 'next/image'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import DeleteItemBtn from '@/components/elements/DeleteItemBtn/DeleteItemBtn'
 import AddToCartIcon from '@/components/elements/AddToCartIcon/AddToCartIcon'
-import { $cart, $cartFromLs, addProductToCart } from '@/context/cart'
 import { IFavoriteItem } from '@/types/favorites'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import { useLang } from '@/hooks/useLang'
@@ -20,6 +19,8 @@ import {
   setShouldShowEmptyFavorites,
 } from '@/context/favorites'
 import { useProductDelete } from '@/hooks/useProductDelete'
+import { addProductToCart } from '@/context/cart'
+import { $cart, $cartFromLs } from '@/context/cart/state'
 import styles from '@/styles/favorites/index.module.scss'
 
 const FavoritesListItem = ({ item }: { item: IFavoriteItem }) => {

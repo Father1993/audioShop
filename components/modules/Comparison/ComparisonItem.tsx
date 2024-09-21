@@ -17,9 +17,10 @@ import { deleteProductFromLS, isUserAuth } from '@/lib/utils/common'
 import { productWithoutSizes } from '@/constants/products'
 import { addCartItemToLS } from '@/lib/utils/cart'
 import { IProduct } from '@/types/common'
-import { $cart, $cartFromLs, addProductToCart } from '@/context/cart'
 import { loadOneProduct } from '@/context/goods'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
+import { addProductToCart } from '@/context/cart'
+import { $cart, $cartFromLs } from '@/context/cart/state'
 import styles from '@/styles/comparison/index.module.scss'
 
 const ComparisonItem = ({ item }: { item: IComparisonItem }) => {

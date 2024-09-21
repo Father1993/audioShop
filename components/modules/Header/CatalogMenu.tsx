@@ -4,7 +4,6 @@ import { useUnit } from 'effector-react'
 import Link from 'next/link'
 import { useLang } from '@/hooks/useLang'
 import { AnimatePresence, motion } from 'framer-motion'
-import { $catalogMenuIsOpen, closeCatalogMenu } from '@/context/modals'
 import { useMenuAnimation } from '@/hooks/useMenuAnimation'
 import { removeOverflowHiddenFromBody } from '@/lib/utils/common'
 import Header from './Header'
@@ -12,6 +11,8 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 import CatalogMenuButton from './CatalogMenuButton'
 import CatalogMenuList from './CatalogMenuList'
 import Accordion from '../Accordion/Accordion'
+import { closeCatalogMenu } from '@/context/modals'
+import { $catalogMenuIsOpen } from '@/context/modals/state'
 
 const CatalogMenu = () => {
   const catalogMenuIsOpen = useUnit($catalogMenuIsOpen)
