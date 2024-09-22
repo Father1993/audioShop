@@ -20,12 +20,7 @@ export interface IMagnitolaAddressData {
   address_line2: string
   city: string
   place_id: string
-  bbox: {
-    lon1: number
-    lat1: number
-    lon2: number
-    lat2: number
-  }
+  bbox: IAddressBBox
   lat: number
   lon: number
 }
@@ -37,4 +32,21 @@ export interface ITabControlProps {
   tab2Active: boolean
   tab1Text: string
   tab2Text: string
+}
+
+export interface IAddressPosition {
+  lat: number
+  lon: number
+}
+export interface IAddressBBox {
+  lon1: number
+  lat1: number
+  lon2: number
+  lat2: number
+}
+
+export interface IPickupAddressItemsProps {
+  addressItem: IMagnitolaAddressData
+  handleSelectAddress: (arg0: IAddressBBox, arg1: IAddressPosition) => void
+  handleChosenAddressData: (arg0: Partial<IMagnitolaAddressData>) => void
 }

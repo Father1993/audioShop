@@ -1,11 +1,22 @@
+'use client'
 import { createDomain } from 'effector'
 import toast from 'react-hot-toast'
-import { IGetMagnitolaOfficeByCityFx } from '@/types/order'
+import {
+  IGetMagnitolaOfficeByCityFx,
+  IMagnitolaAddressData,
+} from '@/types/order'
 import api from '@/api/apiInstance'
 
 export const order = createDomain()
 export const setPickupTab = order.createEvent<boolean>()
 export const setCourierTab = order.createEvent<boolean>()
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const setMapInstance = order.createEvent<any>()
+export const setShouldLoadMagnitolaData = order.createEvent<boolean>()
+export const setChosenPickupAddressData =
+  order.createEvent<Partial<IMagnitolaAddressData>>()
+export const setChosenCourierAddressData =
+  order.createEvent<Partial<IMagnitolaAddressData>>()
 
 export const getMagnitolaOfficeByCity =
   order.createEvent<IGetMagnitolaOfficeByCityFx>()
