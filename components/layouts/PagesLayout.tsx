@@ -13,7 +13,6 @@ import {
   handleCloseShareModal,
   removeOverflowHiddenFromBody,
 } from '@/lib/utils/common'
-
 import CookieAlert from '../modules/CookieAlert/CookieAlert'
 import { $openAuthPopup } from '@/context/auth/state'
 import {

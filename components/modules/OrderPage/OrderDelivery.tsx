@@ -2,6 +2,7 @@ import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
+import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css'
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import { $courierTab, $pickupTab } from '@/context/order/state'
 import { useLang } from '@/hooks/useLang'
@@ -11,7 +12,9 @@ import { setCourierTab, setMapInstance, setPickupTab } from '@/context/order'
 import { basePropsForMotion } from '@/constants/motion'
 import { getGeolocationFx, setUserGeolocation } from '@/context/user'
 import { $userGeolocation } from '@/context/user/state'
+import AddressesList from './AddressesList'
 import styles from '@/styles/order/index.module.scss'
+import { addScriptToHead } from '@/lib/utils/common'
 
 const OrderDelivery = () => {
   const { lang, translations } = useLang()
@@ -20,6 +23,7 @@ const OrderDelivery = () => {
   const [shouldLoadMap, setShouldLoadMap] = useState(false)
   const userGeolocation = useUnit($userGeolocation)
   const mapRef = useRef() as MutableRefObject<HTMLDivElement>
+  const labelRef = useRef() as MutableRefObject<HTMLLabelElement>
 
   const handlePickupTab = () => {
     if (pickupTab) {
@@ -45,6 +49,12 @@ const OrderDelivery = () => {
 
   useEffect(() => {
     if (shouldLoadMap) {
+      addScriptToHead(
+        'https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.1.2-public-preview.15/services/services-web.min.js'
+      )
+      addScriptToHead(
+        'https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.1.3-public-preview.0/SearchBox-web.js'
+      )
       handleLoadMap()
     }
   }, [shouldLoadMap])
@@ -71,6 +81,7 @@ const OrderDelivery = () => {
   }
 
   const handleLoadMap = async (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     initialSearchValue = '',
     initialPosition = {
       lat: 48.4261481667904,
@@ -88,6 +99,26 @@ const OrderDelivery = () => {
     })
 
     setMapInstance(map)
+
+    const options = {
+      searchOptions: {
+        key: process.env.NEXT_PUBLIC_TOMTOM_API_KEY,
+        language: 'ru-RU',
+        limit: 5,
+      },
+      autocompleteOptions: {
+        key: process.env.NEXT_PUBLIC_TOMTOM_API_KEY,
+        language: 'ru-RU',
+      },
+    }
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-ignore
+    const ttSearchBox = new tt.plugins.SearchBox(tt.services, options)
+
+    const searchBoxHTML = ttSearchBox.getSearchBoxHTML()
+    searchBoxHTML.classList.add('delivery-search-input')
+    labelRef.current.append(searchBoxHTML)
 
     if (userGeolocation?.features && !withMarker) {
       map
@@ -117,7 +148,15 @@ const OrderDelivery = () => {
             {...basePropsForMotion}
           >
             <div className={styles.order__list__item__delivery__inner}>
-              Inner
+              <label
+                className={styles.order__list__item__delivery__label}
+                ref={labelRef}
+              >
+                <span>{translations[lang].order.search_title}</span>
+              </label>
+              <AddressesList
+                listClassName={styles.order__list__item__delivery__list}
+              />
             </div>
             <div
               className={styles.order__list__item__delivery__map}
