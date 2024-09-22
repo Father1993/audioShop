@@ -16,6 +16,7 @@ import './globalStyles/auth-popup.css'
 import './globalStyles/header-profile.css'
 import './globalStyles/cookie-popup.css'
 import './globalStyles/breadcrumbs.css'
+import './globalStyles/map.css'
 
 export const metadata: Metadata = {
   title: 'Magnitola.ru | Музыка для твоей машины',
