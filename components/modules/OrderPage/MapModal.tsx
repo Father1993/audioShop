@@ -19,19 +19,23 @@ import AddressesList from './AddressesList'
 import { useTTMap } from '@/hooks/useTTmap'
 import {
   setChosenCourierAddressData,
+  setCourierAddressData,
   setShouldLoadMagnitolaData,
   setShouldShowCourierAddressData,
 } from '@/context/order'
 import {
   $chosenPickupAddressData,
+  $courierAddressData,
   $magnitolaDataByCity,
   $mapInstance,
   $shouldShowCourierAddressData,
 } from '@/context/order/state'
 import { $userGeolocation } from '@/context/user/state'
 import { IMagnitolaAddressData } from '@/types/order'
-import styles from '@/styles/order/index.module.scss'
 import CourierAddressesItem from './CourierAddressesItem'
+import { getGeolocationFx } from '@/context/user'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
+import styles from '@/styles/order/index.module.scss'
 
 const MapModal = () => {
   const { lang, translations } = useLang()
@@ -47,10 +51,21 @@ const MapModal = () => {
   const mapInstance = useUnit($mapInstance)
   const shouldShowCourierAddressData = useUnit($shouldShowCourierAddressData)
   const chosenPickupAddressData = useUnit($chosenPickupAddressData)
+  const courierAddressData = useUnit($courierAddressData)
+  const isMedia940 = useMediaQuery(940)
 
   const removeMapMarkers = () => {
     const markers = document.querySelectorAll('.modal-map-marker')
     markers.forEach((marker) => marker.remove())
+  }
+
+  const drawMarker = async (lon: number, lat: number, map: any) => {
+    const ttMaps = await import(`@tomtom-international/web-sdk-maps`)
+
+    const element = document.createElement('div')
+    element.classList.add('modal-map-marker')
+
+    new ttMaps.Marker({ element }).setLngLat([lon, lat]).addTo(map)
   }
 
   const handleCloseModal = () => {
@@ -68,14 +83,55 @@ const MapModal = () => {
     handleLoadMap()
   }
 
-  const handleSelectCourierTab = () => {
-    if (pickupTab) {
+  const handleSelectCourierTab = async () => {
+    if (courierTab) {
       return
     }
 
     setPickupTab(false)
     setCourierTab(true)
+
+    const map = await handleLoadMap(courierMapRef)
+    setTimeout(removeMapMarkers, 0)
+
+    if (chosenPickupAddressData.address_line1) {
+      setShouldShowCourierAddressData(false)
+      return
+    }
+
+    if (courierAddressData.lat) {
+      setTimeout(
+        () => drawMarker(courierAddressData.lon, courierAddressData.lat, map),
+        0
+      )
+    }
   }
+
+  //@ts-ignore
+  const drawMarkerByClick = async (e) => {
+    const result = await getGeolocationFx({
+      lat: e.lngLat.lat,
+      lon: e.lngLat.lng,
+    })
+
+    if (result) {
+      removeMapMarkers()
+      drawMarker(e.lngLat.lng, e.lngLat.lat, ttMapInstance)
+      setCourierAddressData(result.data.features[0].properties)
+      setShouldShowCourierAddressData(true)
+    }
+  }
+
+  useEffect(() => {
+    if (ttMapInstance?.once) {
+      if (pickupTab) {
+        ttMapInstance.off('click', drawMarkerByClick)
+        return
+      }
+
+      ttMapInstance.on('click', drawMarkerByClick)
+    }
+  }, [courierTab, pickupTab, ttMapInstance])
 
   useEffect(() => {
     if (shouldLoadMap.current) {
@@ -187,6 +243,8 @@ const MapModal = () => {
     if (magnitolaDataByCity.length) {
       setMarkersByLocationsData(magnitolaDataByCity)
     }
+
+    return map
   }
 
   const handleSelectAddressByMarkers = (
@@ -230,7 +288,7 @@ const MapModal = () => {
         className={`btn-reset ${styles.map_modal__close}`}
         onClick={handleCloseModal}
       >
-        {translations[lang].common.close}
+        {isMedia940 ? '' : translations[lang].common.close}
       </button>
       <div className={styles.map_modal__control}>
         <h3 className={styles.map_modal__title}>

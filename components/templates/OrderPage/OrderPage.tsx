@@ -78,6 +78,12 @@ const OrderPage = () => {
                 <li className={styles.order__list__item}>
                   <OrderDelivery />
                 </li>
+                <li className={styles.order__list__item}>
+                  <OrderTitle
+                    orderNumber='3'
+                    text={translations[lang].order.payment}
+                  />
+                </li>
               </ul>
             </div>
             <div className={styles.order__inner__right}>
