@@ -1,10 +1,15 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css'
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
-import { $courierTab, $pickupTab } from '@/context/order/state'
+import {
+  $chosenPickupAddressData,
+  $courierTab,
+  $pickupTab,
+} from '@/context/order/state'
 import { useLang } from '@/hooks/useLang'
 import OrderTitle from './OrderTitle'
 import TabControls from './TabControls'
@@ -13,8 +18,18 @@ import { basePropsForMotion } from '@/constants/motion'
 import { getGeolocationFx, setUserGeolocation } from '@/context/user'
 import { $userGeolocation } from '@/context/user/state'
 import AddressesList from './AddressesList'
-import styles from '@/styles/order/index.module.scss'
 import { addScriptToHead } from '@/lib/utils/common'
+import {
+  handleResultClearing,
+  handleResultSelection,
+  handleResultsFound,
+  handleSelectPickupAddress,
+  initSearchMarket,
+  SearchMarkersManager,
+} from '@/lib/utils/map'
+import { useTTMap } from '@/hooks/useTTmap'
+import { IAddressBBox } from '@/types/order'
+import styles from '@/styles/order/index.module.scss'
 
 const OrderDelivery = () => {
   const { lang, translations } = useLang()
@@ -22,6 +37,8 @@ const OrderDelivery = () => {
   const courierTab = useUnit($courierTab)
   const [shouldLoadMap, setShouldLoadMap] = useState(false)
   const userGeolocation = useUnit($userGeolocation)
+  const chosenPickupAddressData = useUnit($chosenPickupAddressData)
+  const { handleSelectAddress } = useTTMap()
   const mapRef = useRef() as MutableRefObject<HTMLDivElement>
   const labelRef = useRef() as MutableRefObject<HTMLLabelElement>
 
@@ -32,6 +49,24 @@ const OrderDelivery = () => {
 
     setPickupTab(true)
     setCourierTab(false)
+
+    if (chosenPickupAddressData.address_line1) {
+      handleLoadMap(
+        chosenPickupAddressData.city,
+        {
+          lat: chosenPickupAddressData.lat as number,
+          lng: chosenPickupAddressData.lon as number,
+        },
+        true
+      )
+      return
+    }
+
+    if (userGeolocation?.features) {
+      handleLoadMap(userGeolocation?.features[0].properties.city)
+      return
+    }
+
     handleLoadMap()
   }
 
@@ -81,7 +116,6 @@ const OrderDelivery = () => {
   }
 
   const handleLoadMap = async (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     initialSearchValue = '',
     initialPosition = {
       lat: 48.4261481667904,
@@ -99,6 +133,15 @@ const OrderDelivery = () => {
     })
 
     setMapInstance(map)
+    withMarker &&
+      handleSelectAddress(
+        chosenPickupAddressData.bbox as IAddressBBox,
+        {
+          lat: chosenPickupAddressData.lat as number,
+          lon: chosenPickupAddressData.lon as number,
+        },
+        map
+      )
 
     const options = {
       searchOptions: {
@@ -112,7 +155,8 @@ const OrderDelivery = () => {
       },
     }
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    initSearchMarket(ttMaps)
+
     //@ts-ignore
     const ttSearchBox = new tt.plugins.SearchBox(tt.services, options)
 
@@ -120,7 +164,25 @@ const OrderDelivery = () => {
     searchBoxHTML.classList.add('delivery-search-input')
     labelRef.current.append(searchBoxHTML)
 
+    initialSearchValue && ttSearchBox.setValue(initialSearchValue)
+
+    //@ts-ignore
+    const searchMarkersManager = new SearchMarkersManager(map)
+    //@ts-ignore
+    ttSearchBox.on('tomtom.searchbox.resultsfound', (e) =>
+      handleResultsFound(e, searchMarkersManager, map)
+    )
+    //@ts-ignore
+    ttSearchBox.on('tomtom.searchbox.resultselected', (e) =>
+      handleResultSelection(e, searchMarkersManager, map)
+    )
+    ttSearchBox.on('tomtom.searchbox.resultscleared', () =>
+      handleResultClearing(searchMarkersManager, map, userGeolocation)
+    )
+
     if (userGeolocation?.features && !withMarker) {
+      ttSearchBox.setValue(userGeolocation?.features[0].properties.city)
+      handleSelectPickupAddress(userGeolocation?.features[0].properties.city)
       map
         .setCenter([
           userGeolocation?.features[0].properties.lon,

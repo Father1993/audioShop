@@ -30,12 +30,12 @@ export const useTTMap = () => {
     const ne = new ttMaps.LngLat(lon2, lat2)
     const bounds = new ttMaps.LngLatBounds(sw, ne)
 
-    currentMap.map.fitBounds(bounds, { padding: 130, linear: true })
+    currentMap.fitBounds(bounds, { padding: 130, linear: true })
 
     const element = document.createElement('div')
     element.classList.add('map-marker')
 
-    new ttMaps.Marker()
+    new ttMaps.Marker({ element })
       .setLngLat([position.lon, position.lat])
       .addTo(currentMap)
   }
