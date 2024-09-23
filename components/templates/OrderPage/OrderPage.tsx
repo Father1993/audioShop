@@ -83,7 +83,6 @@ const OrderPage = () => {
                     orderNumber='3'
                     text={translations[lang].order.payment}
                   />
-                  <OrderDelivery />
                 </li>
               </ul>
             </div>
