@@ -34,6 +34,7 @@ import { $userGeolocation } from '@/context/user/state'
 import { IMagnitolaAddressData } from '@/types/order'
 import CourierAddressesItem from './CourierAddressesItem'
 import { getGeolocationFx } from '@/context/user'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 import styles from '@/styles/order/index.module.scss'
 
 const MapModal = () => {
@@ -51,6 +52,7 @@ const MapModal = () => {
   const shouldShowCourierAddressData = useUnit($shouldShowCourierAddressData)
   const chosenPickupAddressData = useUnit($chosenPickupAddressData)
   const courierAddressData = useUnit($courierAddressData)
+  const isMedia940 = useMediaQuery(940)
 
   const removeMapMarkers = () => {
     const markers = document.querySelectorAll('.modal-map-marker')
@@ -286,7 +288,7 @@ const MapModal = () => {
         className={`btn-reset ${styles.map_modal__close}`}
         onClick={handleCloseModal}
       >
-        {translations[lang].common.close}
+        {isMedia940 ? '' : translations[lang].common.close}
       </button>
       <div className={styles.map_modal__control}>
         <h3 className={styles.map_modal__title}>
