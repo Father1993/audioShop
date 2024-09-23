@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
@@ -6,6 +7,7 @@ import toast from 'react-hot-toast'
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css'
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
 import {
+  $chosenCourierAddressData,
   $chosenPickupAddressData,
   $courierTab,
   $pickupTab,
@@ -14,7 +16,12 @@ import {
 import { useLang } from '@/hooks/useLang'
 import OrderTitle from './OrderTitle'
 import TabControls from './TabControls'
-import { setCourierTab, setMapInstance, setPickupTab } from '@/context/order'
+import {
+  setCourierTab,
+  setMapInstance,
+  setPickupTab,
+  setShouldShowCourierAddressData,
+} from '@/context/order'
 import { basePropsForMotion } from '@/constants/motion'
 import { getGeolocationFx, setUserGeolocation } from '@/context/user'
 import { $userGeolocation } from '@/context/user/state'
@@ -32,6 +39,7 @@ import { useTTMap } from '@/hooks/useTTmap'
 import { IAddressBBox } from '@/types/order'
 import { mapOptions } from '@/constants/map'
 import { openMapModal } from '@/context/modals'
+import CourierAddressInfo from './CourierAddressInfo'
 import styles from '@/styles/order/index.module.scss'
 
 const OrderDelivery = () => {
@@ -41,6 +49,7 @@ const OrderDelivery = () => {
   const [shouldLoadMap, setShouldLoadMap] = useState(false)
   const userGeolocation = useUnit($userGeolocation)
   const chosenPickupAddressData = useUnit($chosenPickupAddressData)
+  const chosenCourierAddressData = useUnit($chosenCourierAddressData)
   const { handleSelectAddress } = useTTMap()
   const mapRef = useRef() as MutableRefObject<HTMLDivElement>
   const labelRef = useRef() as MutableRefObject<HTMLLabelElement>
@@ -174,9 +183,10 @@ const OrderDelivery = () => {
       handleResultsFound(e, searchMarkersManager, map)
     )
     //@ts-ignore
-    ttSearchBox.on('tomtom.searchbox.resultselected', (e) =>
+    ttSearchBox.on('tomtom.searchbox.resultselected', (e) => {
       handleResultSelection(e, searchMarkersManager, map)
-    )
+      setShouldShowCourierAddressData(false)
+    })
     ttSearchBox.on('tomtom.searchbox.resultscleared', () =>
       handleResultClearing(searchMarkersManager, map, userGeolocation)
     )
@@ -239,6 +249,10 @@ const OrderDelivery = () => {
                 </button>
               </div>
             )}
+            {shouldShowCourierAddressData &&
+              !!chosenCourierAddressData.address_line1 && (
+                <CourierAddressInfo />
+              )}
           </motion.div>
         )}
       </div>
