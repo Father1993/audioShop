@@ -7,7 +7,7 @@ import {
 } from '@/context/order/state'
 import { useLang } from '@/hooks/useLang'
 import { useUnit } from 'effector-react'
-import { IMagnitolaAddressData } from '@/types/order'
+import { IAddressesListProps, IMagnitolaAddressData } from '@/types/order'
 import {
   getMagnitolaOfficesByCityFx,
   setChosenPickupAddressData,
@@ -17,7 +17,10 @@ import { useTTMap } from '@/hooks/useTTmap'
 import PickupAddressItem from './PickupAddressItem'
 import styles from '@/styles/order/index.module.scss'
 
-const AddressesList = ({ listClassName }: { listClassName: string }) => {
+const AddressesList = ({
+  listClassName,
+  handleSelectAddressByMarkers,
+}: IAddressesListProps) => {
   const { lang, translations } = useLang()
   const magnitolaDataByCity = useUnit($magnitolaDataByCity)
   const chosenPickupAddressData = useUnit($chosenPickupAddressData)
@@ -49,7 +52,9 @@ const AddressesList = ({ listClassName }: { listClassName: string }) => {
                     key={item.place_id}
                     addressItem={item}
                     handleChosenAddressData={handleChosenAddressData}
-                    handleSelectAddress={handleSelectAddress}
+                    handleSelectAddress={
+                      handleSelectAddressByMarkers || handleSelectAddress
+                    }
                   />
                 ))
               ) : (

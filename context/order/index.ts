@@ -15,8 +15,10 @@ export const setMapInstance = order.createEvent<any>()
 export const setShouldLoadMagnitolaData = order.createEvent<boolean>()
 export const setChosenPickupAddressData =
   order.createEvent<Partial<IMagnitolaAddressData>>()
+export const setShouldShowCourierAddressData = order.createEvent<boolean>()
 export const setChosenCourierAddressData =
   order.createEvent<Partial<IMagnitolaAddressData>>()
+export const setCourierAddressData = order.createEvent<IMagnitolaAddressData>()
 
 export const getMagnitolaOfficeByCity =
   order.createEvent<IGetMagnitolaOfficeByCityFx>()

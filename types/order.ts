@@ -50,3 +50,13 @@ export interface IPickupAddressItemsProps {
   handleSelectAddress: (arg0: IAddressBBox, arg1: IAddressPosition) => void
   handleChosenAddressData: (arg0: Partial<IMagnitolaAddressData>) => void
 }
+
+export interface IAddressesListProps {
+  listClassName: string
+  handleSelectAddressByMarkers?: (
+    arg0: IAddressBBox,
+    agr1: IAddressPosition,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    arg2?: any
+  ) => void
+}

@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import '@tomtom-international/web-sdk-plugin-searchbox/dist/SearchBox.css'
 import '@tomtom-international/web-sdk-maps/dist/maps.css'
-import { $courierTab, $pickupTab } from '@/context/order/state'
+import {
+  $chosenPickupAddressData,
+  $courierTab,
+  $pickupTab,
+  $shouldShowCourierAddressData,
+} from '@/context/order/state'
 import { useLang } from '@/hooks/useLang'
 import OrderTitle from './OrderTitle'
 import TabControls from './TabControls'
@@ -13,8 +19,20 @@ import { basePropsForMotion } from '@/constants/motion'
 import { getGeolocationFx, setUserGeolocation } from '@/context/user'
 import { $userGeolocation } from '@/context/user/state'
 import AddressesList from './AddressesList'
+import { addOverflowHiddenToBody, addScriptToHead } from '@/lib/utils/common'
+import {
+  handleResultClearing,
+  handleResultSelection,
+  handleResultsFound,
+  handleSelectPickupAddress,
+  initSearchMarket,
+  SearchMarkersManager,
+} from '@/lib/utils/map'
+import { useTTMap } from '@/hooks/useTTmap'
+import { IAddressBBox } from '@/types/order'
+import { mapOptions } from '@/constants/map'
+import { openMapModal } from '@/context/modals'
 import styles from '@/styles/order/index.module.scss'
-import { addScriptToHead } from '@/lib/utils/common'
 
 const OrderDelivery = () => {
   const { lang, translations } = useLang()
@@ -22,8 +40,11 @@ const OrderDelivery = () => {
   const courierTab = useUnit($courierTab)
   const [shouldLoadMap, setShouldLoadMap] = useState(false)
   const userGeolocation = useUnit($userGeolocation)
+  const chosenPickupAddressData = useUnit($chosenPickupAddressData)
+  const { handleSelectAddress } = useTTMap()
   const mapRef = useRef() as MutableRefObject<HTMLDivElement>
   const labelRef = useRef() as MutableRefObject<HTMLLabelElement>
+  const shouldShowCourierAddressData = useUnit($shouldShowCourierAddressData)
 
   const handlePickupTab = () => {
     if (pickupTab) {
@@ -32,6 +53,24 @@ const OrderDelivery = () => {
 
     setPickupTab(true)
     setCourierTab(false)
+
+    if (chosenPickupAddressData.address_line1) {
+      handleLoadMap(
+        chosenPickupAddressData.city,
+        {
+          lat: chosenPickupAddressData.lat as number,
+          lng: chosenPickupAddressData.lon as number,
+        },
+        true
+      )
+      return
+    }
+
+    if (userGeolocation?.features) {
+      handleLoadMap(userGeolocation?.features[0].properties.city)
+      return
+    }
+
     handleLoadMap()
   }
 
@@ -41,6 +80,11 @@ const OrderDelivery = () => {
     }
     setPickupTab(false)
     setCourierTab(true)
+  }
+
+  const handleOpenMapModal = () => {
+    openMapModal()
+    addOverflowHiddenToBody()
   }
 
   useEffect(() => {
@@ -77,11 +121,14 @@ const OrderDelivery = () => {
       setShouldLoadMap(true)
       toast.error(`${error.code} ${error.message}`)
     }
-    navigator.geolocation.getCurrentPosition(success, error)
+    navigator.geolocation.getCurrentPosition(success, error, {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    })
   }
 
   const handleLoadMap = async (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     initialSearchValue = '',
     initialPosition = {
       lat: 48.4261481667904,
@@ -99,28 +146,44 @@ const OrderDelivery = () => {
     })
 
     setMapInstance(map)
+    withMarker &&
+      handleSelectAddress(
+        chosenPickupAddressData.bbox as IAddressBBox,
+        {
+          lat: chosenPickupAddressData.lat as number,
+          lon: chosenPickupAddressData.lon as number,
+        },
+        map
+      )
 
-    const options = {
-      searchOptions: {
-        key: process.env.NEXT_PUBLIC_TOMTOM_API_KEY,
-        language: 'ru-RU',
-        limit: 5,
-      },
-      autocompleteOptions: {
-        key: process.env.NEXT_PUBLIC_TOMTOM_API_KEY,
-        language: 'ru-RU',
-      },
-    }
+    initSearchMarket(ttMaps)
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     //@ts-ignore
-    const ttSearchBox = new tt.plugins.SearchBox(tt.services, options)
+    const ttSearchBox = new tt.plugins.SearchBox(tt.services, mapOptions)
 
     const searchBoxHTML = ttSearchBox.getSearchBoxHTML()
     searchBoxHTML.classList.add('delivery-search-input')
     labelRef.current.append(searchBoxHTML)
 
+    initialSearchValue && ttSearchBox.setValue(initialSearchValue)
+
+    //@ts-ignore
+    const searchMarkersManager = new SearchMarkersManager(map)
+    //@ts-ignore
+    ttSearchBox.on('tomtom.searchbox.resultsfound', (e) =>
+      handleResultsFound(e, searchMarkersManager, map)
+    )
+    //@ts-ignore
+    ttSearchBox.on('tomtom.searchbox.resultselected', (e) =>
+      handleResultSelection(e, searchMarkersManager, map)
+    )
+    ttSearchBox.on('tomtom.searchbox.resultscleared', () =>
+      handleResultClearing(searchMarkersManager, map, userGeolocation)
+    )
+
     if (userGeolocation?.features && !withMarker) {
+      ttSearchBox.setValue(userGeolocation?.features[0].properties.city)
+      handleSelectPickupAddress(userGeolocation?.features[0].properties.city)
       map
         .setCenter([
           userGeolocation?.features[0].properties.lon,
@@ -161,12 +224,21 @@ const OrderDelivery = () => {
             <div
               className={styles.order__list__item__delivery__map}
               ref={mapRef}
+              onClick={handleOpenMapModal}
             />
           </motion.div>
         )}
         {courierTab && (
           <motion.div {...basePropsForMotion}>
-            <h3>Tab 2</h3>
+            {!shouldShowCourierAddressData && (
+              <div className={styles.order__list__item__delivery__courier}>
+                <span>{translations[lang].order.where_deliver_order}</span>
+                <span>{translations[lang].order.enter_address_on_map}</span>
+                <button className='btn-reset' onClick={handleOpenMapModal}>
+                  {translations[lang].order.map}
+                </button>
+              </div>
+            )}
           </motion.div>
         )}
       </div>
