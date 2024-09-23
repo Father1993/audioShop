@@ -1,14 +1,19 @@
 'use client'
+import { useUnit } from 'effector-react'
+import { AnimatePresence, motion } from 'framer-motion'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import OrderCartItem from '@/components/modules/OrderPage/OrderCartItem'
 import OrderDelivery from '@/components/modules/OrderPage/OrderDelivery'
 import OrderTitle from '@/components/modules/OrderPage/OrderTitle'
 import { $cart, $cartFromLs } from '@/context/cart/state'
+import { $mapModal } from '@/context/modals/state'
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import { useLang } from '@/hooks/useLang'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import MapModal from '@/components/modules/OrderPage/MapModal'
+import { basePropsForMotion } from '@/constants/motion'
 import styles from '@/styles/order/index.module.scss'
 
 const OrderPage = () => {
@@ -16,6 +21,7 @@ const OrderPage = () => {
   const { getDefaultTextGenerator, getTextGenerator } = useBreadcrumbs('order')
   const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
   const isMedia1220 = useMediaQuery(1220)
+  const mapModal = useUnit($mapModal)
 
   return (
     <main>
@@ -82,6 +88,13 @@ const OrderPage = () => {
           </div>
         </div>
       </section>
+      <AnimatePresence>
+        {mapModal && (
+          <motion.div className={styles.map_modal} {...basePropsForMotion}>
+            <MapModal />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }

@@ -5,10 +5,12 @@ import {
   order,
   setChosenCourierAddressData,
   setChosenPickupAddressData,
+  setCourierAddressData,
   setCourierTab,
   setMapInstance,
   setPickupTab,
   setShouldLoadMagnitolaData,
+  setShouldShowCourierAddressData,
 } from '.'
 
 export const $magnitolaDataByCity = order
@@ -39,3 +41,11 @@ export const $chosenPickupAddressData = order
 export const $chosenCourierAddressData = order
   .createStore<Partial<IMagnitolaAddressData>>({})
   .on(setChosenCourierAddressData, (_, value) => value)
+
+export const $shouldShowCourierAddressData = order
+  .createStore(false)
+  .on(setShouldShowCourierAddressData, (_, value) => value)
+
+export const $courierAddressData = order
+  .createStore<IMagnitolaAddressData>({} as IMagnitolaAddressData)
+  .on(setCourierAddressData, (_, value) => value)

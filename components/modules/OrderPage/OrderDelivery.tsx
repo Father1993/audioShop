@@ -9,6 +9,7 @@ import {
   $chosenPickupAddressData,
   $courierTab,
   $pickupTab,
+  $shouldShowCourierAddressData,
 } from '@/context/order/state'
 import { useLang } from '@/hooks/useLang'
 import OrderTitle from './OrderTitle'
@@ -18,7 +19,7 @@ import { basePropsForMotion } from '@/constants/motion'
 import { getGeolocationFx, setUserGeolocation } from '@/context/user'
 import { $userGeolocation } from '@/context/user/state'
 import AddressesList from './AddressesList'
-import { addScriptToHead } from '@/lib/utils/common'
+import { addOverflowHiddenToBody, addScriptToHead } from '@/lib/utils/common'
 import {
   handleResultClearing,
   handleResultSelection,
@@ -29,6 +30,8 @@ import {
 } from '@/lib/utils/map'
 import { useTTMap } from '@/hooks/useTTmap'
 import { IAddressBBox } from '@/types/order'
+import { mapOptions } from '@/constants/map'
+import { openMapModal } from '@/context/modals'
 import styles from '@/styles/order/index.module.scss'
 
 const OrderDelivery = () => {
@@ -41,6 +44,7 @@ const OrderDelivery = () => {
   const { handleSelectAddress } = useTTMap()
   const mapRef = useRef() as MutableRefObject<HTMLDivElement>
   const labelRef = useRef() as MutableRefObject<HTMLLabelElement>
+  const shouldShowCourierAddressData = useUnit($shouldShowCourierAddressData)
 
   const handlePickupTab = () => {
     if (pickupTab) {
@@ -78,6 +82,11 @@ const OrderDelivery = () => {
     setCourierTab(true)
   }
 
+  const handleOpenMapModal = () => {
+    openMapModal()
+    addOverflowHiddenToBody()
+  }
+
   useEffect(() => {
     getUserGeolocation()
   }, [])
@@ -112,7 +121,11 @@ const OrderDelivery = () => {
       setShouldLoadMap(true)
       toast.error(`${error.code} ${error.message}`)
     }
-    navigator.geolocation.getCurrentPosition(success, error)
+    navigator.geolocation.getCurrentPosition(success, error, {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    })
   }
 
   const handleLoadMap = async (
@@ -143,22 +156,10 @@ const OrderDelivery = () => {
         map
       )
 
-    const options = {
-      searchOptions: {
-        key: process.env.NEXT_PUBLIC_TOMTOM_API_KEY,
-        language: 'ru-RU',
-        limit: 5,
-      },
-      autocompleteOptions: {
-        key: process.env.NEXT_PUBLIC_TOMTOM_API_KEY,
-        language: 'ru-RU',
-      },
-    }
-
     initSearchMarket(ttMaps)
 
     //@ts-ignore
-    const ttSearchBox = new tt.plugins.SearchBox(tt.services, options)
+    const ttSearchBox = new tt.plugins.SearchBox(tt.services, mapOptions)
 
     const searchBoxHTML = ttSearchBox.getSearchBoxHTML()
     searchBoxHTML.classList.add('delivery-search-input')
@@ -223,12 +224,21 @@ const OrderDelivery = () => {
             <div
               className={styles.order__list__item__delivery__map}
               ref={mapRef}
+              onClick={handleOpenMapModal}
             />
           </motion.div>
         )}
         {courierTab && (
           <motion.div {...basePropsForMotion}>
-            <h3>Tab 2</h3>
+            {!shouldShowCourierAddressData && (
+              <div className={styles.order__list__item__delivery__courier}>
+                <span>{translations[lang].order.where_deliver_order}</span>
+                <span>{translations[lang].order.enter_address_on_map}</span>
+                <button className='btn-reset' onClick={handleOpenMapModal}>
+                  {translations[lang].order.map}
+                </button>
+              </div>
+            )}
           </motion.div>
         )}
       </div>

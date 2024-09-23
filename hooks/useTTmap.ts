@@ -1,25 +1,13 @@
 import { useUnit } from 'effector-react'
 import { $mapInstance } from '@/context/order/state'
+import { IAddressBBox, IAddressPosition } from '@/types/order'
 
 export const useTTMap = () => {
   const mapInstance = useUnit($mapInstance)
 
   const handleSelectAddress = async (
-    {
-      lon1,
-      lat1,
-      lon2,
-      lat2,
-    }: {
-      lon1: number
-      lat1: number
-      lon2: number
-      lat2: number
-    },
-    position: {
-      lat: number
-      lon: number
-    },
+    { lon1, lat1, lon2, lat2 }: IAddressBBox,
+    position: IAddressPosition,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     initialMapInstance?: any
   ) => {
