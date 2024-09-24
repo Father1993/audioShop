@@ -3,17 +3,18 @@
 'use client'
 import { useUnit } from 'effector-react'
 import Link from 'next/link'
+import { notFound } from 'next/navigation'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import { checkPaymentFx } from '@/context/order'
+import { checkPaymentFx, paymentNotifyFx } from '@/context/order'
 import { useLang } from '@/hooks/useLang'
 import { useEffect, useState } from 'react'
 import { IPaymentData } from '@/types/order'
-import { notFound } from 'next/navigation'
 import { isUserAuth, formatPrice } from '@/lib/utils/common'
 import { handleDeleteAllFromCart } from '@/lib/utils/cart'
 import { useWatchedProducts } from '@/hooks/useWatchedProducts'
 import WatchedProducts from '@/components/modules/WatchedProducts/WatchedProducts'
+import { $user } from '@/context/user/state'
 import styles from '@/styles/payment-success/index.module.scss'
 
 export default function Favorites() {
@@ -24,6 +25,7 @@ export default function Favorites() {
   )
   const [pageSpinner, setPageSpinner] = useState(true)
   const { watchedProducts } = useWatchedProducts()
+  const user = useUnit($user)
 
   useEffect(() => {
     if (!localStorage.getItem('paymentId')) {
@@ -33,6 +35,15 @@ export default function Favorites() {
 
     getPaymentData()
   }, [])
+
+  useEffect(() => {
+    if (paymentData.description && user.email) {
+      paymentNotifyFx({
+        email: user.email,
+        message: paymentData.description,
+      })
+    }
+  }, [paymentData.description, user.email])
 
   const getPaymentData = async () => {
     const paymentId = JSON.parse(localStorage.getItem('paymentId') as string)

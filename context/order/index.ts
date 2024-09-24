@@ -5,6 +5,7 @@ import {
   IGetMagnitolaOfficeByCityFx,
   IMagnitolaAddressData,
   IMakePaymentFx,
+  IPaymentNotifyFx,
 } from '@/types/order'
 import api from '@/api/apiInstance'
 import { handleJWTError } from '@/lib/utils/errors'
@@ -76,6 +77,18 @@ export const checkPaymentFx = order.createEffect(
   async ({ paymentId }: { paymentId: string }) => {
     try {
       const { data } = await api.post(`/api/payment/check`, { paymentId })
+
+      return data
+    } catch (error) {
+      toast.error((error as Error).message)
+    }
+  }
+)
+
+export const paymentNotifyFx = order.createEffect(
+  async ({ message, email }: IPaymentNotifyFx) => {
+    try {
+      const { data } = await api.post(`/api/payment/notify`, { message, email })
 
       return data
     } catch (error) {

@@ -74,6 +74,11 @@ export interface IPaymentData {
   description: string
 }
 
+export interface IPaymentNotifyFx {
+  email: string
+  message: string
+}
+
 export interface IOrderDetailsValues {
   name_label: string
   surname_label: string
