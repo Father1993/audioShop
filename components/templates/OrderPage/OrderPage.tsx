@@ -1,9 +1,8 @@
 'use client'
-import { MutableRefObject, useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
-import toast from 'react-hot-toast'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import OrderCartItem from '@/components/modules/OrderPage/OrderCartItem'
@@ -19,12 +18,6 @@ import MapModal from '@/components/modules/OrderPage/MapModal'
 import { basePropsForMotion } from '@/constants/motion'
 import OrderPayment from '@/components/modules/OrderPage/OrderPayment'
 import OrderDetailsForm from '@/components/modules/OrderPage/OrderDetailsForm'
-import {
-  $chosenCourierAddressData,
-  $chosenPickupAddressData,
-  $orderDetailsValues,
-  $scrollToRequiredBlock,
-} from '@/context/order/state'
 import { isUserAuth } from '@/lib/utils/common'
 import styles from '@/styles/order/index.module.scss'
 
@@ -34,51 +27,11 @@ const OrderPage = () => {
   const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
   const isMedia1220 = useMediaQuery(1220)
   const mapModal = useUnit($mapModal)
-  const shouldScrollToDelivery = useRef(true)
-  const [isFirstRender, setIsFirstRender] = useState(true)
-  const scrollToRequiredBlock = useUnit($scrollToRequiredBlock)
-  const deliveryBlockRef = useRef() as MutableRefObject<HTMLLIElement>
-  const detailsBlockRef = useRef() as MutableRefObject<HTMLLIElement>
-  const chosenPickupAddressData = useUnit($chosenPickupAddressData)
-  const chosenCourierAddressData = useUnit($chosenCourierAddressData)
-  const orderDetailsValues = useUnit($orderDetailsValues)
   const router = useRouter()
-  const scrollToBlock = (selector: HTMLLIElement) => {
-    selector.scrollTo({
-      top:
-        deliveryBlockRef.current.getBoundingClientRect().top +
-        window.scrollY +
-        -50,
-      behavior: 'smooth',
-    })
-  }
 
   useEffect(() => {
-    if (shouldScrollToDelivery.current) {
-      shouldScrollToDelivery.current = false
-      setIsFirstRender(false)
-    }
-
     clearCartByPayment()
   }, [])
-
-  useEffect(() => {
-    if (isFirstRender) {
-      return
-    }
-
-    if (!orderDetailsValues) {
-      scrollToBlock(detailsBlockRef.current)
-      return
-    }
-    if (
-      !chosenCourierAddressData.address_line1 &&
-      !chosenPickupAddressData.address_line1
-    ) {
-      scrollToBlock(deliveryBlockRef.current)
-      toast.error('Нужно указать адрес')
-    }
-  }, [scrollToRequiredBlock])
 
   const clearCartByPayment = async () => {
     const paymentId = JSON.parse(localStorage.getItem('paymentId') as string)
@@ -142,7 +95,7 @@ const OrderPage = () => {
                     </table>
                   )}
                 </li>
-                <li className={styles.order__list__item} ref={deliveryBlockRef}>
+                <li className={`${styles.order__list__item} order-block`}>
                   <OrderDelivery />
                 </li>
                 <li className={styles.order__list__item}>
@@ -152,7 +105,7 @@ const OrderPage = () => {
                   />
                   <OrderPayment />
                 </li>
-                <li className={styles.order__list__item} ref={detailsBlockRef}>
+                <li className={`${styles.order__list__item} details-block`}>
                   <OrderTitle
                     orderNumber='4'
                     text={translations[lang].order.recipient_details}

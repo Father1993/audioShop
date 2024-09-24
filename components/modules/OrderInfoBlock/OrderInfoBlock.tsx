@@ -1,5 +1,7 @@
 import { MutableRefObject, useRef, useState } from 'react'
+import { useUnit } from 'effector-react'
 import Link from 'next/link'
+import toast from 'react-hot-toast'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 import { IOrderInfoBlockProps } from '@/types/modules'
@@ -14,20 +16,14 @@ import {
 } from '@/lib/utils/common'
 import { countWholeCartItemsAmount } from '@/lib/utils/cart'
 import { $cart, $cartFromLs } from '@/context/cart/state'
-import { useUnit } from 'effector-react'
 import {
   $chosenCourierAddressData,
   $chosenPickupAddressData,
   $onlinePaymentTab,
   $orderDetailsValues,
   $pickupTab,
-  $scrollToRequiredBlock,
 } from '@/context/order/state'
-import {
-  makePayment,
-  makePaymentFx,
-  setScrollToRequiredBlock,
-} from '@/context/order'
+import { makePayment, makePaymentFx } from '@/context/order'
 import styles from '@/styles/order-block/index.module.scss'
 
 const OrderInfoBlock = ({
@@ -46,7 +42,6 @@ const OrderInfoBlock = ({
   const pickupTab = useUnit($pickupTab)
   const chosenPickupAddressData = useUnit($chosenPickupAddressData)
   const chosenCourierAddressData = useUnit($chosenCourierAddressData)
-  const scrollToRequiredBlock = useUnit($scrollToRequiredBlock)
   const paymentSpinner = useUnit(makePaymentFx.pending)
   const orderDetailsValues = useUnit($orderDetailsValues)
 
@@ -59,17 +54,30 @@ const OrderInfoBlock = ({
   }
   const handleAgreementChange = () => setIsUserAgree(!isUserAgree)
 
+  const scrollToBlock = (selector: HTMLLIElement) =>
+    window.scrollTo({
+      top: selector.getBoundingClientRect().top + window.scrollY + -50,
+      behavior: 'smooth',
+    })
+
   const handleMakePayment = async () => {
     if (
       !chosenCourierAddressData.address_line1 &&
       !chosenPickupAddressData.address_line1
     ) {
-      setScrollToRequiredBlock(!scrollToRequiredBlock)
+      console.log('Поля не заполнены, прокручиваем к order-block')
+      const orderBlock = document.querySelector('.order-block') as HTMLLIElement
+      scrollToBlock(orderBlock)
+      toast.error('Нужно выбрать адрес!')
       return
     }
 
     if (!orderDetailsValues.isValid) {
-      setScrollToRequiredBlock(!scrollToRequiredBlock)
+      console.log('Детали заказа не валидны, прокручиваем к details-block')
+      const detailsBlock = document.querySelector(
+        '.details-block'
+      ) as HTMLLIElement
+      scrollToBlock(detailsBlock)
       return
     }
 
