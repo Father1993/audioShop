@@ -12,6 +12,7 @@ import {
   getMagnitolaOfficesByCityFx,
   setChosenPickupAddressData,
   setShouldLoadMagnitolaData,
+  setShouldShowCourierAddressData,
 } from '@/context/order'
 import { useTTMap } from '@/hooks/useTTmap'
 import PickupAddressItem from './PickupAddressItem'
@@ -31,6 +32,7 @@ const AddressesList = ({
   const handleChosenAddressData = (data: Partial<IMagnitolaAddressData>) => {
     setShouldLoadMagnitolaData(false)
     setChosenPickupAddressData(data)
+    setShouldShowCourierAddressData(false)
   }
 
   return (
