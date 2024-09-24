@@ -1,6 +1,8 @@
 'use client'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { AnimatePresence, motion } from 'framer-motion'
+import toast from 'react-hot-toast'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import OrderCartItem from '@/components/modules/OrderPage/OrderCartItem'
@@ -14,6 +16,12 @@ import { useLang } from '@/hooks/useLang'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import MapModal from '@/components/modules/OrderPage/MapModal'
 import { basePropsForMotion } from '@/constants/motion'
+import OrderPayment from '@/components/modules/OrderPage/OrderPayment'
+import OrderDetailsForm from '@/components/modules/OrderPage/OrderDetailsForm'
+import { $scrollToRequiredBlock } from '@/context/order/state'
+import { checkPaymentFx } from '@/context/order'
+import { handleDeleteAllFromCart } from '@/lib/utils/cart'
+import { isUserAuth } from '@/lib/utils/common'
 import styles from '@/styles/order/index.module.scss'
 
 const OrderPage = () => {
@@ -22,6 +30,53 @@ const OrderPage = () => {
   const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
   const isMedia1220 = useMediaQuery(1220)
   const mapModal = useUnit($mapModal)
+  const shouldScrollToDelivery = useRef(true)
+  const [isFirstRender, setIsFirstRender] = useState(true)
+  const scrollToRequiredBlock = useUnit($scrollToRequiredBlock)
+  const deliveryBlockRef = useRef() as MutableRefObject<HTMLLIElement>
+
+  useEffect(() => {
+    if (shouldScrollToDelivery.current) {
+      shouldScrollToDelivery.current = false
+      setIsFirstRender(false)
+    }
+
+    clearCartByPayment()
+  }, [])
+
+  useEffect(() => {
+    if (isFirstRender) {
+      return
+    }
+
+    window.scrollTo({
+      top:
+        deliveryBlockRef.current.getBoundingClientRect().top +
+        window.scrollY +
+        -50,
+      behavior: 'smooth',
+    })
+
+    toast.error('Нужно указать адрес')
+  }, [scrollToRequiredBlock])
+
+  const clearCartByPayment = async () => {
+    const paymentId = JSON.parse(localStorage.getItem('paymentId') as string)
+
+    if (isUserAuth() || !paymentId) {
+      return
+    }
+
+    const auth = JSON.parse(localStorage.getItem('auth') as string)
+    const data = await checkPaymentFx({ paymentId })
+
+    if (data) {
+      if (data.result.status === 'succeeded') {
+        handleDeleteAllFromCart(auth.accessToken)
+        localStorage.removeItem('paymentId')
+      }
+    }
+  }
 
   return (
     <main>
@@ -75,7 +130,7 @@ const OrderPage = () => {
                     </table>
                   )}
                 </li>
-                <li className={styles.order__list__item}>
+                <li className={styles.order__list__item} ref={deliveryBlockRef}>
                   <OrderDelivery />
                 </li>
                 <li className={styles.order__list__item}>
@@ -83,6 +138,19 @@ const OrderPage = () => {
                     orderNumber='3'
                     text={translations[lang].order.payment}
                   />
+                  <OrderPayment />
+                </li>
+                <li className={styles.order__list__item}>
+                  <OrderTitle
+                    orderNumber='4'
+                    text={translations[lang].order.recipient_details}
+                  />
+                  <div className={styles.order__list__item__details}>
+                    <p className={styles.order__list__item__details__title}>
+                      {translations[lang].order.enter_details}
+                    </p>
+                    <OrderDetailsForm />
+                  </div>
                 </li>
               </ul>
             </div>

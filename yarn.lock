@@ -303,6 +303,11 @@
     regenerator-runtime "0.12.1"
     uuid "8.3.2"
 
+"@types/autosize@^4.0.3":
+  version "4.0.3"
+  resolved "https://registry.npmjs.org/@types/autosize/-/autosize-4.0.3.tgz"
+  integrity sha512-o0ZyU3ePp3+KRbhHsY4ogjc+ZQWgVN5h6j8BHW5RII4cFKi6PEKK9QPAcphJVkD0dGpyFnD3VRR0WMvHVjCv9w==
+
 "@types/bcryptjs@^2.4.6":
   version "2.4.6"
   resolved "https://registry.npmjs.org/@types/bcryptjs/-/bcryptjs-2.4.6.tgz"
@@ -694,6 +699,11 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.npmjs.org/asynckit/-/asynckit-0.4.0.tgz"
   integrity sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==
+
+autosize@^6.0.1:
+  version "6.0.1"
+  resolved "https://registry.npmjs.org/autosize/-/autosize-6.0.1.tgz"
+  integrity sha512-f86EjiUKE6Xvczc4ioP1JBlWG7FKrE13qe/DxBCpe8GCipCq2nFw73aO8QEBKHfSbYGDN5eB9jXWKen7tspDqQ==
 
 available-typed-arrays@^1.0.7:
   version "1.0.7"
@@ -2872,10 +2882,10 @@ quickselect@^2.0.0:
     loose-envify "^1.1.0"
     scheduler "^0.23.2"
 
-react-hook-form@^7.52.2:
-  version "7.52.2"
-  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.52.2.tgz"
-  integrity sha512-pqfPEbERnxxiNMPd0bzmt1tuaPcVccywFDpyk2uV5xCIBphHV5T8SVnX9/o3kplPE1zzKt77+YIoq+EMwJp56A==
+react-hook-form@^7.53.0:
+  version "7.53.0"
+  resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.53.0.tgz"
+  integrity sha512-M1n3HhqCww6S2hxLxciEXy2oISPnAzxY7gvwVPrtlczTM/1dDadXgUxDpHMrMTblDOcm/AXtXxHwZ3jpg1mqKQ==
 
 react-hot-toast@^2.4.1:
   version "2.4.1"

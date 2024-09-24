@@ -3,12 +3,15 @@ import { IMagnitolaAddressData } from '@/types/order'
 import {
   getMagnitolaOfficesByCityFx,
   order,
+  setCashPaymentTb,
   setChosenCourierAddressData,
   setChosenPickupAddressData,
   setCourierAddressData,
   setCourierTab,
   setMapInstance,
+  setOnlinePaymentTb,
   setPickupTab,
+  setScrollToRequiredBlock,
   setShouldLoadMagnitolaData,
   setShouldShowCourierAddressData,
 } from '.'
@@ -49,3 +52,15 @@ export const $shouldShowCourierAddressData = order
 export const $courierAddressData = order
   .createStore<IMagnitolaAddressData>({} as IMagnitolaAddressData)
   .on(setCourierAddressData, (_, value) => value)
+
+export const $onlinePaymentTab = order
+  .createStore<boolean>(true)
+  .on(setOnlinePaymentTb, (_, value) => value)
+
+export const $cashPaymentTab = order
+  .createStore<boolean>(false)
+  .on(setCashPaymentTb, (_, value) => value)
+
+export const $scrollToRequiredBlock = order
+  .createStore<boolean>(false)
+  .on(setScrollToRequiredBlock, (_, value) => value)
