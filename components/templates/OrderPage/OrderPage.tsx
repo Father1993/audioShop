@@ -19,6 +19,9 @@ import { basePropsForMotion } from '@/constants/motion'
 import OrderPayment from '@/components/modules/OrderPage/OrderPayment'
 import OrderDetailsForm from '@/components/modules/OrderPage/OrderDetailsForm'
 import { $scrollToRequiredBlock } from '@/context/order/state'
+import { checkPaymentFx } from '@/context/order'
+import { handleDeleteAllFromCart } from '@/lib/utils/cart'
+import { isUserAuth } from '@/lib/utils/common'
 import styles from '@/styles/order/index.module.scss'
 
 const OrderPage = () => {
@@ -37,6 +40,8 @@ const OrderPage = () => {
       shouldScrollToDelivery.current = false
       setIsFirstRender(false)
     }
+
+    clearCartByPayment()
   }, [])
 
   useEffect(() => {
@@ -54,6 +59,24 @@ const OrderPage = () => {
 
     toast.error('Нужно указать адрес')
   }, [scrollToRequiredBlock])
+
+  const clearCartByPayment = async () => {
+    const paymentId = JSON.parse(localStorage.getItem('paymentId') as string)
+
+    if (isUserAuth() || !paymentId) {
+      return
+    }
+
+    const auth = JSON.parse(localStorage.getItem('auth') as string)
+    const data = await checkPaymentFx({ paymentId })
+
+    if (data) {
+      if (data.result.status === 'succeeded') {
+        handleDeleteAllFromCart(auth.accessToken)
+        localStorage.removeItem('paymentId')
+      }
+    }
+  }
 
   return (
     <main>

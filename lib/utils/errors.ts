@@ -7,6 +7,7 @@ import { JWTError } from '@/constants/jwt'
 import {
   addProductsFromLSToCartFx,
   addProductToCartFx,
+  deleteAllFromCartFx,
   deleteCartItemFx,
   getCartItemsFx,
 } from '@/context/cart'
@@ -35,6 +36,8 @@ import {
   addProductsFromLSToComparisonFx,
   deleteComparisonItemFx,
 } from '@/context/comparison'
+import { makePaymentFx } from '@/context/order'
+import { IMakePaymentFx } from '@/types/order'
 
 export const handleJWTError = async (
   errorName: string,
@@ -64,11 +67,21 @@ export const handleJWTError = async (
             ...(payload as IAddProductToCartFx),
             jwt: newTokens.accessToken,
           })
+        case 'makePaymentFx':
+          makePaymentFx({
+            ...(payload as IMakePaymentFx),
+            jwt: newTokens.accessToken,
+          })
+          break
+        case 'deleteAllFromCartFx':
+          deleteAllFromCartFx({
+            jwt: newTokens.accessToken,
+          })
+          break
         case 'getComparisonItemsFx':
           return getComparisonItemsFx({
             jwt: newTokens.accessToken,
           })
-
         case 'addProductsFromLSToComparisonFx':
           return addProductsFromLSToComparisonFx({
             ...(payload as IAddProductsFromLSToComparisonFx),

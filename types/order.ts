@@ -60,3 +60,25 @@ export interface IAddressesListProps {
     arg2?: any
   ) => void
 }
+
+export interface IMakePaymentFx {
+  amount: string
+  description: string
+  jwt: string
+  metadata?: IOrderDetailsValues
+}
+
+export interface IPaymentData {
+  authorization_details: { rrn: string }
+  amount: { value: string }
+  description: string
+}
+
+export interface IOrderDetailsValues {
+  name_label: string
+  surname_label: string
+  phone_label: string
+  email_label: string
+  message_label: string
+  isValid: boolean
+}

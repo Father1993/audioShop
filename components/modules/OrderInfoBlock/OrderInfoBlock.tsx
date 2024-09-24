@@ -6,7 +6,12 @@ import { IOrderInfoBlockProps } from '@/types/modules'
 import { useLang } from '@/hooks/useLang'
 import { useGoodsByAuth } from '@/hooks/useGoodsByAuth'
 import { useTotalPrice } from '@/hooks/useTotalPrice'
-import { formatPrice, showCountMessage } from '@/lib/utils/common'
+import {
+  formatPrice,
+  handleOpenAuthPopup,
+  isUserAuth,
+  showCountMessage,
+} from '@/lib/utils/common'
 import { countWholeCartItemsAmount } from '@/lib/utils/cart'
 import { $cart, $cartFromLs } from '@/context/cart/state'
 import { useUnit } from 'effector-react'
@@ -17,7 +22,11 @@ import {
   $pickupTab,
   $scrollToRequiredBlock,
 } from '@/context/order/state'
-import { setScrollToRequiredBlock } from '@/context/order'
+import {
+  makePayment,
+  makePaymentFx,
+  setScrollToRequiredBlock,
+} from '@/context/order'
 import styles from '@/styles/order-block/index.module.scss'
 
 const OrderInfoBlock = ({
@@ -37,6 +46,7 @@ const OrderInfoBlock = ({
   const chosenPickupAddressData = useUnit($chosenPickupAddressData)
   const chosenCourierAddressData = useUnit($chosenCourierAddressData)
   const scrollToRequiredBlock = useUnit($scrollToRequiredBlock)
+  const paymentSpinner = useUnit(makePaymentFx.pending)
 
   const handleTabCheckbox = (e: React.KeyboardEvent<HTMLLabelElement>) => {
     if (e.key == ' ' || e.code == 'Space') {
@@ -55,6 +65,30 @@ const OrderInfoBlock = ({
       setScrollToRequiredBlock(!scrollToRequiredBlock)
       return
     }
+
+    if (!isUserAuth()) {
+      handleOpenAuthPopup()
+      return
+    }
+
+    const auth = JSON.parse(localStorage.getItem('auth') as string)
+    let description = ''
+
+    if (chosenCourierAddressData.address_line1) {
+      // eslint-disable-next-line max-len
+      description = `Адрес доставки товара курьером: ${chosenCourierAddressData.address_line1}, ${chosenCourierAddressData.address_line2}`
+    }
+
+    if (chosenPickupAddressData.address_line1) {
+      // eslint-disable-next-line max-len
+      description = `Адрес получения товара: ${chosenPickupAddressData.address_line1}, ${chosenPickupAddressData.address_line2}`
+    }
+
+    makePayment({
+      jwt: auth.accessToken,
+      description,
+      amount: `${priceWithDiscount.replace(' ', '')}`,
+    })
   }
 
   return (
@@ -101,10 +135,12 @@ const OrderInfoBlock = ({
         {isOrderPage ? (
           <button
             className={`btn-reset ${styles.order_block__btn}`}
-            disabled={!isUserAgree || !currentCartByAuth.length || false}
+            disabled={
+              !isUserAgree || !currentCartByAuth.length || paymentSpinner
+            }
             onClick={handleMakePayment}
           >
-            {false ? (
+            {paymentSpinner ? (
               <FontAwesomeIcon icon={faSpinner} spin color='#fff' />
             ) : (
               translations[lang].order.make_order
