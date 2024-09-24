@@ -21,6 +21,7 @@ export const setChosenCourierAddressData =
 export const setCourierAddressData = order.createEvent<IMagnitolaAddressData>()
 export const setOnlinePaymentTb = order.createEvent<boolean>()
 export const setCashPaymentTb = order.createEvent<boolean>()
+export const setScrollToRequiredBlock = order.createEvent<boolean>()
 
 export const getMagnitolaOfficeByCity =
   order.createEvent<IGetMagnitolaOfficeByCityFx>()

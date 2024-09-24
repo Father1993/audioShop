@@ -1,6 +1,8 @@
 'use client'
+import { MutableRefObject, useEffect, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import { AnimatePresence, motion } from 'framer-motion'
+import toast from 'react-hot-toast'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import OrderInfoBlock from '@/components/modules/OrderInfoBlock/OrderInfoBlock'
 import OrderCartItem from '@/components/modules/OrderPage/OrderCartItem'
@@ -14,9 +16,10 @@ import { useLang } from '@/hooks/useLang'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import MapModal from '@/components/modules/OrderPage/MapModal'
 import { basePropsForMotion } from '@/constants/motion'
-import styles from '@/styles/order/index.module.scss'
 import OrderPayment from '@/components/modules/OrderPage/OrderPayment'
 import OrderDetailsForm from '@/components/modules/OrderPage/OrderDetailsForm'
+import { $scrollToRequiredBlock } from '@/context/order/state'
+import styles from '@/styles/order/index.module.scss'
 
 const OrderPage = () => {
   const { lang, translations } = useLang()
@@ -24,6 +27,33 @@ const OrderPage = () => {
   const currentCartByAuth = useGoodsByAuth($cart, $cartFromLs)
   const isMedia1220 = useMediaQuery(1220)
   const mapModal = useUnit($mapModal)
+  const shouldScrollToDelivery = useRef(true)
+  const [isFirstRender, setIsFirstRender] = useState(true)
+  const scrollToRequiredBlock = useUnit($scrollToRequiredBlock)
+  const deliveryBlockRef = useRef() as MutableRefObject<HTMLLIElement>
+
+  useEffect(() => {
+    if (shouldScrollToDelivery.current) {
+      shouldScrollToDelivery.current = false
+      setIsFirstRender(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (isFirstRender) {
+      return
+    }
+
+    window.scrollTo({
+      top:
+        deliveryBlockRef.current.getBoundingClientRect().top +
+        window.scrollY +
+        -50,
+      behavior: 'smooth',
+    })
+
+    toast.error('Нужно указать адрес')
+  }, [scrollToRequiredBlock])
 
   return (
     <main>
@@ -77,7 +107,7 @@ const OrderPage = () => {
                     </table>
                   )}
                 </li>
-                <li className={styles.order__list__item}>
+                <li className={styles.order__list__item} ref={deliveryBlockRef}>
                   <OrderDelivery />
                 </li>
                 <li className={styles.order__list__item}>

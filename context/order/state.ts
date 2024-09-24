@@ -11,6 +11,7 @@ import {
   setMapInstance,
   setOnlinePaymentTb,
   setPickupTab,
+  setScrollToRequiredBlock,
   setShouldLoadMagnitolaData,
   setShouldShowCourierAddressData,
 } from '.'
@@ -59,3 +60,7 @@ export const $onlinePaymentTab = order
 export const $cashPaymentTab = order
   .createStore<boolean>(false)
   .on(setCashPaymentTb, (_, value) => value)
+
+export const $scrollToRequiredBlock = order
+  .createStore<boolean>(false)
+  .on(setScrollToRequiredBlock, (_, value) => value)

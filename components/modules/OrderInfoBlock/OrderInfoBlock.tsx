@@ -9,6 +9,15 @@ import { useTotalPrice } from '@/hooks/useTotalPrice'
 import { formatPrice, showCountMessage } from '@/lib/utils/common'
 import { countWholeCartItemsAmount } from '@/lib/utils/cart'
 import { $cart, $cartFromLs } from '@/context/cart/state'
+import { useUnit } from 'effector-react'
+import {
+  $chosenCourierAddressData,
+  $chosenPickupAddressData,
+  $onlinePaymentTab,
+  $pickupTab,
+  $scrollToRequiredBlock,
+} from '@/context/order/state'
+import { setScrollToRequiredBlock } from '@/context/order'
 import styles from '@/styles/order-block/index.module.scss'
 
 const OrderInfoBlock = ({
@@ -23,6 +32,11 @@ const OrderInfoBlock = ({
   const priceWithDiscount = isCorrectPromotionalCode
     ? formatPrice(Math.round(animatedPrice - animatedPrice * 0.3))
     : formatPrice(animatedPrice)
+  const onlinePaymentTab = useUnit($onlinePaymentTab)
+  const pickupTab = useUnit($pickupTab)
+  const chosenPickupAddressData = useUnit($chosenPickupAddressData)
+  const chosenCourierAddressData = useUnit($chosenCourierAddressData)
+  const scrollToRequiredBlock = useUnit($scrollToRequiredBlock)
 
   const handleTabCheckbox = (e: React.KeyboardEvent<HTMLLabelElement>) => {
     if (e.key == ' ' || e.code == 'Space') {
@@ -32,6 +46,16 @@ const OrderInfoBlock = ({
     }
   }
   const handleAgreementChange = () => setIsUserAgree(!isUserAgree)
+
+  const handleMakePayment = async () => {
+    if (
+      !chosenCourierAddressData.address_line1 &&
+      !chosenPickupAddressData.address_line1
+    ) {
+      setScrollToRequiredBlock(!scrollToRequiredBlock)
+      return
+    }
+  }
 
   return (
     <div className={styles.order_block}>
@@ -54,10 +78,31 @@ const OrderInfoBlock = ({
             {priceWithDiscount} ₽
           </span>
         </p>
+        {isOrderPage && (
+          <>
+            <p className={styles.order_block__info}>
+              {translations[lang].order.delivery}:{' '}
+              <span className={styles.order_block__info__text}>
+                {pickupTab
+                  ? translations[lang].order.pickup_free
+                  : translations[lang].order.courier_delivery}
+              </span>
+            </p>
+            <p className={styles.order_block__info}>
+              {translations[lang].order.payment}:{' '}
+              <span className={styles.order_block__info__text}>
+                {onlinePaymentTab
+                  ? translations[lang].order.online_payment
+                  : translations[lang].order.upon_receipt}
+              </span>
+            </p>
+          </>
+        )}
         {isOrderPage ? (
           <button
             className={`btn-reset ${styles.order_block__btn}`}
             disabled={!isUserAgree || !currentCartByAuth.length || false}
+            onClick={handleMakePayment}
           >
             {false ? (
               <FontAwesomeIcon icon={faSpinner} spin color='#fff' />
