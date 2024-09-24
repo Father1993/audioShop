@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   // const yKassaApiKey = process.env.NEXT_PUBLIC_YKASSA_API_KEY
   const yKassaId = '463038'
   const yKassaApiKey = 'test_qZsyT2MRjif4NNVDkjfBCe43MQO4Mcca-BwPMEitqSo'
-  const redirectURl = 'http://localhost:3000/payment-success'
+  const redirectURl = 'https://magitola.netlify.app/payment-success'
 
   try {
     const { validatedTokenResult, reqBody } = await getAuthRouteData(

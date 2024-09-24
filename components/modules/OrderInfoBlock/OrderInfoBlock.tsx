@@ -19,6 +19,7 @@ import {
   $chosenCourierAddressData,
   $chosenPickupAddressData,
   $onlinePaymentTab,
+  $orderDetailsValues,
   $pickupTab,
   $scrollToRequiredBlock,
 } from '@/context/order/state'
@@ -47,6 +48,7 @@ const OrderInfoBlock = ({
   const chosenCourierAddressData = useUnit($chosenCourierAddressData)
   const scrollToRequiredBlock = useUnit($scrollToRequiredBlock)
   const paymentSpinner = useUnit(makePaymentFx.pending)
+  const orderDetailsValues = useUnit($orderDetailsValues)
 
   const handleTabCheckbox = (e: React.KeyboardEvent<HTMLLabelElement>) => {
     if (e.key == ' ' || e.code == 'Space') {
@@ -62,6 +64,11 @@ const OrderInfoBlock = ({
       !chosenCourierAddressData.address_line1 &&
       !chosenPickupAddressData.address_line1
     ) {
+      setScrollToRequiredBlock(!scrollToRequiredBlock)
+      return
+    }
+
+    if (!orderDetailsValues.isValid) {
       setScrollToRequiredBlock(!scrollToRequiredBlock)
       return
     }
@@ -84,10 +91,13 @@ const OrderInfoBlock = ({
       description = `Адрес получения товара: ${chosenPickupAddressData.address_line1}, ${chosenPickupAddressData.address_line2}`
     }
 
+    console.log(orderDetailsValues)
+
     makePayment({
       jwt: auth.accessToken,
       description,
       amount: `${priceWithDiscount.replace(' ', '')}`,
+      metadata: orderDetailsValues,
     })
   }
 

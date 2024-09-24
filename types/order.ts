@@ -72,6 +72,7 @@ export interface IPaymentData {
   authorization_details: { rrn: string }
   amount: { value: string }
   description: string
+  metadata?: IOrderDetailsValues
 }
 
 export interface IPaymentNotifyFx {

@@ -1,5 +1,5 @@
 'use client'
-import { IMagnitolaAddressData } from '@/types/order'
+import { IMagnitolaAddressData, IOrderDetailsValues } from '@/types/order'
 import {
   getMagnitolaOfficesByCityFx,
   order,
@@ -10,6 +10,7 @@ import {
   setCourierTab,
   setMapInstance,
   setOnlinePaymentTb,
+  setOrderDetailsValues,
   setPickupTab,
   setScrollToRequiredBlock,
   setShouldLoadMagnitolaData,
@@ -64,3 +65,7 @@ export const $cashPaymentTab = order
 export const $scrollToRequiredBlock = order
   .createStore<boolean>(false)
   .on(setScrollToRequiredBlock, (_, value) => value)
+
+export const $orderDetailsValues = order
+  .createStore<IOrderDetailsValues>({} as IOrderDetailsValues)
+  .on(setOrderDetailsValues, (_, value) => value)
