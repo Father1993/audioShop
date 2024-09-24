@@ -4,11 +4,8 @@ import clientPromise from '@/lib/mongodb'
 import { getAuthRouteData } from '@/lib/utils/api-routes'
 
 export async function POST(req: Request) {
-  // TODO need use .env ID and ApiKey and redirectURL
-  // const yKassaId = process.env.NEXT_PUBLIC_YKASSA_ID
-  // const yKassaApiKey = process.env.NEXT_PUBLIC_YKASSA_API_KEY
-  const yKassaId = '463038'
-  const yKassaApiKey = 'test_qZsyT2MRjif4NNVDkjfBCe43MQO4Mcca-BwPMEitqSo'
+  const yKassaId = process.env.NEXT_PUBLIC_YKASSA_ID as string
+  const yKassaApiKey = process.env.NEXT_PUBLIC_YKASSA_API_KEY as string
   const redirectURl = 'https://magitola.netlify.app/payment-success'
 
   try {
