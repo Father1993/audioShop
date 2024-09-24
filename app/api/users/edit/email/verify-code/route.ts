@@ -14,7 +14,7 @@ export async function POST(req: Request) {
     if (!codeData) {
       return NextResponse.json({
         status: 400,
-        error: { message: 'Неправильный код' },
+        error: { message: 'Неправильный ID кода' },
       })
     }
 
