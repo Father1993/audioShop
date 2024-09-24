@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useUnit } from 'effector-react'
 import { FieldErrorsImpl, useForm } from 'react-hook-form'
 import autoSize from 'autosize'
 import { useLang } from '@/hooks/useLang'
@@ -9,6 +10,9 @@ import {
 } from '@/lib/utils/auth'
 import NameErrorMessage from '@/components/elements/NameErrorMessage/NameErrorMessage'
 import { IInputs } from '@/types/authPopup'
+import { $orderDetailsValues } from '@/context/order/state'
+import { setOrderDetailsValues } from '@/context/order'
+import { IOrderDetailsValues } from '@/types/order'
 import styles from '@/styles/order/index.module.scss'
 
 const OrderDetailsForm = () => {
@@ -17,8 +21,11 @@ const OrderDetailsForm = () => {
   const {
     register,
     trigger,
-    formState: { errors },
-  } = useForm()
+    watch,
+    formState: { errors, isValid },
+  } = useForm<IOrderDetailsValues>()
+  const orderDetailsValues = useUnit($orderDetailsValues)
+  const inputs = watch()
 
   const nameRegister = register(
     'name_label',
@@ -50,6 +57,12 @@ const OrderDetailsForm = () => {
         value,
       },
     })
+
+    setOrderDetailsValues({
+      ...inputs,
+      isValid,
+      name_label: value,
+    })
     trigger(nameRegister.name)
   }
 
@@ -60,6 +73,12 @@ const OrderDetailsForm = () => {
         name: surnameRegister.name,
         value,
       },
+    })
+
+    setOrderDetailsValues({
+      ...inputs,
+      isValid,
+      surname_label: value,
     })
     trigger(surnameRegister.name)
   }
@@ -73,6 +92,11 @@ const OrderDetailsForm = () => {
       },
     })
 
+    setOrderDetailsValues({
+      ...inputs,
+      isValid,
+      phone_label: value,
+    })
     trigger(phoneRegister.name)
   }
 
@@ -85,6 +109,11 @@ const OrderDetailsForm = () => {
       },
     })
 
+    setOrderDetailsValues({
+      ...inputs,
+      isValid,
+      email_label: value,
+    })
     trigger(emailRegister.name)
   }
 
@@ -110,6 +139,11 @@ const OrderDetailsForm = () => {
       },
     })
 
+    setOrderDetailsValues({
+      ...inputs,
+      isValid,
+      message_label: value,
+    })
     setMessageLength(e.target.value.length)
     trigger(messageRegister.name)
   }
@@ -123,6 +157,13 @@ const OrderDetailsForm = () => {
       autoSize(textarea)
     }
   }, [])
+
+  useEffect(() => {
+    setOrderDetailsValues({
+      ...orderDetailsValues,
+      isValid,
+    })
+  }, [isValid])
 
   return (
     <form className={styles.order__list__item__details__form}>

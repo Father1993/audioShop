@@ -1,7 +1,7 @@
+import { useEffect } from 'react'
 import { useUnit } from 'effector-react'
 import { useEarthoOne } from '@eartho/one-client-react'
 import { useForm } from 'react-hook-form'
-import { useEffect } from 'react'
 import { EventCallable, Store } from 'effector'
 import { IInputs, ISignUpFx } from '@/types/authPopup'
 
@@ -23,9 +23,9 @@ export const useAuthForm = (
     if (isSideActive) {
       if (isConnected) {
         event({
-          name: user?.user.displayName,
-          email: user?.user.email,
-          password: user?.user.uid,
+          name: user?.displayName as string,
+          email: user?.email as string,
+          password: user?.uid as string,
           isOAuth: true,
         })
       }

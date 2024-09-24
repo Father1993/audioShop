@@ -5,6 +5,7 @@ import {
   IGetMagnitolaOfficeByCityFx,
   IMagnitolaAddressData,
   IMakePaymentFx,
+  IOrderDetailsValues,
   IPaymentNotifyFx,
 } from '@/types/order'
 import api from '@/api/apiInstance'
@@ -26,6 +27,7 @@ export const setOnlinePaymentTb = order.createEvent<boolean>()
 export const setCashPaymentTb = order.createEvent<boolean>()
 export const setScrollToRequiredBlock = order.createEvent<boolean>()
 export const makePayment = order.createEvent<IMakePaymentFx>()
+export const setOrderDetailsValues = order.createEvent<IOrderDetailsValues>()
 
 export const getMagnitolaOfficeByCity =
   order.createEvent<IGetMagnitolaOfficeByCityFx>()
