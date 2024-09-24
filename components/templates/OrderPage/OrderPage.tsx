@@ -15,6 +15,8 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 import MapModal from '@/components/modules/OrderPage/MapModal'
 import { basePropsForMotion } from '@/constants/motion'
 import styles from '@/styles/order/index.module.scss'
+import OrderPayment from '@/components/modules/OrderPage/OrderPayment'
+import OrderDetailsForm from '@/components/modules/OrderPage/OrderDetailsForm'
 
 const OrderPage = () => {
   const { lang, translations } = useLang()
@@ -83,6 +85,19 @@ const OrderPage = () => {
                     orderNumber='3'
                     text={translations[lang].order.payment}
                   />
+                  <OrderPayment />
+                </li>
+                <li className={styles.order__list__item}>
+                  <OrderTitle
+                    orderNumber='4'
+                    text={translations[lang].order.recipient_details}
+                  />
+                  <div className={styles.order__list__item__details}>
+                    <p className={styles.order__list__item__details__title}>
+                      {translations[lang].order.enter_details}
+                    </p>
+                    <OrderDetailsForm />
+                  </div>
                 </li>
               </ul>
             </div>
