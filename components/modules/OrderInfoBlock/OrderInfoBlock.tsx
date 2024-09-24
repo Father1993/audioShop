@@ -65,7 +65,6 @@ const OrderInfoBlock = ({
       !chosenCourierAddressData.address_line1 &&
       !chosenPickupAddressData.address_line1
     ) {
-      console.log('Поля не заполнены, прокручиваем к order-block')
       const orderBlock = document.querySelector('.order-block') as HTMLLIElement
       scrollToBlock(orderBlock)
       toast.error('Нужно выбрать адрес!')
@@ -73,12 +72,25 @@ const OrderInfoBlock = ({
     }
 
     if (!orderDetailsValues.isValid) {
-      console.log('Детали заказа не валидны, прокручиваем к details-block')
       const detailsBlock = document.querySelector(
         '.details-block'
       ) as HTMLLIElement
       scrollToBlock(detailsBlock)
       return
+    }
+
+    // Проверка на пустоту orderDetailsValues
+    if (
+      !orderDetailsValues.name_label ||
+      !orderDetailsValues.surname_label ||
+      !orderDetailsValues.phone_label
+    ) {
+      const detailsBlock = document.querySelector(
+        '.details-block'
+      ) as HTMLLIElement
+      scrollToBlock(detailsBlock)
+      toast.error('Пожалуйста, заполните все обязательные поля!')
+      return // Прекратите выполнение функции, если данные пустые
     }
 
     if (!isUserAuth()) {
