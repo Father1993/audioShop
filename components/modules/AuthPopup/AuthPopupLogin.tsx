@@ -9,15 +9,12 @@ import EmailInput from './EmailInput'
 import PasswordInput from './PasswordInput'
 import { useLang } from '@/hooks/useLang'
 import { handleCloseAuthPopup } from '@/lib/utils/common'
-// import AuthPopupSocials from './AuthPopupSocials'
+import AuthPopupSocials from './AuthPopupSocials'
 
 const AuthPopupLogin = ({ toggleAuth, isSideActive }: IAuthSideProps) => {
   const { lang, translations } = useLang()
-  const { spinner, register, errors, handleSubmit } = useAuthForm(
-    singInFx.pending,
-    isSideActive,
-    handleSignIn
-  )
+  const { spinner, register, errors, handleSubmit, handleSignupWithOAuth } =
+    useAuthForm(singInFx.pending, isSideActive, handleSignIn)
 
   const submitForm = (data: IInputs) =>
     handleSignIn({
@@ -70,7 +67,7 @@ const AuthPopupLogin = ({ toggleAuth, isSideActive }: IAuthSideProps) => {
             </div>
           </div>
         </form>
-        {/* <AuthPopupSocials handleSignupWithOAuth={handleSignupWithOAuth} /> */}
+        <AuthPopupSocials handleSignupWithOAuth={handleSignupWithOAuth} />
       </div>
     </div>
   )

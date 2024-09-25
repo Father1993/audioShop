@@ -287,8 +287,8 @@
       "password_restore": "Password restore",
       "enter_your_email": "Enter your Email",
       "we_sent_code": "We sent the code to",
-      "creaete_pasword": "Create a new password",
-      "repeat_pasword": "Repeat pasword"
+      "create_password": "Create a new password",
+      "repeat_password": "Repeat pasword"
     }
   },
   "ru": {
@@ -580,8 +580,8 @@
       "password_restore": "Восстановление пароля",
       "enter_your_email": "Введите свой Email",
       "we_sent_code": "Мы отправили код на почту",
-      "creaete_pasword": "Придумайте новый пароль",
-      "repeat_pasword": "Повторите пароль"
+      "create_password": "Придумайте новый пароль",
+      "repeat_password": "Повторите пароль"
     }
   }
 }
