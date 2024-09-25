@@ -8,13 +8,11 @@ import { isValidAvatarImage } from '@/lib/utils/common'
 import { loginCheckFx } from '@/context/user'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import styles from '@/styles/profile/index.module.scss'
-import { $userImage } from '@/context/profile/state'
 
 const ProfileAvatar = () => {
   const { src, alt } = useUserAvatar()
   const uploadSpinner = useUnit(uploadUserAvatarFx.pending)
   const loginCheckSpinner = useUnit(loginCheckFx.pending)
-  const userImage = useUnit($userImage)
   const isMedia380 = useMediaQuery(380)
   const avatarSize = isMedia380 ? 280 : 320
 
@@ -48,12 +46,7 @@ const ProfileAvatar = () => {
           {uploadSpinner ? (
             <FontAwesomeIcon icon={faSpinner} spin color='#fff' size='3x' />
           ) : (
-            <Image
-              src={userImage || src}
-              width={avatarSize}
-              height={avatarSize}
-              alt={alt}
-            />
+            <Image src={src} width={avatarSize} height={avatarSize} alt={alt} />
           )}
         </>
       )}

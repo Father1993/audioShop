@@ -6,6 +6,7 @@ import ProfileAvatar from '@/components/modules/ProfilePage/ProfileAvatar'
 import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import styles from '@/styles/profile/index.module.scss'
+import ProfileName from '@/components/modules/ProfilePage/ProfileName'
 
 const ProfilePage = () => {
   const user = useUnit($user)
@@ -23,6 +24,7 @@ const ProfilePage = () => {
         <div className={`container ${styles.profile__container}`}>
           <div className={styles.profile__inner}>
             <ProfileAvatar />
+            <ProfileName />
           </div>
         </div>
       </section>
