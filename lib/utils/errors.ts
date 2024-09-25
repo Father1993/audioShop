@@ -38,8 +38,22 @@ import {
 } from '@/context/comparison'
 import { makePaymentFx } from '@/context/order'
 import { IMakePaymentFx } from '@/types/order'
-import { editUsernameFx, uploadUserAvatarFx } from '@/context/profile'
-import { IEditUsernameFx, IUploadUserAvatarFx } from '@/types/profile'
+import {
+  deleteUserFx,
+  editUserEmailFx,
+  editUsernameFx,
+  uploadUserAvatarFx,
+  verifyCodeFx,
+  verifyEmailFx,
+} from '@/context/profile'
+import {
+  IDeleteUserFx,
+  IEditUserEmailFx,
+  IEditUsernameFx,
+  IUploadUserAvatarFx,
+  IVerifyCodeFx,
+  IVerifyEmailFx,
+} from '@/types/profile'
 
 export const handleJWTError = async (
   errorName: string,
@@ -72,6 +86,27 @@ export const handleJWTError = async (
         case 'editUsernameFx':
           return editUsernameFx({
             ...(payload as IEditUsernameFx),
+            jwt: newTokens.accessToken,
+          })
+        case 'verifyCodeFx':
+          return verifyCodeFx({
+            ...(payload as IVerifyCodeFx),
+            jwt: newTokens.accessToken,
+          })
+        case 'verifyEmailFx':
+          return verifyEmailFx({
+            ...(payload as IVerifyEmailFx),
+            jwt: newTokens.accessToken,
+          })
+        case 'deleteUserFx':
+          deleteUserFx({
+            ...(payload as IDeleteUserFx),
+            jwt: newTokens.accessToken,
+          })
+          break
+        case 'editUserEmailFx':
+          return editUserEmailFx({
+            ...(payload as IEditUserEmailFx),
             jwt: newTokens.accessToken,
           })
         case 'addProductToCartFx':

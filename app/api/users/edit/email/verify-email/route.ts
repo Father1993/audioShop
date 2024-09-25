@@ -16,7 +16,7 @@ export async function POST(req: Request) {
 
     if (!reqBody.email) {
       return NextResponse.json({
-        message: 'Email field is required',
+        error: { message: 'Email field is required' },
         status: 400,
       })
     }
@@ -29,14 +29,16 @@ export async function POST(req: Request) {
       })
     }
 
+    const code = Math.floor(100000 + Math.random() * 900000)
+
     await sendMail(
       'Magnitola',
       reqBody.email,
-      `Ваш код подтверждения для изменения почты: 123456`
+      `Ваш код подтверждения для изменения почты: ${code}`
     )
 
     const { insertedId } = await db.collection('codes').insertOne({
-      code: 123456,
+      code,
       oldEmail: parseJwt(token as string).email,
       newEmail: reqBody.email,
     })

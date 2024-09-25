@@ -19,6 +19,10 @@ export async function POST(req: Request) {
     }
 
     if (codeData.code === reqBody.code) {
+      await db
+        .collection('codes')
+        .deleteOne({ _id: new ObjectId(reqBody.codeId) })
+
       return NextResponse.json({
         status: 200,
         result: true,
@@ -28,6 +32,7 @@ export async function POST(req: Request) {
 
     return NextResponse.json({
       status: 400,
+      result: false,
       error: { message: 'Неправильный код' },
     })
   } catch (error) {

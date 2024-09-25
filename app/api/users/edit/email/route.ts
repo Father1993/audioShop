@@ -20,7 +20,7 @@ export async function PATCH(req: Request) {
 
     if (!reqBody.email) {
       return NextResponse.json({
-        message: 'Email field is required',
+        error: { message: 'Email field is required' },
         status: 400,
       })
     }
@@ -40,7 +40,7 @@ export async function PATCH(req: Request) {
       }
     )
 
-    const tokens = generateTokens(reqBody.name, reqBody.email)
+    const tokens = generateTokens(user?.name, reqBody.email)
     return NextResponse.json({ status: 200, email: reqBody.email, tokens })
   } catch (error) {
     throw new Error((error as Error).message)

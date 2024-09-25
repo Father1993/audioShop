@@ -1,5 +1,7 @@
 import { sample } from 'effector'
 import {
+  deleteUser,
+  deleteUserFx,
   editUsername,
   editUsernameFx,
   uploadAvatar,
@@ -18,4 +20,11 @@ sample({
   source: {},
   fn: (_, data) => data,
   target: editUsernameFx,
+})
+
+sample({
+  clock: deleteUser,
+  source: {},
+  fn: (_, data) => data,
+  target: deleteUserFx,
 })

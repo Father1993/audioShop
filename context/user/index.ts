@@ -12,6 +12,7 @@ export const loginCheck = user.createEvent<{ jwt: string }>()
 export const setUserGeolocation = user.createEvent<IUserGeolocation>()
 export const updateUsername = user.createEvent<string>()
 export const updateUserImage = user.createEvent<string>()
+export const updateUserEmail = user.createEvent<string>()
 
 export const loginCheckFx = createEffect(async ({ jwt }: { jwt: string }) => {
   try {

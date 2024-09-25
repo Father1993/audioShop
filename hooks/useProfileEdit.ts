@@ -1,7 +1,7 @@
 import { Effect } from 'effector'
 import { useUnit } from 'effector-react'
 import { useEffect, useState } from 'react'
-import { editUsername } from '@/context/profile'
+import { editUserEmailFx, editUsername, verifyEmailFx } from '@/context/profile'
 import { isUserAuth } from '@/lib/utils/common'
 
 export const useProfileEdit = <T, K>(
@@ -11,6 +11,8 @@ export const useProfileEdit = <T, K>(
   const [value, setValue] = useState('')
   const [edit, setEdit] = useState(false)
   const spinner = useUnit(effect.pending)
+  const [showCodeInput, setShowCodeInput] = useState(false)
+  const [codeId, setCodeId] = useState('')
 
   const handleEdit = () => setEdit(true)
   const handleCancelEdit = () => {
@@ -43,6 +45,45 @@ export const useProfileEdit = <T, K>(
     })
   }
 
+  const handleVerifyEmail = async () => {
+    if (!isUserAuth()) {
+      return
+    }
+
+    if (value === initialValue) {
+      setEdit(false)
+      return
+    }
+    const auth = JSON.parse(localStorage.getItem('auth') as string)
+    const result = await verifyEmailFx({
+      email: value,
+      jwt: auth.accessToken,
+    })
+
+    if (!result) {
+      return
+    }
+
+    setCodeId(result.codeId)
+    setShowCodeInput(true)
+  }
+
+  const handleCompleteEmailVerification = async (codeFromInput: string) => {
+    const auth = JSON.parse(localStorage.getItem('auth') as string)
+
+    const data = await editUserEmailFx({
+      jwt: auth.accessToken,
+      code: +codeFromInput,
+      codeId,
+      setEdit,
+      email: value,
+    })
+
+    if (data?.result) {
+      setShowCodeInput(false)
+    }
+  }
+
   return {
     handleSaveNewName,
     handleCancelEdit,
@@ -51,5 +92,8 @@ export const useProfileEdit = <T, K>(
     spinner,
     handleChange,
     edit,
+    showCodeInput,
+    handleVerifyEmail,
+    handleCompleteEmailVerification,
   }
 }

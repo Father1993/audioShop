@@ -52,7 +52,7 @@ const ProfileName = () => {
 
   const allowEdit = () => {
     handleEdit()
-    setValue('name', user.name)
+    setValue(nameRegister.name, user.name)
     trigger(nameRegister.name)
   }
 
