@@ -1,9 +1,11 @@
+'use client'
 import { useUnit } from 'effector-react'
-import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
 import { $user } from '@/context/user/state'
-import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import ProfileAvatar from '@/components/modules/ProfilePage/ProfileAvatar'
+import { useBreadcrumbs } from '@/hooks/useBreadcrumbs'
+import Breadcrumbs from '@/components/modules/Breadcrumbs/Breadcrumbs'
+import styles from '@/styles/profile/index.module.scss'
 
 const ProfilePage = () => {
   const user = useUnit($user)
@@ -17,8 +19,12 @@ const ProfilePage = () => {
         getDefaultTextGenerator={getDefaultTextGenerator}
         getTextGenerator={getTextGenerator}
       />
-      <section>
-        <ProfileAvatar />
+      <section className={styles.profile}>
+        <div className={`container ${styles.profile__container}`}>
+          <div className={styles.profile__inner}>
+            <ProfileAvatar />
+          </div>
+        </div>
       </section>
     </main>
   )

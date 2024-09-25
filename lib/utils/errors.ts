@@ -38,6 +38,8 @@ import {
 } from '@/context/comparison'
 import { makePaymentFx } from '@/context/order'
 import { IMakePaymentFx } from '@/types/order'
+import { uploadUserAvatarFx } from '@/context/profile'
+import { IUploadUserAvatarFx } from '@/types/profile'
 
 export const handleJWTError = async (
   errorName: string,
@@ -60,6 +62,11 @@ export const handleJWTError = async (
         case 'addProductToComparisonFx':
           return addProductToComparisonFx({
             ...(payload as IAddProductToComparisonFx),
+            jwt: newTokens.accessToken,
+          })
+        case 'uploadUserAvatarFx':
+          return uploadUserAvatarFx({
+            ...(payload as IUploadUserAvatarFx),
             jwt: newTokens.accessToken,
           })
         case 'addProductToCartFx':

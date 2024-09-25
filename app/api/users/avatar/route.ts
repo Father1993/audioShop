@@ -21,6 +21,7 @@ export const POST = async (req: Request) => {
   const formData = await req.formData()
 
   const file = formData.get('binaryContent')
+
   if (!file) {
     return NextResponse.json({ error: 'No files received.' }, { status: 400 })
   }
@@ -29,11 +30,10 @@ export const POST = async (req: Request) => {
     .collection('users')
     .findOne({ email: parseJwt(token as string).email })
 
-  const fileNames = fs.readdirSync(
+  const filenames = fs.readdirSync(
     path.join(process.cwd(), './public', 'avatars')
   )
-
-  const existingImage = fileNames.find((name) =>
+  const existingImage = filenames.find((name) =>
     name.includes(new ObjectId(user?._id).toString())
   )
 
@@ -43,7 +43,6 @@ export const POST = async (req: Request) => {
 
   //@ts-ignore
   const buffer = Buffer.from(await file.arrayBuffer())
-
   //@ts-ignore
   const filename = `${user?._id}__${file.name.replaceAll(' ', '_')}`
 
@@ -64,7 +63,11 @@ export const POST = async (req: Request) => {
       }
     )
 
-    return NextResponse.json({ Message: 'Success', status: 201 })
+    return NextResponse.json({
+      Message: 'Success',
+      status: 201,
+      image: `/avatars/${filename}`,
+    })
   } catch (error) {
     return NextResponse.json({ Message: 'Failed', status: 500 })
   }

@@ -27,6 +27,7 @@ import '@/context/comparison/init'
 import '@/context/favorites/init'
 import '@/context/user/init'
 import '@/context/order/init'
+import '@/context/profile/init'
 
 const PagesLayout = ({ children }: { children: React.ReactNode }) => {
   const [isClient, setIsClient] = useState(false)
