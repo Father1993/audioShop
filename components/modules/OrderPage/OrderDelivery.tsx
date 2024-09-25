@@ -110,8 +110,8 @@ const OrderDelivery = () => {
   const getUserGeolocation = () => {
     const success = async (pos: GeolocationPosition) => {
       const { latitude, longitude } = pos.coords
-
-      const result = await getGeolocationFx({ lat: latitude, lon: longitude })
+      //@ts-ignore
+      const result = await getGeolocationFx({ latg: latitude, lon: longitude })
 
       if (!result) {
         return
