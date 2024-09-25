@@ -38,27 +38,57 @@ const CatalogMenu = () => {
       name: translations[lang].main_menu.audio,
       id: 1,
       items: [
-        translations[lang].comparison['audio_player'],
-        translations[lang].comparison['subwoofers'],
+        {
+          title:
+            translations[lang].comparison['audio_player'] + ` 1-din (50мм)`,
+          href: '/catalog/audio?offset=0&type=1din',
+          handleCloseMenu,
+        },
+        {
+          title:
+            translations[lang].comparison['audio_player'] + ` 2-din (178мм)`,
+          href: '/catalog/audio?offset=0&type=2din',
+          handleCloseMenu,
+        },
       ],
       handler: () => setActiveListId(1),
     },
     {
-      name: translations[lang].main_menu.speakers,
+      name: translations[lang].main_menu.subwoofers,
       id: 2,
       items: [
-        translations[lang].comparison.chips,
-        translations[lang].comparison.headdress,
-        translations[lang].comparison.adapters,
+        {
+          title: translations[lang].main_menu.active,
+          href: '/catalog/subwoofers?offset=0&type=active',
+          handleCloseMenu,
+        },
+        {
+          title: translations[lang].main_menu.passive,
+          href: '/catalog/subwoofers?offset=0&type=passive',
+          handleCloseMenu,
+        },
       ],
       handler: () => setActiveListId(2),
     },
     {
-      name: translations[lang].main_menu.subwoofers,
+      name: translations[lang].main_menu.speakers,
       id: 3,
       items: [
-        translations[lang].comparison['active'],
-        translations[lang].comparison['passive'],
+        {
+          title: translations[lang].main_menu.component,
+          href: '/catalog/speakers?offset=0&type=component',
+          handleCloseMenu,
+        },
+        {
+          title: translations[lang].main_menu.coaxial,
+          href: '/catalog/speakers?offset=0&type=coaxial',
+          handleCloseMenu,
+        },
+        {
+          title: translations[lang].main_menu.fullRange,
+          href: '/catalog/speakers?offset=0&type=fullRange',
+          handleCloseMenu,
+        },
       ],
       handler: () => setActiveListId(3),
     },
@@ -66,8 +96,21 @@ const CatalogMenu = () => {
       name: translations[lang].main_menu.accessories,
       id: 4,
       items: [
-        translations[lang].comparison.notebook,
-        translations[lang].comparison.pen,
+        {
+          title: translations[lang].comparison.videoRecorder,
+          href: '/catalog/accessories?offset=0&type=video-recorder',
+          handleCloseMenu,
+        },
+        {
+          title: translations[lang].main_menu.charger,
+          href: '/catalog/accessories?offset=0&type=charger',
+          handleCloseMenu,
+        },
+        {
+          title: translations[lang].main_menu.fastening,
+          href: '/catalog/accessories?offset=0&type=fastening',
+          handleCloseMenu,
+        },
       ],
       handler: () => setActiveListId(4),
     },
@@ -174,16 +217,17 @@ const CatalogMenu = () => {
                           titleClass='btn-reset nav-menu__accordion__item__title'
                         >
                           <ul className='list-reset catalog__accordion__list'>
-                            {items.map((title, i) => (
+                            {items.map((item, i) => (
                               <li
                                 key={i}
                                 className='catalog__accordion__list__item'
                               >
                                 <Link
-                                  href='/catalog'
+                                  href={item.href}
                                   className='nav-menu__accordion__item__list__item__link'
+                                  onClick={item.handleCloseMenu}
                                 >
-                                  {title}
+                                  {item.title}
                                 </Link>
                               </li>
                             ))}

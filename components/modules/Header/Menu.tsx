@@ -50,7 +50,7 @@ const Menu = () => {
     handleCloseMenu()
   }
 
-  const clothLinks = [
+  const audioLinks = [
     {
       id: 1,
       text: translations[lang].comparison['audio_player'] + ` 1-din (50мм)`,
@@ -63,7 +63,7 @@ const Menu = () => {
     },
   ]
 
-  const accessoriesLinks = [
+  const subwoofersLinks = [
     {
       id: 1,
       text: translations[lang].main_menu.active,
@@ -76,7 +76,7 @@ const Menu = () => {
     },
   ]
 
-  const souvenirsLinks = [
+  const speakersLinks = [
     {
       id: 1,
       text: translations[lang].main_menu.component,
@@ -94,7 +94,7 @@ const Menu = () => {
     },
   ]
 
-  const officeLinks = [
+  const accessoriesLinks = [
     {
       id: 1,
       text: translations[lang].comparison.videoRecorder,
@@ -115,7 +115,10 @@ const Menu = () => {
   return (
     <nav className={`nav-menu ${menuIsOpen ? 'open' : 'close'}`}>
       <div className='container nav-menu__container'>
-        <div className={`nav-menu__logo ${menuIsOpen ? 'open' : ''}`}>
+        <div
+          className={`nav-menu__logo ${menuIsOpen ? 'open' : ''}`}
+          onClick={handleCloseMenu}
+        >
           <Logo />
         </div>
         <img
@@ -165,7 +168,7 @@ const Menu = () => {
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className='list-reset nav-menu__accordion__item__list'>
-                          {clothLinks.map((item) => (
+                          {audioLinks.map((item) => (
                             <MenuLinkItem
                               key={item.id}
                               item={item}
@@ -181,7 +184,7 @@ const Menu = () => {
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className='list-reset nav-menu__accordion__item__list'>
-                          {accessoriesLinks.map((item) => (
+                          {subwoofersLinks.map((item) => (
                             <MenuLinkItem
                               key={item.id}
                               item={item}
@@ -197,7 +200,7 @@ const Menu = () => {
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className='list-reset nav-menu__accordion__item__list'>
-                          {souvenirsLinks.map((item) => (
+                          {speakersLinks.map((item) => (
                             <MenuLinkItem
                               key={item.id}
                               item={item}
@@ -213,7 +216,7 @@ const Menu = () => {
                         titleClass='btn-reset nav-menu__accordion__item__title'
                       >
                         <ul className='list-reset nav-menu__accordion__item__list'>
-                          {officeLinks.map((item) => (
+                          {accessoriesLinks.map((item) => (
                             <MenuLinkItem
                               key={item.id}
                               item={item}
