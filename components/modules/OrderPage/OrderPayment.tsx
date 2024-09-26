@@ -74,16 +74,7 @@ const OrderPayment = () => {
                   htmlFor='payment-2'
                   className={styles.order__list__item__payment__content__label}
                 >
-                  {translations[lang].order.qr_code}
-                </label>
-              </p>
-              <p className={styles.order__list__item__payment__content__radio}>
-                <input type='radio' id='payment-3' name='radio-group' />
-                <label
-                  htmlFor='payment-3'
-                  className={styles.order__list__item__payment__content__label}
-                >
-                  SberPay
+                  {translations[lang].order.cash_office}
                 </label>
               </p>
             </form>
