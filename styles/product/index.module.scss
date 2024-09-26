@@ -7,6 +7,15 @@
     justify-content: center;
   }
 
+  &__char {
+    margin-bottom: 10px;
+  }
+
+  &__power {
+    color: #ff5e2d;
+    font-weight: bold;
+  }
+
   &__top {
     display: grid;
     grid-template-columns: 992px 1fr;
@@ -34,6 +43,10 @@
     @media (max-width: 920px) {
       display: block;
       flex-direction: column-reverse;
+    }
+
+    &__size {
+      margin-bottom: 16px;
     }
 
     &__images {
@@ -291,6 +304,7 @@
     }
 
     &__bottom {
+      margin-top: 20px;
       margin-bottom: 40px;
 
       @media (max-width: 520px) {

@@ -17,6 +17,10 @@ export interface IProduct {
   sizes: ISizes
   popularity: number
   errorMessage?: string
+  speakersModel?: string
+  productSizes?: string
+  model?: string
+  companyName?: string
 }
 
 export interface ISizes {

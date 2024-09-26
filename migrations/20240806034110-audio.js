@@ -67,7 +67,7 @@ const features = [
   'Bluetooth',
   'USB',
   'AUX',
-  'FLAC support',
+  'FLAC',
   'Equalizer',
   'Mp3',
   'CD',
@@ -92,6 +92,8 @@ const installationTypes = [
   'Acura',
 ]
 
+const model = ['DN-1750', 'MRD-1899', 'M-80', 'ZRM-1777', 'MT-1508']
+
 const images = {
   '1din': [
     '/img/audio/audio-1din.png',
@@ -110,6 +112,7 @@ const images = {
     '/img/audio/audio-2din_6.png',
   ],
 }
+const companyName = getRandomArrayValue(companyNames)
 
 module.exports = {
   async up(db) {
@@ -119,38 +122,33 @@ module.exports = {
         const characteristics = [
           {
             type: '1din',
-            collection: getRandomArrayValue(collections),
-            installationType: getRandomArrayValue(installationTypes),
             features: [
               getRandomArrayValue(features) + ' ',
               getRandomArrayValue(features) + ' ',
               getRandomArrayValue(features),
             ],
-            sizes: sizes['1din'],
+            productSizes: sizes['1din'],
           },
           {
             type: '2din',
-            collection: getRandomArrayValue(collections),
-            installationType: getRandomArrayValue(installationTypes),
             features: [
-              getRandomArrayValue(features) + ' ',
-              getRandomArrayValue(features) + ' ',
               getRandomArrayValue(features),
+              ' ' + getRandomArrayValue(features),
+              ' ' + getRandomArrayValue(features),
             ],
-            sizes: sizes['2din'],
+            productSizes: sizes['2din'],
           },
         ]
 
         return {
           category: 'audio',
           type,
+          companyName: companyName,
+          model: getRandomArrayValue(model),
+          name: 'Плеер ' + companyName + ' ' + faker.lorem.sentence(1),
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
-          name:
-            'Плеер ' +
-            getRandomArrayValue(companyNames) +
-            ' ' +
-            faker.lorem.sentence(2),
           description: faker.lorem.sentences(10),
+          installationType: getRandomArrayValue(installationTypes),
           characteristics: characteristics.find((item) => item.type === type),
           images: getRandomImages(images[type]),
           vendorCode: faker.string.numeric(4),
@@ -158,7 +156,8 @@ module.exports = {
           isBestseller: faker.datatype.boolean(),
           isNew: faker.datatype.boolean(),
           popularity: +faker.string.numeric(3),
-          sizes: characteristics.find((item) => item.type === type).sizes,
+          collections: getRandomArrayValue(collections),
+          productSizes: sizes[type],
         }
       })
     )

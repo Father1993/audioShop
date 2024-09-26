@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useUnit } from 'effector-react'
 import { useEffect } from 'react'
 import ProductImages from './ProductImages'
@@ -11,7 +12,6 @@ import {
 import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
 import { useFavoritesAction } from '@/hooks/useFavoritesActions'
 import ProductAvailable from '@/components/elements/ProductAvailable/ProductAvailable'
-import ProductColor from '../ProductListItem/ProductColor'
 import { useCartAction } from '@/hooks/useCartAction'
 import ProductCounter from '../ProductListItem/ProductCounter'
 import { ICartItem } from '@/types/cart'
@@ -22,8 +22,8 @@ import ProductsByCollection from './ProductsByCollection'
 import { $currentProduct } from '@/context/goods/state'
 import WatchedProducts from '../WatchedProducts/WatchedProducts'
 import { useWatchedProducts } from '@/hooks/useWatchedProducts'
-import styles from '@/styles/product/index.module.scss'
 import { openShareModal } from '@/context/modals'
+import styles from '@/styles/product/index.module.scss'
 
 const ProductPageContent = () => {
   const { lang, translations } = useLang()
@@ -126,12 +126,6 @@ const ProductPageContent = () => {
               inStock={+product.inStock}
             />
           </div>
-          {product.characteristics.color && (
-            <ProductColor
-              color={product.characteristics.color}
-              className={styles.product__top__color}
-            />
-          )}
           {!!product.characteristics.collection && (
             <span className={styles.product__top__collection}>
               <span>{translations[lang].catalog.collection}:</span>{' '}
@@ -140,12 +134,30 @@ const ProductPageContent = () => {
           )}
           {product.sizes && (
             <>
-              <span className={styles.product__top__size}>
+              <span className={styles.size}>
                 <span>{translations[lang].catalog.size}:</span>{' '}
                 {product.sizes.toString()}
               </span>
             </>
           )}
+          {product.companyName && product.model && (
+            <li className={`list-reset ${styles.product__char}`}>
+              {String(product.companyName)} {String(product.model)}
+            </li>
+          )}
+
+          {product.productSizes && (
+            <li className={`list-reset ${styles.product__char}`}>
+              {translations[lang].catalog.size}: {String(product.productSizes)}
+            </li>
+          )}
+
+          {product.characteristics.power && (
+            <li className={`list-reset ${styles.product__power}`}>
+              {String(product.characteristics.power)}
+            </li>
+          )}
+
           <div className={styles.product__top__bottom}>
             <span className={styles.product__top__count}>
               {translations[lang].product.count}
@@ -187,14 +199,57 @@ const ProductPageContent = () => {
               <ul
                 className={`list-reset ${styles.product__top__description__characteristics}`}
               >
-                {Object.entries(product.characteristics).map(([key, value]) => (
-                  <li
-                    key={key}
-                    className={styles.product__top__description__text}
-                  >
-                    {capitalizeFirsLetter(key)}: {value}
+                {product.companyName && (
+                  <li className={styles.product__top__description__text}>
+                    {translations[lang].product.brand}:{' '}
+                    {String(product.companyName)}
                   </li>
-                ))}
+                )}
+                {product.model && (
+                  <li className={styles.product__top__description__text}>
+                    {translations[lang].product.model}: {String(product.model)}
+                  </li>
+                )}
+                {product.characteristics.installationType && (
+                  <li className={styles.product__top__description__text}>
+                    {translations[lang].product.for}:{' '}
+                    {String(product.characteristics.installationType)}
+                  </li>
+                )}
+                {product.characteristics.features && (
+                  <li className={styles.product__top__description__text}>
+                    {translations[lang].product.options}:{' '}
+                    {String(product.characteristics.features)}
+                  </li>
+                )}
+                {product.type && (
+                  <li className={styles.product__top__description__text}>
+                    {translations[lang].product.type}: {String(product.type)}
+                  </li>
+                )}
+                {product.characteristics.power &&
+                  product.characteristics.power && (
+                    <div>
+                      <li className={styles.product__top__description__text}>
+                        {translations[lang].product.impedances}:{' '}
+                        {String(product.characteristics.impedances)}
+                      </li>
+                      <li className={styles.product__top__description__text}>
+                        {translations[lang].product.power}:{' '}
+                        {String(product.characteristics.power)}
+                      </li>
+                    </div>
+                  )}
+                {product.productSizes && (
+                  <div className={styles.modal__right__info__size}>
+                    <div className={styles.modal__right__info__size__inner}>
+                      <span className={styles.product__top__description__text}>
+                        {translations[lang].catalog.size}:{' '}
+                        {String(product.productSizes)}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </ul>
             </ProductInfoAccordion>
           </div>
