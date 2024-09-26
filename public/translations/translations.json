@@ -107,7 +107,11 @@
       "personal_data_policy": "Data processing policy",
       "privacy_policy": "Privacy policy",
       "watched_products": "Watched products",
-      "collection_products": "Products by Collection"
+      "collection_products": "Products by Collection",
+      "about": "About",
+      "blog": "Blog",
+      "shippingAndPayment": "Shipping and payment",
+      "purchaseReturns": "Purchase returns"
     },
     "footer": {
       "copyright": "«Magnitola.ru» All rights reserved",
@@ -132,7 +136,7 @@
       "brand_title": "Life of our store",
       "brand_nature": "About us",
       "brand_look": "What speakers to choose?",
-      "brand_idea": "Collection «Pioneer»",
+      "brand_idea": "Audio players «2 DIN»",
       "is_new": "New",
       "is_bestseller": "Bestseller",
       "audio_player": "Audio player",
@@ -406,7 +410,11 @@
       "personal_data_policy": "Политика обработки данных",
       "privacy_policy": "Политика конфиденциальности",
       "watched_products": "Просмотренные товары",
-      "collection_products": "Товары по сегменту"
+      "collection_products": "Товары по сегменту",
+      "about": "О нас",
+      "blog": "Блог",
+      "shippingAndPayment": "Доставка и оплата",
+      "purchaseReturns": "Возврат товара"
     },
     "footer": {
       "copyright": "«Magnitola.ru» Все права защищены",
@@ -431,7 +439,7 @@
       "brand_title": "Жизнь нашего магазина",
       "brand_nature": "О нас",
       "brand_look": "Какие динамики выбрать?",
-      "brand_idea": "Линейка «Pioneer»",
+      "brand_idea": "Линейка «2 DIN»",
       "is_new": "Новинка",
       "is_bestseller": "Хит",
       "audio_player": "Аудио плеер",
