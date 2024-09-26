@@ -38,7 +38,7 @@ const BrandLife = () => {
           <ul className={`list-reset ${styles.brands__list}`}>
             <li className={styles.brands__list__item}>
               <Link
-                href='/'
+                href='/about'
                 className={`${styles.brands__list__item__link} ${styles.categories__img} ${imgSpinnerClass}`}
               >
                 <Image
@@ -56,7 +56,7 @@ const BrandLife = () => {
             </li>
             <li className={styles.brands__list__item}>
               <Link
-                href='/'
+                href='/blog'
                 className={`${styles.brands__list__item__link} ${styles.categories__img} ${imgSpinnerClass}`}
               >
                 <Image
@@ -74,7 +74,7 @@ const BrandLife = () => {
             </li>
             <li className={styles.brands__list__item}>
               <Link
-                href='/catalog/audio'
+                href='/catalog/audio?offset=0&type=2din'
                 className={`${styles.brands__list__item__link} ${styles.categories__img} ${imgSpinnerClass}`}
               >
                 <Image
