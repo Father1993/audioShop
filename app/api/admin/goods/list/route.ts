@@ -25,12 +25,21 @@ export async function GET(req: Request) {
       return goods
     }
 
-    const [audio, subwoofers] = await Promise.allSettled([
-      getFilteredCollection('audio'),
-      getFilteredCollection('subwoofers'),
-    ])
+    const [audio, subwoofers, speakers, accessories] = await Promise.allSettled(
+      [
+        getFilteredCollection('audio'),
+        getFilteredCollection('subwoofers'),
+        getFilteredCollection('speakers'),
+        getFilteredCollection('accessories'),
+      ]
+    )
 
-    if (audio.status !== 'fulfilled' || subwoofers.status !== 'fulfilled') {
+    if (
+      audio.status !== 'fulfilled' ||
+      subwoofers.status !== 'fulfilled' ||
+      speakers.status !== 'fulfilled' ||
+      accessories.status !== 'fulfilled'
+    ) {
       return NextResponse.json(
         {
           count: 0,
@@ -40,7 +49,12 @@ export async function GET(req: Request) {
       )
     }
 
-    const allGoods = [...audio.value, ...subwoofers.value]
+    const allGoods = [
+      ...audio.value,
+      ...subwoofers.value,
+      ...speakers.value,
+      ...accessories.value,
+    ]
 
     return NextResponse.json(
       {
