@@ -6,10 +6,6 @@ import { closeQuickViewModal } from '@/context/modals'
 import { formatPrice, removeOverflowHiddenFromBody } from '@/lib/utils/common'
 import QuickViewModalSlider from './QuickViewModalSlider'
 import ProductAvailable from '@/components/elements/ProductAvailable/ProductAvailable'
-import ProductColor from '../ProductListItem/ProductColor'
-import ProductComposition from '../ProductListItem/ProductComposition'
-import ProductSizeTableBtn from '../ProductListItem/ProductSizeTableBtn'
-import ProductSizesItem from '../ProductListItem/ProductSizesItem'
 import ProductCounter from '../ProductListItem/ProductCounter'
 import AddToCartBtn from '../ProductListItem/AddToCartBtn'
 import ProductItemActionBtn from '@/components/elements/ProductItemActionBtn/ProductItemActionBtn'
@@ -24,13 +20,10 @@ const QuickViewModal = () => {
   const { lang, translations } = useLang()
   const {
     product,
-    selectedSize,
-    setSelectedSize,
     handleAddToCart,
     updateCountSpinner,
     addToCartSpinner,
     allCurrentCartItemCount,
-    currentCartItems,
     setCount,
     existingItem,
     count,
@@ -106,38 +99,54 @@ const QuickViewModal = () => {
             vendorCode={product.vendorCode}
             inStock={+product.inStock}
           />
-          <ProductColor color={product.characteristics.color} />
-          {product.characteristics?.composition && (
-            <ProductComposition
-              composition={product.characteristics.composition}
-            />
+          {product.companyName && (
+            <span className={stylesForProduct.product__count_title}>
+              {translations[lang].product.brand}: {String(product.companyName)}
+            </span>
           )}
-          {product.sizes && Object.keys(product.sizes).length ? (
+          {product.model && (
+            <span className={stylesForProduct.product__count_title}>
+              {translations[lang].product.model}: {String(product.model)}
+            </span>
+          )}
+          {product.characteristics.installationType && (
+            <span className={stylesForProduct.product__size_title}>
+              {translations[lang].product.for}:{' '}
+              {String(product.characteristics.installationType)}
+            </span>
+          )}
+          {product.characteristics.features && (
+            <span className={stylesForProduct.product__count_title}>
+              {translations[lang].product.options}:{' '}
+              {String(product.characteristics.features)}
+            </span>
+          )}
+          {product.type && (
+            <span className={stylesForProduct.product__count_title}>
+              {translations[lang].product.type}: {String(product.type)}
+            </span>
+          )}
+          {product.characteristics.power && product.characteristics.power && (
+            <div>
+              <span className={stylesForProduct.product__count_title}>
+                {translations[lang].product.impedances}:{' '}
+                {String(product.characteristics.impedances)}
+              </span>
+              <span className={stylesForProduct.product__count_title}>
+                {translations[lang].product.power}:{' '}
+                {String(product.characteristics.power)}
+              </span>
+            </div>
+          )}
+          {product.productSizes && (
             <div className={styles.modal__right__info__size}>
               <div className={styles.modal__right__info__size__inner}>
                 <span className={stylesForProduct.product__size_title}>
-                  {translations[lang].catalog.size}
+                  {translations[lang].catalog.size}:{' '}
+                  {String(product.productSizes)}
                 </span>
-                <ProductSizeTableBtn
-                  sizes={product.sizes}
-                  type={product.type}
-                  className={`sizes-table-btn ${styles.modal__right__info__sizes_btn}`}
-                />
               </div>
-              <ul className={`list-reset ${styles.modal__right__info__sizes}`}>
-                {Object.entries(product.sizes).map(([key, value], i) => (
-                  <ProductSizesItem
-                    key={i}
-                    currentSize={[key, value]}
-                    selectedSize={selectedSize}
-                    setSelectedSize={setSelectedSize}
-                    currentCartItems={currentCartItems}
-                  />
-                ))}
-              </ul>
             </div>
-          ) : (
-            'У продукции нет размеров'
           )}
           <div className={styles.modal__right__bottom}>
             <span className={stylesForProduct.product__count_title}>

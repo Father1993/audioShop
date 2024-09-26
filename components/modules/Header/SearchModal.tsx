@@ -102,7 +102,10 @@ const SearchModal = () => {
           >
             {searchedProductsCategories.map((category) => (
               <li key={category}>
-                <Link href={`/catalog/${category}`}>
+                <Link
+                  href={`/catalog/${category}`}
+                  onClick={handleCloseSearchModal}
+                >
                   {
                     (
                       translations[lang].breadcrumbs as {
@@ -122,7 +125,10 @@ const SearchModal = () => {
           >
             {searchedProductsTypes.map((item) => (
               <li key={item.type}>
-                <Link href={`/catalog/${item.category}?type=${item.type}`}>
+                <Link
+                  href={`/catalog/${item.category}?type=${item.type}`}
+                  onClick={handleCloseSearchModal}
+                >
                   {
                     (
                       translations[lang].comparison as {

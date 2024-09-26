@@ -16,26 +16,24 @@ const getRandomImages = (imgArr) => {
 
   return shuffled.slice(0, 2)
 }
-const collections = ['premium', 'sport', 'classic', 'luxury', 'budget']
-const colors = ['black', 'silver', 'red', 'blue', 'white']
-const compositions = ['metal', 'plastic', 'carbon-fiber']
-const audioTypes = ['passive', 'active']
 
-const images = [
-  '/img/subwoofers/subwoofers-bags-1.png',
-  '/img/subwoofers/subwoofers-bags-2.png',
-  '/img/subwoofers/subwoofers-bags-3.png',
-  '/img/subwoofers/subwoofers-bags-4.png',
-  '/img/subwoofers/subwoofers-headdress.png',
-  '/img/subwoofers/subwoofers-umbrella.png',
-]
-
-const subwooferTypes = ['passive', 'active']
 const sizes = ['10 inches', '12 inches', '15 inches']
-const materials = ['paper', 'kevlar', 'fiberglass']
 const powerHandling = ['200W', '400W', '600W', '800W']
 const impedance = ['2 ohms', '4 ohms', '8 ohms']
 const mountingDepth = ['7 cm', '9 cm', '11 cm']
+const collections = [
+  'Premium',
+  'Sport',
+  'Classic',
+  'Luxury',
+  'Бюджетный',
+  'Из Японии',
+]
+
+const model = ['Model1', 'Model2', 'Model3']
+
+const audioTypes = ['active', 'passive']
+
 const companyNames = [
   'Sony',
   'Panasonic',
@@ -66,6 +64,17 @@ const companyNames = [
   'Soundstream',
 ]
 
+const images = [
+  '/img/subwoofers/subwoofers-bags-1.png',
+  '/img/subwoofers/subwoofers-bags-2.png',
+  '/img/subwoofers/subwoofers-bags-3.png',
+  '/img/subwoofers/subwoofers-bags-4.png',
+  '/img/subwoofers/subwoofers-headdress.png',
+  '/img/subwoofers/subwoofers-umbrella.png',
+]
+
+const companyName = getRandomArrayValue(companyNames)
+
 module.exports = {
   async up(db) {
     return db.collection('subwoofers').insertMany(
@@ -75,22 +84,12 @@ module.exports = {
         const characteristics = [
           {
             type: 'passive',
-            color: getRandomArrayValue(colors),
-            composition: getRandomArrayValue(compositions),
-            collection: getRandomArrayValue(collections),
-            subwooferType: subwooferTypes[0],
-            material: getRandomArrayValue(materials),
             power: getRandomArrayValue(powerHandling),
             impedances: getRandomArrayValue(impedance),
             mountingSize: getRandomArrayValue(mountingDepth),
           },
           {
             type: 'active',
-            color: getRandomArrayValue(colors),
-            composition: getRandomArrayValue(compositions),
-            collection: getRandomArrayValue(collections),
-            subwooferType: subwooferTypes[1],
-            material: getRandomArrayValue(materials),
             power: getRandomArrayValue(powerHandling),
             impedances: getRandomArrayValue(impedance),
             mountingSize: getRandomArrayValue(mountingDepth),
@@ -100,21 +99,20 @@ module.exports = {
         return {
           category: 'subwoofers',
           type,
+          companyName: companyName,
+          model: getRandomArrayValue(model),
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
-          name:
-            'Сабвуфер ' +
-            getRandomArrayValue(companyNames) +
-            ' ' +
-            faker.lorem.sentence(2),
+          name: 'Сабвуфер ' + companyName + ' ' + faker.lorem.sentence(1),
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
+          collections: getRandomArrayValue(collections),
           images: getRandomImages(images),
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),
           isNew: faker.datatype.boolean(),
           popularity: +faker.string.numeric(3),
-          sizes: getRandomArrayValue(sizes),
+          productSizes: getRandomArrayValue(sizes),
         }
       })
     )

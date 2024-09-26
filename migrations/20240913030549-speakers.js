@@ -3,8 +3,6 @@ const { faker } = require('@faker-js/faker')
 
 const getRandomArrayValue = (arr) => arr[Math.floor(Math.random() * arr.length)]
 
-const speakersTypes = ['coaxial', 'component', 'fullRange']
-
 const images = {
   component: [
     '/img/speakers/speaker-component-1.png',
@@ -18,6 +16,16 @@ const images = {
 }
 
 const speakersModel = ['DN1710', 'M7700', 'Model A', 'Model D', 'Model E']
+const speakersTypes = ['coaxial', 'component', 'fullRange']
+const collections = [
+  'Premium',
+  'Sport',
+  'Classic',
+  'Luxury',
+  'Бюджетный',
+  'Из Японии',
+]
+
 const companyNames = [
   'Sony',
   'Panasonic',
@@ -64,6 +72,8 @@ const getImageByType = (type) => {
   return imageArray[Math.floor(Math.random() * imageArray.length)]
 }
 
+const companyName = getRandomArrayValue(companyNames)
+
 module.exports = {
   async up(db) {
     return db.collection('speakers').insertMany(
@@ -86,19 +96,20 @@ module.exports = {
         return {
           category: 'speakers',
           type,
-          companyName: getRandomArrayValue(companyNames),
-          speakersModel: getRandomArrayValue(speakersModel),
+          companyName: companyName,
+          model: getRandomArrayValue(speakersModel),
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
-          name: 'Динамики ' + faker.lorem.sentence(2),
+          name: 'Динамики ' + companyName + faker.lorem.sentence(1),
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
           images: [getImageByType(type), getImageByType(type)],
           vendorCode: faker.string.numeric(4),
+          collections: getRandomArrayValue(collections),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),
           isNew: faker.datatype.boolean(),
           popularity: +faker.string.numeric(3),
-          sizes: getRandomArrayValue(sizes),
+          productSizes: getRandomArrayValue(sizes),
         }
       })
     )

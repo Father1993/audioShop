@@ -6,7 +6,8 @@ import { useLang } from '@/hooks/useLang'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import MainSlider from './MainSlider'
 import img1 from '@/public/img/brands-life.png'
-import img2 from '@/public/img/categories-img-1.png'
+import img2 from '@/public/img/what-speakers.png'
+import img3 from '@/public/img/pioneer-image.png'
 import styles from '@/styles/main-page/index.module.scss'
 
 const BrandLife = () => {
@@ -73,11 +74,11 @@ const BrandLife = () => {
             </li>
             <li className={styles.brands__list__item}>
               <Link
-                href='/'
+                href='/catalog/audio'
                 className={`${styles.brands__list__item__link} ${styles.categories__img} ${imgSpinnerClass}`}
               >
                 <Image
-                  src={img2}
+                  src={img3}
                   alt={translations[lang].main_page.brand_idea}
                   className='transition-opacity opacity-0 duration'
                   onLoad={handleLoadingImageComplete}

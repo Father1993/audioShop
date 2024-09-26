@@ -35,6 +35,51 @@ const names = {
   fastening: 'Устройство крепления',
 }
 
+const collections = [
+  'Premium',
+  'Sport',
+  'Classic',
+  'Luxury',
+  'Бюджетный',
+  'Из Японии',
+]
+
+const companyNames = [
+  'Sony',
+  'Panasonic',
+  'Mitsubishi',
+  'Alpine',
+  'Pioneer',
+  'Kenwood',
+  'Sony',
+  'JBL',
+  'Bose',
+  'Harman Kardon',
+  'Infinity',
+  'Rockford Fosgate',
+  'Focal',
+  'Kicker',
+  'Clarion',
+  'JVC',
+  'Audison',
+  'Hertz',
+  'Polk Audio',
+  'Memphis Audio',
+  'MTX Audio',
+  'Morel',
+  'Dynaudio',
+  'Bang & Olufsen (B&O)',
+  'Blaupunkt',
+  'Nakamichi',
+  'Soundstream',
+]
+
+const voltage = ['12v', '24v', '12-24v']
+
+const model = ['DN1710', 'M7700', 'Model A', 'Model D', 'Model E']
+
+const companyName = getRandomArrayValue(companyNames)
+
 module.exports = {
   async up(db) {
     return db.collection('accessories').insertMany(
@@ -44,29 +89,34 @@ module.exports = {
         const characteristics = [
           {
             type: 'video-recorder',
+            voltage: getRandomArrayValue(voltage),
           },
           {
             type: 'charger',
+            voltage: getRandomArrayValue(voltage),
           },
           {
             type: 'fastening',
+            voltage: getRandomArrayValue(voltage),
           },
         ]
 
         return {
           category: 'accessories',
           type,
+          companyName: companyName,
+          model: getRandomArrayValue(model),
           price: +faker.string.numeric(4).replace(/.{0,2}$/, 99),
           name: `${names[type]} ${faker.lorem.words(2)}`,
           description: faker.lorem.sentences(10),
           characteristics: characteristics.find((item) => item.type === type),
+          collections: getRandomArrayValue(collections),
           images: getRandomImages(images),
           vendorCode: faker.string.numeric(4),
           inStock: faker.string.numeric(2),
           isBestseller: faker.datatype.boolean(),
           isNew: faker.datatype.boolean(),
           popularity: +faker.string.numeric(3),
-          size: {},
         }
       })
     )

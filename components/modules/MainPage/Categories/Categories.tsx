@@ -19,7 +19,7 @@ const Categories = () => {
   const imgSpinnerClass = imgSpinner ? styles.img_loading : ''
 
   const images = [
-    { src: img1, id: 1, title: translations[lang].main_page.category_cloth },
+    { src: img1, id: 1, title: translations[lang].main_page.category_audio },
     {
       src: img2,
       id: 2,
@@ -28,9 +28,9 @@ const Categories = () => {
     {
       src: img3,
       id: 3,
-      title: translations[lang].main_page.category_souvenirs,
+      title: translations[lang].main_page.category_speakers,
     },
-    { src: img4, id: 4, title: translations[lang].main_page.category_office },
+    { src: img4, id: 4, title: translations[lang].main_page.category_audio },
   ]
 
   return (
@@ -44,7 +44,7 @@ const Categories = () => {
           {!isMedia490 && (
             <>
               <Link
-                href='/catalog/cloth'
+                href='/catalog/audio'
                 className={`${styles.categories__right} ${styles.categories__img} ${imgSpinnerClass}`}
               >
                 <Image
@@ -53,26 +53,26 @@ const Categories = () => {
                   className='transition-opacity opacity-0 duration'
                   onLoad={handleLoadingImageComplete}
                 />
-                <span>{translations[lang].main_page.category_cloth}</span>
+                <span>{translations[lang].main_page.category_audio}</span>
               </Link>
               <div className={styles.categories__left}>
                 <div className={styles.categories__left__top}>
                   <Link
-                    href='/catalog/accessories'
+                    href='/catalog/subwoofers'
                     className={`${styles.categories__left__top__right} ${styles.categories__img} ${imgSpinnerClass}`}
                   >
                     <Image
                       src={img2}
-                      alt='Accessories'
+                      alt='sub'
                       className='transition-opacity opacity-0 duration'
                       onLoad={handleLoadingImageComplete}
                     />
                     <span>
-                      {translations[lang].main_page.category_accessories}
+                      {translations[lang].main_page.category_subwoofers}
                     </span>
                   </Link>
                   <Link
-                    href='/catalog/souvenirs'
+                    href='/catalog/accessories'
                     className={`${styles.categories__left__top__left} ${styles.categories__img} ${imgSpinnerClass}`}
                   >
                     <Image
@@ -82,12 +82,12 @@ const Categories = () => {
                       onLoad={handleLoadingImageComplete}
                     />
                     <span>
-                      {translations[lang].main_page.category_souvenirs}
+                      {translations[lang].main_page.category_accessories}
                     </span>
                   </Link>
                 </div>
                 <Link
-                  href='/catalog/office'
+                  href='/catalog/speakers'
                   className={`${styles.categories__left__bottom} ${styles.categories__img} ${imgSpinnerClass}`}
                 >
                   <Image
@@ -96,7 +96,7 @@ const Categories = () => {
                     className='transition-opacity opacity-0 duration'
                     onLoad={handleLoadingImageComplete}
                   />
-                  <span>{translations[lang].main_page.category_office}</span>
+                  <span>{translations[lang].main_page.category_speakers}</span>
                 </Link>
               </div>
             </>
