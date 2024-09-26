@@ -1,7 +1,7 @@
 import { EventCallable } from 'effector'
 import toast from 'react-hot-toast'
 import { closeAuthPopup, openAuthPopup, setIsAuth } from '@/context/auth'
-import { setCurrentProduct } from '@/context/goods'
+import { resetProductsBySearch, setCurrentProduct } from '@/context/goods'
 import {
   closeSearchModal,
   closeShareModal,
@@ -34,6 +34,7 @@ export const getWindowWidth = () => {
 export const handleCloseSearchModal = () => {
   closeSearchModal()
   removeOverflowHiddenFromBody()
+  resetProductsBySearch()
 }
 
 export const shuffle = <T>(array: T[]) => {
