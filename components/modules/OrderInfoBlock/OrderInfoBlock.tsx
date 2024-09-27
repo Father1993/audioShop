@@ -1,3 +1,4 @@
+'use client'
 import { MutableRefObject, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
 import Link from 'next/link'
@@ -90,7 +91,7 @@ const OrderInfoBlock = ({
       ) as HTMLLIElement
       scrollToBlock(detailsBlock)
       toast.error('Пожалуйста, заполните все обязательные поля!')
-      return // Прекратите выполнение функции, если данные пустые
+      return
     }
 
     if (!isUserAuth()) {
@@ -111,12 +112,23 @@ const OrderInfoBlock = ({
       description = `Адрес получения товара: ${chosenPickupAddressData.address_line1}, ${chosenPickupAddressData.address_line2}`
     }
 
-    makePayment({
-      jwt: auth.accessToken,
-      description,
-      amount: `${priceWithDiscount.replace(' ', '')}`,
-      metadata: orderDetailsValues,
-    })
+    if (onlinePaymentTab) {
+      // Логика для онлайн-оплаты
+      makePayment({
+        jwt: auth.accessToken,
+        description,
+        amount: `${priceWithDiscount.replace(' ', '')}`,
+        metadata: orderDetailsValues,
+      })
+    } else {
+      // Логика для оплаты при получении
+      toast.success('Заказ оформлен!')
+      console.log('Информация о заказе:', {
+        description,
+        amount: `${priceWithDiscount.replace(' ', '')}`,
+        metadata: orderDetailsValues,
+      })
+    }
   }
 
   return (

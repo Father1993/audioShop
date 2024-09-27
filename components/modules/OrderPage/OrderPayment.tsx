@@ -22,8 +22,6 @@ const OrderPayment = () => {
     setCashPaymentTb(true)
   }
 
-  console.log('')
-
   return (
     <div className={styles.order__list__item__payment}>
       <TabControls
@@ -68,15 +66,6 @@ const OrderPayment = () => {
                   <span>5555 5555 5555 5555</span>
                 </label>
               </p>
-              <p className={styles.order__list__item__payment__content__radio}>
-                <input type='radio' id='payment-2' name='radio-group' />
-                <label
-                  htmlFor='payment-2'
-                  className={styles.order__list__item__payment__content__label}
-                >
-                  {translations[lang].order.cash_office}
-                </label>
-              </p>
             </form>
           </motion.div>
         )}
@@ -98,15 +87,6 @@ const OrderPayment = () => {
                   className={`${styles.order__list__item__payment__content__label} ${styles.no_bg}`}
                 >
                   {translations[lang].order.cash_office}
-                </label>
-              </p>
-              <p className={styles.order__list__item__payment__content__radio}>
-                <input type='radio' id='payment-2' name='radio-group' />
-                <label
-                  htmlFor='payment-2'
-                  className={`${styles.order__list__item__payment__content__label} ${styles.no_bg}`}
-                >
-                  {translations[lang].order.card_office}
                 </label>
               </p>
             </form>
