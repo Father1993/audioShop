@@ -30,7 +30,8 @@
       "write_code": "Enter the code from the letter",
       "delete_account": "Delete account",
       "send": "Send",
-      "save": "Save"
+      "save": "Save",
+      "back_to_blog": "Back to blog page"
     },
     "header": {
       "menu_btn": "Menu",
@@ -111,7 +112,8 @@
       "about": "About",
       "blog": "Blog",
       "shippingAndPayment": "Shipping and payment",
-      "purchaseReturns": "Purchase returns"
+      "purchaseReturns": "Purchase returns",
+      "post": "Post"
     },
     "footer": {
       "copyright": "«Magnitola.ru» All rights reserved",
@@ -335,7 +337,8 @@
       "write_code": "Введите код из письма",
       "delete_account": "Удалить аккаунт",
       "send": "Отправить",
-      "save": "Сохранить"
+      "save": "Сохранить",
+      "back_to_blog": "Назад к списку постов"
     },
     "header": {
       "menu_btn": "Меню",
@@ -416,7 +419,8 @@
       "about": "О нас",
       "blog": "Блог",
       "shippingAndPayment": "Доставка и оплата",
-      "purchaseReturns": "Возврат товара"
+      "purchaseReturns": "Возврат товара",
+      "post": "Пост"
     },
     "footer": {
       "copyright": "«Magnitola.ru» Все права защищены",
