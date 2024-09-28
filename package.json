@@ -29,6 +29,7 @@
     "effector-react": "^23.2.1",
     "framer-motion": "^11.3.12",
     "global": "^4.4.0",
+    "gray-matter": "^4.0.3",
     "jsonwebtoken": "^9.0.2",
     "migrate-mongo": "^11.0.0",
     "mongodb": "^6.8.0",
