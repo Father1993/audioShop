@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 'use client'
 import { MutableRefObject, useRef, useState } from 'react'
 import { useUnit } from 'effector-react'
@@ -15,16 +16,24 @@ import {
   isUserAuth,
   showCountMessage,
 } from '@/lib/utils/common'
-import { countWholeCartItemsAmount } from '@/lib/utils/cart'
+import {
+  countWholeCartItemsAmount,
+  handleDeleteAllFromCart,
+} from '@/lib/utils/cart'
 import { $cart, $cartFromLs } from '@/context/cart/state'
 import {
   $chosenCourierAddressData,
   $chosenPickupAddressData,
+  $courierTab,
   $onlinePaymentTab,
   $orderDetailsValues,
   $pickupTab,
 } from '@/context/order/state'
-import { makePayment, makePaymentFx } from '@/context/order'
+import {
+  makePayment,
+  makePaymentFx,
+  sendOrderNotificationsFx,
+} from '@/context/order'
 import styles from '@/styles/order-block/index.module.scss'
 
 const OrderInfoBlock = ({
@@ -45,6 +54,7 @@ const OrderInfoBlock = ({
   const chosenCourierAddressData = useUnit($chosenCourierAddressData)
   const paymentSpinner = useUnit(makePaymentFx.pending)
   const orderDetailsValues = useUnit($orderDetailsValues)
+  const courierTab = useUnit($courierTab)
 
   const handleTabCheckbox = (e: React.KeyboardEvent<HTMLLabelElement>) => {
     if (e.key == ' ' || e.code == 'Space') {
@@ -62,6 +72,26 @@ const OrderInfoBlock = ({
     })
 
   const handleMakePayment = async () => {
+    if (
+      courierTab &&
+      (!chosenCourierAddressData.address_line1 ||
+        chosenCourierAddressData.address_line1.length < 5)
+    ) {
+      const orderBlock = document.querySelector('.order-block') as HTMLLIElement
+      scrollToBlock(orderBlock)
+      toast.error(
+        'Пожалуйста, введите корректный адрес доставки! Русскими буквами'
+      )
+      return
+    }
+
+    if (pickupTab && !chosenPickupAddressData.address_line1) {
+      const orderBlock = document.querySelector('.order-block') as HTMLLIElement
+      scrollToBlock(orderBlock)
+      toast.error('Нужно выбрать адрес самовывоза')
+      return
+    }
+
     if (
       !chosenCourierAddressData.address_line1 &&
       !chosenPickupAddressData.address_line1
@@ -112,22 +142,46 @@ const OrderInfoBlock = ({
       description = `Адрес получения товара: ${chosenPickupAddressData.address_line1}, ${chosenPickupAddressData.address_line2}`
     }
 
+    if (courierTab && chosenCourierAddressData.address_line1) {
+      description = `Адрес доставки товара курьером: ${chosenCourierAddressData.address_line1}, г. Хабаровск`
+    } else if (pickupTab && chosenPickupAddressData.address_line1) {
+      description = `Адрес получения товара: ${chosenPickupAddressData.address_line1}, ${chosenPickupAddressData.address_line2}`
+    }
+
+    const orderData = {
+      description,
+      amount: `${priceWithDiscount.replace(' ', '')}`,
+      metadata: {
+        ...orderDetailsValues,
+        delivery_type: pickupTab ? 'pickup' : 'courier',
+        delivery_address: courierTab
+          ? chosenCourierAddressData.address_line1
+          : chosenPickupAddressData.address_line1,
+      },
+    }
+
     if (onlinePaymentTab) {
       // Логика для онлайн-оплаты
       makePayment({
         jwt: auth.accessToken,
-        description,
-        amount: `${priceWithDiscount.replace(' ', '')}`,
-        metadata: orderDetailsValues,
+        ...orderData,
       })
     } else {
-      // Логика для оплаты при получении
-      toast.success('Заказ оформлен!')
-      console.log('Информация о заказе:', {
-        description,
-        amount: `${priceWithDiscount.replace(' ', '')}`,
-        metadata: orderDetailsValues,
-      })
+      try {
+        // Отправляем уведомления
+        await sendOrderNotificationsFx({
+          orderData: JSON.stringify(orderData),
+          customerEmail: orderDetailsValues.email_label,
+          adminEmail: 'enjoyhill@gmail.com',
+        })
+        toast.success('Заказ успешно оформлен!')
+        handleDeleteAllFromCart(auth.accessToken)
+        window.location.href = '/order-success'
+      } catch (error) {
+        toast.error(
+          'Произошла ошибка при оформлении заказа. Пожалуйста, попробуйте еще раз.'
+        )
+      }
     }
   }
 

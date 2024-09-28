@@ -88,3 +88,9 @@ export interface IOrderDetailsValues {
   message_label: string
   isValid: boolean
 }
+
+export interface IOrderCourierData {
+  orderData: string
+  customerEmail: string
+  adminEmail: string
+}

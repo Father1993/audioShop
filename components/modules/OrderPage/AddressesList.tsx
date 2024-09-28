@@ -70,7 +70,7 @@ const AddressesList = ({
         <div className={styles.order__list__item__delivery__pickup__choose}>
           <span>{chosenPickupAddressData.address_line1}</span>
           <span>
-            {chosenPickupAddressData.address_line2},{' '}
+            {chosenPickupAddressData.address_line2}
             {chosenPickupAddressData.city}
           </span>
         </div>

@@ -5,7 +5,7 @@ export async function POST(req: Request) {
   try {
     const reqBody = await req.json()
 
-    await sendMail('Rostelecom Shop', reqBody.email, reqBody.message)
+    await sendMail('Magnitola', reqBody.email, reqBody.message)
 
     return NextResponse.json({ status: 200 })
   } catch (error) {

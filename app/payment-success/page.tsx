@@ -17,7 +17,7 @@ import WatchedProducts from '@/components/modules/WatchedProducts/WatchedProduct
 import { $user } from '@/context/user/state'
 import styles from '@/styles/payment-success/index.module.scss'
 
-export default function Favorites() {
+export default function PaymentSuccess() {
   const { lang, translations } = useLang()
   const spinner = useUnit(checkPaymentFx.pending)
   const [paymentData, setPaymentData] = useState<IPaymentData>(
