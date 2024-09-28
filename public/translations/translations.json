@@ -267,7 +267,7 @@
       "courier_delivery": "Courier delivery",
       "online_payment": "Online payment",
       "upon_receipt": "Upon receipt",
-      "payment_advice": "Select a payment method online or link a card in your <a href='/profile'>personal account</a>",
+      "payment_advice": "Fast and secure online payment via YooKassa or by card number. Choose the method that suits you best!",
       "card_number": "Card number",
       "qr_code": "QR-Code",
       "cash_office": "By cash in the office",
@@ -284,7 +284,9 @@
       "map": "Map",
       "delivery_will_be": "Delivery will be to this address",
       "enter_address_on_map_or_search": "Enter the address on the map or find it using search",
-      "comments_order": "Comments on the order"
+      "comments_order": "Comments on the order",
+      "courier_delivery_note": "Delivery is available only within Khabarovsk city",
+      "enter_address": "Enter delivery address"
     },
     "payment_success": {
       "thanks": "Thanks",
@@ -571,7 +573,7 @@
       "courier_delivery": "Доставка курьером",
       "online_payment": "Онлайн оплата",
       "upon_receipt": "При получении",
-      "payment_advice": "Выберите способ оплаты онлайн или привяжите карту в <a href='/profile'>личном кабинете</a>",
+      "payment_advice": "Быстрая и безопасная оплата онлайн через ЮKassa по номеру карты",
       "card_number": "Номер карты",
       "qr_code": "QR-Код",
       "cash_office": "Наличными или картой в офисе",
@@ -588,7 +590,9 @@
       "map": "Карта",
       "delivery_will_be": "Доставка будет по этому адресу",
       "enter_address_on_map_or_search": "Укажите адрес на карте или найдите с помощью поиска",
-      "comments_order": "Комментарий к заказу"
+      "comments_order": "Комментарий к заказу",
+      "courier_delivery_note": "Доставка осуществляется только в пределах г. Хабаровска",
+      "enter_address": "Введите адрес доставки"
     },
     "payment_success": {
       "thanks": "Спасибо",

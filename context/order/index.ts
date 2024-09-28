@@ -1,10 +1,11 @@
 'use client'
-import { createDomain } from 'effector'
+import { createDomain, createEffect } from 'effector'
 import toast from 'react-hot-toast'
 import {
   IGetMagnitolaOfficeByCityFx,
   IMagnitolaAddressData,
   IMakePaymentFx,
+  IOrderCourierData,
   IOrderDetailsValues,
   IPaymentNotifyFx,
 } from '@/types/order'
@@ -95,5 +96,16 @@ export const paymentNotifyFx = order.createEffect(
     } catch (error) {
       toast.error((error as Error).message)
     }
+  }
+)
+
+export const sendOrderNotificationsFx = createEffect(
+  async ({ orderData, customerEmail, adminEmail }: IOrderCourierData) => {
+    const { data } = await api.post('/api/send-order', {
+      orderData,
+      customerEmail,
+      adminEmail,
+    })
+    return data
   }
 )
