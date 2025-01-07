@@ -18,7 +18,7 @@ export async function POST(req: Request) {
       return NextResponse.json(
         {
           status: 400,
-          message: 'Пользователь с твким email уже существует',
+          message: 'Пользователь с таким email уже существует',
         },
         corsHeaders
       )
