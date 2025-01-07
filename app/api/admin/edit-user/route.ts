@@ -12,13 +12,18 @@ export async function POST(req: Request) {
     let newImage = null
 
     if (!isValidId) {
-      return NextResponse.json({
-        message: 'Wrong user id',
-        status: 400,
-      })
+      return NextResponse.json(
+        {
+          message: 'Wrong user id',
+          status: 400,
+        },
+        corsHeaders
+      )
     }
 
-    const user = await db.collection('users').findOne({ email: reqBody.id })
+    const user = await db
+      .collection('users')
+      .findOne({ _id: new ObjectId(reqBody.id) })
 
     if (!user) {
       return NextResponse.json(
@@ -40,7 +45,7 @@ export async function POST(req: Request) {
       await db.collection('images').deleteOne({ url: user.image.url })
     }
 
-    await db.collection('user').updateOne(
+    await db.collection('users').updateOne(
       { _id: new ObjectId(reqBody._id) },
       {
         $set: {
