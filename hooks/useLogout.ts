@@ -1,13 +1,13 @@
-import { useEarthoOne } from '@eartho/one-client-react'
+// import { useEarthoOne } from '@eartho/one-client-react'
 import { useRouter } from 'next/navigation'
 import { setIsAuth } from '@/context/auth'
 
 export const useUserLogout = () => {
   const router = useRouter()
-  const { logout } = useEarthoOne()
+  // const { logout } = useEarthoOne()
 
   return () => {
-    logout({ clientId: `${process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID}` })
+    // logout({ clientId: `${process.env.NEXT_PUBLIC_OAUTH_CLIENT_ID}` })
     localStorage.removeItem('auth')
     setIsAuth(false)
     router.push('/')

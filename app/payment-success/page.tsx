@@ -53,7 +53,7 @@ export default function PaymentSuccess() {
 
       paymentNotifyFx({ email: user.email, message: description })
     }
-  }, [paymentData.description, user.email])
+  }, [paymentData.description, user.email, paymentData])
 
   const getPaymentData = async () => {
     const paymentId = JSON.parse(localStorage.getItem('paymentId') as string)
