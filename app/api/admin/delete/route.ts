@@ -4,39 +4,20 @@ import { corsHeaders } from '@/constants/corsHeaders'
 import clientPromise from '@/lib/mongodb'
 import { getDbAndReqBody } from '@/lib/utils/api-routes'
 
-export async function GET(req: Request) {
+export async function DELETE(req: Request) {
   try {
     const { db } = await getDbAndReqBody(clientPromise, null)
     const url = new URL(req.url)
     const id = url.searchParams.get('id')
     const category = url.searchParams.get('category')
-    const isValidId = ObjectId.isValid(id as string)
 
-    if (!isValidId) {
-      return NextResponse.json(
-        {
-          message: 'Wrong product id',
-          status: 404,
-        },
-        corsHeaders
-      )
-    }
-
-    const productItem = await db
+    await db
       .collection(category as string)
-      .findOne({ _id: new ObjectId(id as string) })
+      .deleteOne({ _id: new ObjectId(id as string) })
 
     return NextResponse.json(
       {
-        status: 200,
-        productItem: {
-          ...productItem,
-          id: productItem?._id,
-          images: productItem?.images.map((src: string) => ({
-            url: src,
-            desc: productItem.name,
-          })),
-        },
+        status: 204,
       },
       corsHeaders
     )
@@ -46,3 +27,7 @@ export async function GET(req: Request) {
 }
 
 export const dynamic = 'force-dynamic'
+
+export async function OPTIONS() {
+  return new NextResponse(null, { ...corsHeaders, status: 200 })
+}

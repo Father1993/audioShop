@@ -2,13 +2,11 @@ import { useUnit } from 'effector-react'
 import Slider from 'react-slick'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 import ProductImagesItem from './ProductImagesItem'
-import { useProductImages } from '@/hooks/useProductImages'
 import { $currentProduct } from '@/context/goods/state'
 import styles from '@/styles/product/index.module.scss'
 
 const ProductImages = () => {
   const product = useUnit($currentProduct)
-  const images = useProductImages(product)
   const isMedia1420 = useMediaQuery(1420)
   const isMedia1040 = useMediaQuery(1040)
   const isMedia520 = useMediaQuery(520)
@@ -30,19 +28,15 @@ const ProductImages = () => {
     <>
       {!isMedia520 && (
         <ul className={`list-reset ${styles.product__top__images}`}>
-          {images.map((img) => (
-            <ProductImagesItem key={img.id} image={img} imgSize={imgSize} />
+          {product.images.map((img, idx) => (
+            <ProductImagesItem key={idx} image={img} imgSize={imgSize} />
           ))}
         </ul>
       )}
       {isMedia520 && (
         <Slider {...settings} className={styles.product__top__images__slider}>
-          {images.map((img) => (
-            <ProductImagesItem
-              key={img.id}
-              image={img}
-              imgSize={slideImgSize}
-            />
+          {product.images.map((img, idx) => (
+            <ProductImagesItem key={idx} image={img} imgSize={slideImgSize} />
           ))}
         </Slider>
       )}

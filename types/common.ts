@@ -9,7 +9,7 @@ export interface IProduct {
   name: string
   description: string
   characteristics: { [index: string]: string }
-  images: string[]
+  images: { url: string; desc: string }[]
   vendorCode: string
   inStock: string
   isBestseller: boolean

@@ -4,7 +4,7 @@ export interface IProductPageProps {
 }
 
 export interface IProductImagesItemProps {
-  image: { src: string; alt: string; id: string }
+  image: { url: string; desc: string }
   imgSize: number
 }
 
