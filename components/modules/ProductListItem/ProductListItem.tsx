@@ -73,7 +73,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             />
             <div className={styles.list__item_ad__img}>
               <Image
-                src={item.images[0]}
+                src={item.images[0].url}
                 alt={item.name}
                 width={224}
                 height={0}
@@ -83,13 +83,13 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             <p className={styles.list__item_ad__title}>
               <span>
                 {translations[lang].main_page.audio_player} Premium{' '}
-                {
+                {/* {
                   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                   //@ts-ignore
                   translations[lang].main_page[
                     item.images[0].split('/img/').join('').split('-')[0]
                   ]
-                }
+                } */}
               </span>
               <span>{formatPrice(+item.price)}</span>
             </p>
@@ -153,7 +153,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
             href={`/catalog/${item.category}/${item._id}`}
             className={styles.list__item__img}
           >
-            <Image src={item.images[0]} alt={item.name} fill />
+            <Image src={item.images[0].url} alt={item.name} fill />
           </Link>
           <div className={styles.list__item__inner}>
             <h3 className={styles.list__item__title}>

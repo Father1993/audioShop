@@ -271,3 +271,29 @@ export const isValidAvatarImage = (image: File) => {
   }
   return true
 }
+
+export const generateArticleCode = (type: string) => {
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const numbers = '0123456789'
+
+  const getRandomLetters = (length: number) => {
+    let result = ''
+    for (let i = 0; i < length; i++) {
+      result += letters.charAt(Math.floor(Math.random() * letters.length))
+    }
+    return result
+  }
+
+  const getRandomNumbers = (length: number) => {
+    let result = ''
+    for (let i = 0; i < length; i++) {
+      result += numbers.charAt(Math.floor(Math.random() * numbers.length))
+    }
+    return result
+  }
+
+  const articleCode = `${type.substring(0, 3).toUpperCase()}-${getRandomLetters(
+    3
+  )}-${getRandomNumbers(4)}`
+  return articleCode
+}

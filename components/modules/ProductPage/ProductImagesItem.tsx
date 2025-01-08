@@ -12,8 +12,8 @@ const ProductImagesItem = ({ image, imgSize }: IProductImagesItemProps) => {
       }`}
     >
       <Image
-        src={image.src}
-        alt={image.alt}
+        src={image.url}
+        alt={image.desc}
         width={imgSize}
         height={imgSize}
         className='transition-opacity opacity-0 duration'

@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { useCartAction } from '@/hooks/useCartAction'
-import { useProductImages } from '@/hooks/useProductImages'
 import { useLang } from '@/hooks/useLang'
 import { closeQuickViewModal } from '@/context/modals'
 import { formatPrice, removeOverflowHiddenFromBody } from '@/lib/utils/common'
@@ -28,7 +27,6 @@ const QuickViewModal = () => {
     existingItem,
     count,
   } = useCartAction()
-  const images = useProductImages(product)
   const {
     handleAddToComparison,
     isProductInComparison,
@@ -87,7 +85,7 @@ const QuickViewModal = () => {
         />
       </div>
       <div className={styles.modal__left}>
-        <QuickViewModalSlider images={images} />
+        <QuickViewModalSlider images={product.images} />
       </div>
       <div className={styles.modal__right}>
         <h3 className={styles.modal__right__title}>{product.name}</h3>
