@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import React, { useMemo, useState, useTransition } from 'react'
 import { useUnit } from 'effector-react'
-// import Image from 'next/image'
+import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -163,13 +163,13 @@ const SearchModal = () => {
                     onClick={handleCloseSearchModal}
                   >
                     <div className='search-modal__results__item__left'>
-                      {/* <Image
-                        src={item.images[0]}
+                      <Image
+                        src={item.images[0].url}
                         alt={item.name}
                         width={100}
                         height={100}
                         className='search-modal__results__item__img'
-                      /> */}
+                      />
                     </div>
                     <div className='search-modal__results__item__inner'>
                       <p>{item.name}</p>
