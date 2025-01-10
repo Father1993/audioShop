@@ -74,6 +74,8 @@ const ProductPageContent = () => {
     )
   }, [product._id, product.category])
 
+  console.log(product.sizes)
+
   return (
     <>
       <div className={styles.product__top}>
@@ -131,14 +133,6 @@ const ProductPageContent = () => {
               <span>{translations[lang].catalog.collection}:</span>{' '}
               {capitalizeFirsLetter(product.characteristics.collection)}
             </span>
-          )}
-          {product.sizes && (
-            <>
-              <span className={styles.size}>
-                <span>{translations[lang].catalog.size}:</span>{' '}
-                {product.sizes.toString()}
-              </span>
-            </>
           )}
           {product.companyName && product.model && (
             <li className={`list-reset ${styles.product__char}`}>
