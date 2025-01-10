@@ -18,6 +18,8 @@ export async function GET(req: Request) {
     return new NextResponse(imageBuffer, {
       headers: {
         'Content-Type': `image/${image.title.split('.')[1]}`,
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'public, max-age=31536000, immutable',
       },
     })
   } catch (error) {
