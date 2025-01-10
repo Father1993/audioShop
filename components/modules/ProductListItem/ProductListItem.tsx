@@ -76,7 +76,7 @@ const ProductListItem = ({ item, title }: IProductListItemProps) => {
                 src={item.images[0].url}
                 alt={item.name}
                 width={224}
-                height={0}
+                height={275}
                 style={{ width: '100%', height: 'auto' }}
               />
             </div>
