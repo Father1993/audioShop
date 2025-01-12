@@ -9,7 +9,7 @@ const CookieAlert = ({
   const { lang, translations } = useLang()
 
   const handleAcceptCookie = () => {
-    document.cookie = 'CookieBy=Magnitola.ru; max-age=' + 60 * 60 * 24 * 30
+    document.cookie = 'CookieBy=Magnitola; max-age=' + 60 * 60 * 24 * 30
 
     if (document.cookie) {
       setCookieAlertOpen(false)

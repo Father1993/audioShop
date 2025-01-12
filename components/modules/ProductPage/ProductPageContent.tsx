@@ -152,6 +152,13 @@ const ProductPageContent = () => {
             </li>
           )}
 
+          {product.characteristics.in && (
+            <li className={`list-reset ${styles.product__color}`}>
+              Подойдет с {String(product.characteristics.in)} на{' '}
+              {String(product.characteristics.out)}
+            </li>
+          )}
+
           <div className={styles.product__top__bottom}>
             <span className={styles.product__top__count}>
               {translations[lang].product.count}

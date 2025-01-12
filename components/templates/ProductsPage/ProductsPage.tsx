@@ -117,6 +117,11 @@ const ProductsPage = ({ searchParams, pageName }: IProductsPage) => {
           accessoriesCategoryOptions: [
             {
               id: 1,
+              title: translations[lang].comparison['adapters'],
+              filterHandler: () => handleApplyFiltersWithCategory('adapters'),
+            },
+            {
+              id: 4,
               title: translations[lang].main_menu.fastening,
               filterHandler: () => handleApplyFiltersWithCategory('fastening'),
             },

@@ -16,7 +16,7 @@ export async function GET(req: Request) {
     const categoryParam = url.searchParams.get('category')
     const priceFromParam = url.searchParams.get('priceFrom')
     const priceToParam = url.searchParams.get('priceTo')
-    const sizesParam = url.searchParams.get('sizes')
+    const sizesParam = url.searchParams.get('productSizes')
     const colorsParam = url.searchParams.get('colors')
     const collectionParam = url.searchParams.get('collection')
     const sortParam = url.searchParams.get('sort') || 'default'
@@ -39,7 +39,7 @@ export async function GET(req: Request) {
       }),
       ...(isValidSizes && {
         $or: (sizesArr as string[]).map((sizes) => ({
-          ['sizes']: sizes.toLowerCase(),
+          ['productSizes']: sizes.toLowerCase(),
         })),
       }),
       ...(isValidColors && {

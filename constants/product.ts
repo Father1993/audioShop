@@ -3,6 +3,7 @@ export const productsWithoutSizes = [
   'subwoofers',
   'accessories',
   'speakers',
+  'adapters',
 ]
 
 export const productTypes = [
@@ -15,6 +16,7 @@ export const productTypes = [
   'fastening',
   'coaxial',
   'component',
+  'adapters',
   'fullRange',
 ]
 
@@ -23,6 +25,7 @@ export const productCategories = [
   'subwoofers',
   'accessories',
   'speakers',
+  'adapters',
 ]
 
 export const allowedColors = ['black', 'silver', 'red', 'blue', 'white']

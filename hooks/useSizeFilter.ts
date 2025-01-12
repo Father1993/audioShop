@@ -41,7 +41,7 @@ export const useSizeFilter = (
 
   useEffect(() => {
     const urlParams = getSearchParamsUrl()
-    const sizesParam = urlParams.get('sizes')
+    const sizesParam = urlParams.get('productSizes')
 
     if (sizesParam) {
       const validSizes = getCheckedArrayParam(sizesParam)
