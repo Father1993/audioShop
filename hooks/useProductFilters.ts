@@ -85,7 +85,7 @@ export const useProductFilters = (
 
   const handleApplyFiltersWithSizes = (sizes: string[]) => {
     updateSearchParam(
-      'sizes',
+      'productSizes',
       encodeURIComponent(JSON.stringify(sizes)),
       pathname
     )

@@ -1,9 +1,9 @@
 export const productWithoutSizes = [
   'audio',
   'subwoofers',
-  'notebook',
-  'promotional-souvenirs',
-  'business-souvenirs',
+  'accessories',
+  'speakers',
+  'adapters',
 ]
 
 export const productTypes = ['1din', '2din', 'passive', 'active']

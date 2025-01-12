@@ -79,7 +79,7 @@ const PagesLayout = ({ children }: { children: React.ReactNode }) => {
   const handleCloseSizeTable = () => closeSizeTableByCheck(showQuickViewModal)
 
   useEffect(() => {
-    const checkCookie = document.cookie.indexOf('CookieBy=Rostelecom')
+    const checkCookie = document.cookie.indexOf('CookieBy=Magnitola')
     checkCookie != -1
       ? setCookieAlertOpen(false)
       : setTimeout(() => setCookieAlertOpen(true), 3000)

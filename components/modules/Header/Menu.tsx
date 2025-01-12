@@ -97,6 +97,11 @@ const Menu = () => {
   const accessoriesLinks = [
     {
       id: 1,
+      text: translations[lang].main_menu.adapters,
+      href: '/catalog/accessories?offset=0&type=adapters',
+    },
+    {
+      id: 4,
       text: translations[lang].comparison.videoRecorder,
       href: '/catalog/accessories?offset=0&type=video-recorder',
     },

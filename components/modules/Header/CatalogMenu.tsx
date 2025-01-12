@@ -97,6 +97,11 @@ const CatalogMenu = () => {
       id: 4,
       items: [
         {
+          title: translations[lang].main_menu.adapters,
+          href: '/catalog/accessories?offset=0&type=adapters',
+          handleCloseMenu,
+        },
+        {
           title: translations[lang].comparison.videoRecorder,
           href: '/catalog/accessories?offset=0&type=video-recorder',
           handleCloseMenu,
