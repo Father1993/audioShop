@@ -1,11 +1,13 @@
 import Link from 'next/link'
 import { useLang } from '@/hooks/useLang'
 import { closeMenu } from '@/context/modals'
+import { removeOverflowHiddenFromBody } from '@/lib/utils/common'
 
 const BuyersListItems = () => {
   const { lang, translations } = useLang()
 
   const handleLinkClick = () => {
+    removeOverflowHiddenFromBody()
     closeMenu()
   }
   return (
