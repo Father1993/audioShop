@@ -1,6 +1,7 @@
+import Link from 'next/link'
+import { closeMenu } from '@/context/modals'
 import { useLang } from '@/hooks/useLang'
 import { removeOverflowHiddenFromBody } from '@/lib/utils/common'
-import Link from 'next/link'
 
 const ContactsListItems = () => {
   const { lang, translations } = useLang()
