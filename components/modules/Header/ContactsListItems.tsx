@@ -1,13 +1,18 @@
 import { useLang } from '@/hooks/useLang'
+import { removeOverflowHiddenFromBody } from '@/lib/utils/common'
 import Link from 'next/link'
 
 const ContactsListItems = () => {
   const { lang, translations } = useLang()
-
+  const handleClick = () => {
+    removeOverflowHiddenFromBody()
+    closeMenu()
+  }
   return (
     <>
       <li className='nav-menu__accordion__item'>
         <a
+          onClick={handleClick}
           href='tel:+79141500852'
           className='nav-menu__accordion__item__link nav-menu__accordion__item__title'
         >
@@ -16,6 +21,7 @@ const ContactsListItems = () => {
       </li>
       <li className='nav-menu__accordion__item'>
         <a
+          onClick={handleClick}
           href='mailto:example@mail.ru'
           className='nav-menu__accordion__item__link'
         >
@@ -24,6 +30,7 @@ const ContactsListItems = () => {
       </li>
       <li className='nav-menu__accordion__item'>
         <Link
+          onClick={handleClick}
           href='https://t.me/RomanR69V'
           className='nav-menu__accordion__item__link'
         >
@@ -32,6 +39,7 @@ const ContactsListItems = () => {
       </li>
       <li className='nav-menu__accordion__item'>
         <Link
+          onClick={handleClick}
           href='https://farpost.ru'
           className='nav-menu__accordion__item__link'
         >
